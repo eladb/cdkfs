@@ -39,7 +39,7 @@ test('can add javascript file component with various options', () => {
     setToValue: 'greeting',
   });
 
-  file.addFunction({
+  file.appendFunction({
     fn: (greeting) => {
       console.log(greeting);
     },

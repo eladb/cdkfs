@@ -1,7 +1,7 @@
 import { js } from 'js-beautify';
 import { TextFileOptions, TextFile, Project, FileBase } from '..';
 
-export function getFunctionBody(fn: IJavascriptFunction) {
+function getFunctionBody(fn: IJavascriptFunction) {
   let fString = fn.fn.toString().trim();
   if (!fn.keepDeclaration) {
     if (fn.callWith) {
@@ -26,18 +26,47 @@ export function getFunctionBody(fn: IJavascriptFunction) {
 };
 
 export interface IJavascriptFunction {
+  /**
+   * 
+   */
   setToValue?: string;
+
+  /**
+   * 
+   */
   keepDeclaration?: boolean;
+
+  /**
+   * 
+   */
   prefix?: string;
+
+  /**
+   * 
+   */
   postfix?: string;
+
+  /**
+   * 
+   */
   callWith?: any[];
+
+  /**
+   * 
+   */
   fn(..._: any): any;
 }
 
 export interface IJavascriptFileOptions extends IJavascriptFunction {
+  /**
+   * 
+   */
   textFileOptions?: TextFileOptions;
 }
 
+  /**
+   * 
+   */
 export class JavascriptFile extends TextFile {
   private functions: IJavascriptFunction[];
 
@@ -47,11 +76,11 @@ export class JavascriptFile extends TextFile {
     this.functions = [];
 
     if (options?.fn) {
-      this.addFunction(options);
+      this.appendFunction(options);
     }
   }
 
-  addFunction(fn: IJavascriptFunction): void {
+  appendFunction(fn: IJavascriptFunction): void {
     this.functions.push(fn);
   }
 
