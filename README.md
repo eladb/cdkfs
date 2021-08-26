@@ -243,6 +243,21 @@ project.synth();
 
 See [Vision](./VISION.md).
 
+## FAQ
+
+### Do I have to write my configuration in JavaScript?
+
+Not at all! JavaScript is the default, but it's also possible to write it in
+Java, TypeScript, or even JSON. Python support is also planned. This is made
+possible by the [jsii](https://github.com/aws/jsii) library which allows us
+to write APIs once and generate libraries in several languages. You can choose
+a different language by passing the `--projenrc-ts`, `--projenrc-java`, or
+`--projenrc-json` flags when running `projen new`.
+
+Note: using a `.projenrc.json` file to specify configuration only allows
+accessing a subset of the entire API - the options which are passed to the
+constructor of each project type.
+
 ## Contributions
 
 Contributions of all kinds are welcome! Check out our [contributor's

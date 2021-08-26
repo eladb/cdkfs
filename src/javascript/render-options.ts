@@ -51,7 +51,7 @@ interface ProjenNew {
   readonly args: Record<string, any>;
 
   /**
-   * Include commented out options.
+   * Include commented out options. Does not apply to projenrc.json files.
    */
   readonly comments: NewProjectOptionHints;
 }

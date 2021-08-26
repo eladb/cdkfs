@@ -42,6 +42,7 @@ export * as web from './web';
 export * as github from './github';
 export * as vscode from './vscode';
 export * as deps from './deps';
+export * as json from './json/index'; // <-- we also have json.ts
 export * as java from './java';
 export * as python from './python';
 export * as typescript from './typescript/index'; // <-- we also have typescript.ts

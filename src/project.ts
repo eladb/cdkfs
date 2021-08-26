@@ -13,6 +13,7 @@ import { IgnoreFile } from './ignore-file';
 import * as inventory from './inventory';
 import { resolveNewProject } from './javascript/render-options';
 import { JsonFile } from './json';
+import { Projenrc, ProjenrcOptions } from './json/index';
 import { Logger, LoggerOptions } from './logger';
 import { ObjectFile } from './object-file';
 import { NewProjectOptionHints } from './option-hints';
@@ -150,6 +151,20 @@ export interface ProjectOptions {
    * @default true
    */
   readonly stale?: boolean;
+
+  /**
+   * Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable
+   * .projenrc.json generation.
+   *
+   * @default false
+   */
+  readonly projenrcJson?: boolean;
+
+  /**
+    * Options for .projenrc.json
+    * @default - default options
+    */
+  readonly projenrcJsonOptions?: ProjenrcOptions;
 }
 
 /**
@@ -329,6 +344,11 @@ export class Project {
     const stale = options.stale ?? true;
     if (stale && this.github) {
       new Stale(this.github, options.staleOptions);
+    }
+
+    const projenrcJson = options.projenrcJson ?? false;
+    if (projenrcJson) {
+      new Projenrc(this, options.projenrcJsonOptions);
     }
   }
 
@@ -627,7 +647,7 @@ export interface NewProject {
   readonly type: inventory.ProjectType;
 
   /**
-   * Include commented out options.
+   * Include commented out options. Does not apply to projenrc.json files.
    * @default NewProjectOptionHints.FEATURED
    */
   readonly comments: NewProjectOptionHints;

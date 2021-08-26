@@ -127,8 +127,8 @@ export interface DirectorySnapshotOptions {
   readonly excludeGlobs?: string[];
 }
 
-export function directorySnapshot(root: string, options: DirectorySnapshotOptions = { }) {
-  const output: SynthOutput = { };
+export function directorySnapshot(root: string, options: DirectorySnapshotOptions = {}) {
+  const output: SynthOutput = {};
 
   const files = glob.sync('**', {
     ignore: options.excludeGlobs ?? [],
