@@ -27,45 +27,54 @@ function getFunctionBody(fn: IJavascriptFunction) {
 
 export interface IJavascriptFunction {
   /**
-   * 
+   * Creates a const with the given name and sets it equal to the given function
+   * keepDeclaration must also be true.
    */
   setToValue?: string;
 
   /**
-   * 
+   * Use the given function declaration when written to a file
+   *
+   * @default false Function declaration is stripped
    */
   keepDeclaration?: boolean;
 
   /**
-   * 
+   * Text added before the given function text
    */
   prefix?: string;
 
   /**
-   * 
+   * Text added after the given function text
    */
   postfix?: string;
 
   /**
-   * 
+   * Represents the function as a call with the given string values. Values will be .toString()'d.
+   * keepDeclaration must also be true.
+   *
+   * To call the function with no values, use an empty array.
    */
   callWith?: any[];
 
   /**
-   * 
+   * Function containing relevant code.
+   * Arguments can be used to simulate the variables that would be available
+   *
+   * Note: This Javascript is not executed in Projen, and it should only use values that would be available in the scope it is executed in.
    */
   fn(..._: any): any;
 }
 
 export interface IJavascriptFileOptions extends IJavascriptFunction {
   /**
-   * 
+   * options passed to underlying TextFile
    */
   textFileOptions?: TextFileOptions;
 }
 
-  /**
-   * 
+/**
+   * A Javascript file
    */
 export class JavascriptFile extends TextFile {
   private functions: IJavascriptFunction[];
@@ -80,12 +89,18 @@ export class JavascriptFile extends TextFile {
     }
   }
 
-  appendFunction(fn: IJavascriptFunction): void {
-    this.functions.push(fn);
+  /**
+   * Add new Javascript function to the end of the list
+   */
+  appendFunction(jsFunc: IJavascriptFunction): void {
+    this.functions.push(jsFunc);
   }
 
-  prependFunction(fn: IJavascriptFunction): void {
-    this.functions.unshift(fn);
+  /**
+   * Add new Javascript function to the beginning of the list
+   */
+  prependFunction(jsFunc: IJavascriptFunction): void {
+    this.functions.unshift(jsFunc);
   }
 
   preSynthesize() {
