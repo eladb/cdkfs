@@ -13,7 +13,9 @@ import { exec, sorted, isTruthy, writeFile } from './util';
 const UNLICENSED = 'UNLICENSED';
 const DEFAULT_NPM_REGISTRY_URL = 'https://registry.npmjs.org/';
 const DEFAULT_NPM_TAG = 'latest';
+const GITHUB_PACKAGES_REGISTRY = 'npm.pkg.github.com';
 const DEFAULT_NPM_TOKEN_SECRET = 'NPM_TOKEN';
+const DEFAULT_GITHUB_TOKEN_SECRET = 'GITHUB_TOKEN';
 
 export interface NodePackageOptions {
   /**
@@ -727,7 +729,7 @@ export class NodePackage extends Component {
       npmAccess,
       npmRegistry: npmr.hostname + this.renderNpmRegistryPath(npmr.pathname),
       npmRegistryUrl: npmr.href,
-      npmTokenSecret: options.npmTokenSecret ?? DEFAULT_NPM_TOKEN_SECRET,
+      npmTokenSecret: defaultNpmToken(options.npmTokenSecret, npmr.hostname),
     };
   }
 
@@ -746,7 +748,7 @@ export class NodePackage extends Component {
     this.addEngine('node', nodeVersion);
   }
 
-  private renderNpmRegistryPath(path: string | undefined): string {
+  private renderNpmRegistryPath(path: string | undefined): string {
     if (!path || path == '/') {
       return '';
     } else {
@@ -1071,4 +1073,10 @@ function isScoped(packageName: string) {
 
 function defaultNpmAccess(packageName: string) {
   return isScoped(packageName) ? NpmAccess.RESTRICTED : NpmAccess.PUBLIC;
+}
+
+export function defaultNpmToken(npmToken: string | undefined, registry: string | undefined) {
+  // if we are publishing to GitHub Packages, default to GITHUB_TOKEN.
+  const isGitHubPackages = registry === GITHUB_PACKAGES_REGISTRY;
+  return npmToken ?? (isGitHubPackages ? DEFAULT_GITHUB_TOKEN_SECRET : DEFAULT_NPM_TOKEN_SECRET);
 }

@@ -233,8 +233,8 @@ export class ReactComponent extends Component {
     const testWatch = project.tasks.tryFind('test:watch');
     testWatch?.reset(`${reactScripts} test`);
 
-    project.npmignore?.exclude('# Build', '/build');
-    project.gitignore.exclude('# Build', '/build');
+    project.npmignore?.exclude('# Build', '/build/');
+    project.gitignore.exclude('# Build', '/build/');
 
     project.package.addField('eslintConfig', {
       extends: [

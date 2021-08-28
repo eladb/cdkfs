@@ -3,8 +3,7 @@ import { Project } from './project';
 
 
 export class IgnoreFile extends FileBase {
-  private readonly _excludes = new Set<string>();
-  private readonly _includes = new Set<string>();
+  private readonly _patterns = new Array<string>();
 
   constructor(project: Project, filePath: string) {
     super(project, filePath, { editGitignore: filePath !== '.gitignore' });
@@ -26,10 +25,23 @@ export class IgnoreFile extends FileBase {
         continue;
       }
 
-      if (pattern.startsWith('!')) {
-        this._includes.add(pattern);
-      } else {
-        this._excludes.add(pattern);
+      this.normalizePatterns(pattern);
+
+      this._patterns.push(pattern);
+    }
+  }
+
+  private normalizePatterns(pattern: string) {
+    const opposite = pattern.startsWith('!') ? pattern.slice(1) : '!' + pattern;
+    remove(this._patterns, pattern); // prevent duplicates
+    remove(this._patterns, opposite);
+
+    if (pattern.endsWith('/')) {
+      const prefix = opposite;
+      for (const p of [...this._patterns]) {
+        if (p.startsWith(prefix)) {
+          remove(this._patterns, p);
+        }
       }
     }
   }
@@ -43,8 +55,7 @@ export class IgnoreFile extends FileBase {
    */
   public removePatterns(...patterns: string[]) {
     for (const p of patterns) {
-      this._excludes.delete(p);
-      this._includes.delete(p);
+      remove(this._patterns, p);
     }
   }
 
@@ -71,21 +82,19 @@ export class IgnoreFile extends FileBase {
   }
 
   protected synthesizeContent(resolver: IResolver): string | undefined {
-    const lines = [`# ${FileBase.PROJEN_MARKER}`];
-
-    for (const line of Array.from(this._excludes).sort()) {
-      // if this line exists in the inclusion list, then skip it
-      if (this._includes.has(`!${line}`)) {
-        continue;
-      }
-
-      lines.push(line);
-    }
-
-    for (const line of Array.from(this._includes).sort()) {
-      lines.push(line);
-    }
+    const lines = [
+      `# ${FileBase.PROJEN_MARKER}`,
+      ...this._patterns,
+    ];
 
     return `${resolver.resolve(lines).join('\n')}\n`;
+  }
+}
+
+// O(n) hooray!
+function remove<T>(arr: T[], value: any) {
+  const idx = arr.indexOf(value);
+  if (idx >= 0) {
+    arr.splice(idx, 1);
   }
 }

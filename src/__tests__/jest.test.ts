@@ -83,6 +83,36 @@ test('Node Project Jest With Options Configured', () => {
   expect(jest.notify).toEqual(false);
 });
 
+test('Node Project Jest With Path Configured', () => {
+  const project = new NodeProject({
+    outdir: mkdtemp(),
+    name: 'test-node-project',
+    defaultReleaseBranch: 'master',
+    mergify: false,
+    projenDevDependency: false,
+    jest: true,
+    jestOptions: {
+      configFilePath: 'jest.config.json',
+      jestConfig: {
+        automock: true,
+        bail: 5,
+        notify: false,
+      },
+    },
+    logging: {
+      level: LogLevel.OFF,
+    },
+  });
+
+  const snapshot = synthSnapshot(project);
+  expect(snapshot['package.json'].jest).toBeUndefined();
+
+  const jest = snapshot['jest.config.json'];
+  expect(jest.automock).toEqual(true);
+  expect(jest.bail).toEqual(5);
+  expect(jest.notify).toEqual(false);
+});
+
 test('Typescript Project Jest Defaults Configured', () => {
   // WHEN
   const project = new TypeScriptProject({

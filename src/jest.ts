@@ -1,5 +1,6 @@
 import * as path from 'path';
 import * as semver from 'semver';
+import { JsonFile } from './json';
 import { NodeProject } from './node-project';
 import { TypescriptConfig, TypescriptConfigOptions } from './typescript-config';
 
@@ -508,6 +509,13 @@ export interface JestOptions {
    */
   readonly jestVersion?: string;
 
+  /**
+   * Path to JSON config file for Jest
+   *
+   * @default - No separate config file, jest settings are stored in package.json
+   */
+  readonly configFilePath?: string;
+
   readonly jestConfig?: JestConfigOptions;
 
   readonly typescriptConfig?: TypescriptConfigOptions;
@@ -549,6 +557,7 @@ export class Jest {
   private readonly watchIgnorePatterns: string[];
   private readonly coverageReporters: string[];
   private readonly project: NodeProject;
+  private readonly file?: JsonFile;
   private readonly reporters: JestReporter[];
   private readonly jestConfig?: JestConfigOptions;
   private readonly typescriptConfig?: TypescriptConfigOptions;
@@ -629,9 +638,15 @@ export class Jest {
 
     this.configureTestCommand();
 
-    project.addFields({ jest: this.config });
+    if (options.configFilePath) {
+      this.file = new JsonFile(project, options.configFilePath, {
+        obj: this.config,
+      });
+    } else {
+      project.addFields({ jest: this.config });
+    }
 
-    const coverageDirectoryPath = path.posix.join('/', coverageDirectory);
+    const coverageDirectoryPath = path.posix.join('/', coverageDirectory, '/');
     project.npmignore?.exclude(coverageDirectoryPath);
     project.gitignore.exclude(coverageDirectoryPath);
 
@@ -716,6 +731,7 @@ export class Jest {
 
   private configureTestCommand() {
     const jestOpts = ['--passWithNoTests', '--all'];
+    const jestConfigOpts = this.file && this.file.path != 'jest.config.json' ? ` -c ${this.file.path}` : '';
 
     // if the project has anti-tamper configured, it should be safe to always run tests
     // with --updateSnapshot because if we forget to commit a snapshot change the CI build will fail.
@@ -729,13 +745,13 @@ export class Jest {
       jestOpts.push('--coverageProvider=v8');
     }
 
-    this.project.testTask.exec(`jest ${jestOpts.join(' ')}`);
+    this.project.testTask.exec(`jest ${jestOpts.join(' ')}${jestConfigOpts}`);
 
     const testWatch = this.project.tasks.tryFind('test:watch');
     if (!testWatch) {
       this.project.addTask('test:watch', {
         description: 'Run jest in watch mode',
-        exec: 'jest --watch',
+        exec: `jest --watch${jestConfigOpts}`,
       });
     }
 
@@ -743,7 +759,7 @@ export class Jest {
     if (!testUpdate) {
       this.project.addTask('test:update', {
         description: 'Update jest snapshots',
-        exec: 'jest --updateSnapshot',
+        exec: `jest --updateSnapshot${jestConfigOpts}`,
       });
     }
   }

@@ -193,8 +193,8 @@ export class TypeScriptProject extends NodeProject {
     });
 
     this.testdir = options.testdir ?? 'test';
-    this.gitignore.include(`/${this.testdir}`);
-    this.npmignore?.exclude(`/${this.testdir}`);
+    this.gitignore.include(`/${this.testdir}/`);
+    this.npmignore?.exclude(`/${this.testdir}/`);
 
     // if the test directory is under `src/`, then we will run our tests against
     // the javascript files and not let jest compile it for us.
@@ -274,21 +274,21 @@ export class TypeScriptProject extends NodeProject {
       this.gitignore.exclude(`/${this.libdir}/**/*.d.ts`);
     }
 
-    this.npmignore?.include(`/${this.libdir}`);
+    this.npmignore?.include(`/${this.libdir}/`);
 
-    this.gitignore.include(`/${this.srcdir}`);
-    this.npmignore?.exclude(`/${this.srcdir}`);
+    this.gitignore.include(`/${this.srcdir}/`);
+    this.npmignore?.exclude(`/${this.srcdir}/`);
 
     this.npmignore?.include(`/${this.libdir}/**/*.js`);
     this.npmignore?.include(`/${this.libdir}/**/*.d.ts`);
 
-    this.gitignore.exclude('/dist');
+    this.gitignore.exclude('/dist/');
     this.npmignore?.exclude('dist'); // jsii-pacmak expects this to be "dist" and not "/dist". otherwise it will tamper with it
 
     this.npmignore?.exclude('/tsconfig.json');
-    this.npmignore?.exclude('/.github');
-    this.npmignore?.exclude('/.vscode');
-    this.npmignore?.exclude('/.idea');
+    this.npmignore?.exclude('/.github/');
+    this.npmignore?.exclude('/.vscode/');
+    this.npmignore?.exclude('/.idea/');
     this.npmignore?.exclude('/.projenrc.js');
     this.npmignore?.exclude('tsconfig.tsbuildinfo');
 
@@ -301,7 +301,7 @@ export class TypeScriptProject extends NodeProject {
       const libtest = path.posix.join(this.libdir, testout);
       const srctest = this.testdir;
 
-      this.npmignore?.addPatterns(`/${libtest}`);
+      this.npmignore?.exclude(`/${libtest}/`);
       this.jest.addTestMatch(`**/${libtest}/**/?(*.)+(spec|test).js?(x)`);
       this.jest.addWatchIgnorePattern(`/${this.srcdir}/`);
 

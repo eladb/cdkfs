@@ -560,6 +560,17 @@ test('githubOptions.workflows:false disables github workflows but not github int
   expect(Object.keys(output).filter(p => p.startsWith('.github/'))).toStrictEqual(['.github/pull_request_template.md']);
 });
 
+test('using GitHub npm registry will default npm secret to GITHUB_TOKEN', () => {
+  // GIVEN
+  const project = new TestNodeProject({
+    npmRegistryUrl: 'https://npm.pkg.github.com',
+  });
+
+  // THEN
+  const output = synthSnapshot(project);
+  expect(output['.github/workflows/release.yml']).not.toMatch('NPM_TOKEN');
+});
+
 function packageJson(project: Project) {
   return synthSnapshot(project)['package.json'];
 }
