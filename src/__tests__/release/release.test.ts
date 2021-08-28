@@ -269,3 +269,25 @@ test('github packages are supported by npm', () => {
   const outdir = synthSnapshot(project);
   expect(outdir).toMatchSnapshot();
 });
+
+test('can enable issue creation on failed releases with a custom label', () => {
+
+  const project = new TestProject();
+  const task = project.addTask('build');
+  const release = new Release(project, {
+    task: task,
+    versionFile: 'version.json',
+    branch: 'main',
+    failureIssue: true,
+    failureIssueLabel: 'custom-label',
+  });
+
+  // WHEN
+  release.publisher.publishToNpm({
+    registry: 'npm.pkg.github.com',
+  });
+
+  const outdir = synthSnapshot(project);
+  expect(outdir['.github/workflows/release.yml']).toMatchSnapshot();
+
+});

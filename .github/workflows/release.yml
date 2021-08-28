@@ -50,6 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
@@ -62,12 +63,28 @@ jobs:
           dist/changelog.md -t v$(cat dist/version.txt)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract Version
+        if: ${{ failure() }}
+        id: extract-version
+        run: echo "::set-output name=VERSION::$(cat dist/version.txt)"
+      - name: Create Issue
+        if: ${{ failure() }}
+        uses: imjohnbo/issue-bot@v3
+        with:
+          labels: failed-release
+          title: Publishing v${{ steps.extract-version.outputs.VERSION }} to GitHub
+            Releases failed
+          body: See https://github.com/${{ github.repository }}/actions/runs/${{
+            github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   release_npm:
     name: Publish to npm
     needs: release
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
@@ -81,6 +98,20 @@ jobs:
           NPM_DIST_TAG: latest
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Extract Version
+        if: ${{ failure() }}
+        id: extract-version
+        run: echo "::set-output name=VERSION::$(cat dist/version.txt)"
+      - name: Create Issue
+        if: ${{ failure() }}
+        uses: imjohnbo/issue-bot@v3
+        with:
+          labels: failed-release
+          title: Publishing v${{ steps.extract-version.outputs.VERSION }} to npm failed
+          body: See https://github.com/${{ github.repository }}/actions/runs/${{
+            github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     container:
       image: jsii/superchain
   release_maven:
@@ -89,6 +120,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
@@ -104,6 +136,21 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_STAGING_PROFILE_ID: ${{ secrets.MAVEN_STAGING_PROFILE_ID }}
+      - name: Extract Version
+        if: ${{ failure() }}
+        id: extract-version
+        run: echo "::set-output name=VERSION::$(cat dist/version.txt)"
+      - name: Create Issue
+        if: ${{ failure() }}
+        uses: imjohnbo/issue-bot@v3
+        with:
+          labels: failed-release
+          title: Publishing v${{ steps.extract-version.outputs.VERSION }} to Maven Central
+            failed
+          body: See https://github.com/${{ github.repository }}/actions/runs/${{
+            github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     container:
       image: jsii/superchain
   release_pypi:
@@ -112,6 +159,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
@@ -124,5 +172,19 @@ jobs:
         env:
           TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+      - name: Extract Version
+        if: ${{ failure() }}
+        id: extract-version
+        run: echo "::set-output name=VERSION::$(cat dist/version.txt)"
+      - name: Create Issue
+        if: ${{ failure() }}
+        uses: imjohnbo/issue-bot@v3
+        with:
+          labels: failed-release
+          title: Publishing v${{ steps.extract-version.outputs.VERSION }} to PyPI failed
+          body: See https://github.com/${{ github.repository }}/actions/runs/${{
+            github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     container:
       image: jsii/superchain
