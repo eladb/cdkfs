@@ -27,6 +27,7 @@ const project = new JsiiProject({
     'xmlbuilder2',
     'ini',
     'shx',
+    'js-beautify',
   ],
 
   devDeps: [
@@ -35,6 +36,7 @@ const project = new JsiiProject({
     '@types/glob',
     '@types/semver',
     '@types/ini',
+    '@types/js-beautify',
     'markmac',
     'all-contributors-cli',
   ],

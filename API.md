@@ -65,6 +65,7 @@ Name|Description
 [java.MavenSample](#projen-java-mavensample)|Java code sample.
 [java.Pom](#projen-java-pom)|A Project Object Model or POM is the fundamental unit of work in Maven.
 [java.Projenrc](#projen-java-projenrc)|Allows writing projenrc files in java.
+[javascript.JavascriptFile](#projen-javascript-javascriptfile)|A Javascript file.
 [javascript.NpmConfig](#projen-javascript-npmconfig)|File representing the local NPM config in .npmrc.
 [javascript.Projenrc](#projen-javascript-projenrc)|Sets up a javascript project to use TypeScript for projenrc.
 [python.Pip](#projen-python-pip)|Manages dependencies using a requirements.txt file and the pip CLI tool.
@@ -250,6 +251,8 @@ Name|Description
 [IDockerComposeVolumeConfig](#projen-idockercomposevolumeconfig)|Storage for volume configuration.
 [IResolvable](#projen-iresolvable)|*No description*
 [IResolver](#projen-iresolver)|API for resolving tokens when synthesizing file content.
+[javascript.IJavascriptFileOptions](#projen-javascript-ijavascriptfileoptions)|*No description*
+[javascript.IJavascriptFunction](#projen-javascript-ijavascriptfunction)|*No description*
 [python.IPackageProvider](#projen-python-ipackageprovider)|*No description*
 [python.IPythonDeps](#projen-python-ipythondeps)|*No description*
 [python.IPythonEnv](#projen-python-ipythonenv)|*No description*
@@ -1966,7 +1969,7 @@ allowDevDeps(pattern: string): void
 
 
 __Extends__: [Component](#projen-component)
-__Implemented by__: [git.GitAttributesFile](#projen-git-gitattributesfile), [github.PullRequestTemplate](#projen-github-pullrequesttemplate), [python.RequirementsFile](#projen-python-requirementsfile), [python.SetupPy](#projen-python-setuppy), [web.ReactTypeDef](#projen-web-reacttypedef), [IgnoreFile](#projen-ignorefile), [IniFile](#projen-inifile), [JsonFile](#projen-jsonfile), [License](#projen-license), [Makefile](#projen-makefile), [TextFile](#projen-textfile), [TomlFile](#projen-tomlfile), [XmlFile](#projen-xmlfile), [YamlFile](#projen-yamlfile)
+__Implemented by__: [git.GitAttributesFile](#projen-git-gitattributesfile), [github.PullRequestTemplate](#projen-github-pullrequesttemplate), [javascript.JavascriptFile](#projen-javascript-javascriptfile), [python.RequirementsFile](#projen-python-requirementsfile), [python.SetupPy](#projen-python-setuppy), [web.ReactTypeDef](#projen-web-reacttypedef), [IgnoreFile](#projen-ignorefile), [IniFile](#projen-inifile), [JsonFile](#projen-jsonfile), [License](#projen-license), [Makefile](#projen-makefile), [TextFile](#projen-textfile), [TomlFile](#projen-tomlfile), [XmlFile](#projen-xmlfile), [YamlFile](#projen-yamlfile)
 __Obtainable from__: [Project](#projen-project).[tryFindFile](#projen-project#projen-project-tryfindfile)()
 
 ### Initializer
@@ -5928,6 +5931,71 @@ new java.Projenrc(project: Project, pom: Pom, options?: ProjenrcOptions)
 Name | Type | Description 
 -----|------|-------------
 **className**🔹 | <code>string</code> | The name of the java class that includes the projen entrypoint.
+
+
+
+## class JavascriptFile 🔹 <a id="projen-javascript-javascriptfile"></a>
+
+A Javascript file.
+
+__Submodule__: javascript
+
+__Extends__: [TextFile](#projen-textfile)
+
+### Initializer
+
+
+
+
+```ts
+new javascript.JavascriptFile(project: Project, path: string, options?: IJavascriptFileOptions)
+```
+
+* **project** (<code>[Project](#projen-project)</code>)  *No description*
+* **path** (<code>string</code>)  *No description*
+* **options** (<code>[javascript.IJavascriptFileOptions](#projen-javascript-ijavascriptfileoptions)</code>)  *No description*
+
+
+### Methods
+
+
+#### appendFunction(jsFunc)🔹 <a id="projen-javascript-javascriptfile-appendfunction"></a>
+
+Add new Javascript function to the end of the list.
+
+```ts
+appendFunction(jsFunc: IJavascriptFunction): void
+```
+
+* **jsFunc** (<code>[javascript.IJavascriptFunction](#projen-javascript-ijavascriptfunction)</code>)  *No description*
+
+
+
+
+#### preSynthesize()🔹 <a id="projen-javascript-javascriptfile-presynthesize"></a>
+
+Called before synthesis.
+
+```ts
+preSynthesize(): void
+```
+
+
+
+
+
+#### prependFunction(jsFunc)🔹 <a id="projen-javascript-javascriptfile-prependfunction"></a>
+
+Add new Javascript function to the beginning of the list.
+
+```ts
+prependFunction(jsFunc: IJavascriptFunction): void
+```
+
+* **jsFunc** (<code>[javascript.IJavascriptFunction](#projen-javascript-ijavascriptfunction)</code>)  *No description*
+
+
+
 
 
 
@@ -11169,6 +11237,79 @@ Name | Type | Description
 **className**?🔹 | <code>string</code> | The name of the Java class which contains the `main()` method for projen.<br/>__*Default*__: "projenrc"
 **projenVersion**?🔹 | <code>string</code> | The projen version to use.<br/>__*Default*__: current version
 **testScope**?🔹 | <code>boolean</code> | Defines projenrc under the test scope instead of the main scope, which is reserved to the app.<br/>__*Default*__: true
+
+
+
+## interface IJavascriptFileOptions 🔹 <a id="projen-javascript-ijavascriptfileoptions"></a>
+
+
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**callWith**?🔹 | <code>Array<any></code> | Represents the function as a call with the given string values. Values will be .toString()'d. keepDeclaration must also be true.<br/>__*Optional*__
+**keepDeclaration**?🔹 | <code>boolean</code> | Use the given function declaration when written to a file.<br/>__*Default*__: false Function declaration is stripped
+**postfix**?🔹 | <code>string</code> | Text added after the given function text.<br/>__*Optional*__
+**prefix**?🔹 | <code>string</code> | Text added before the given function text.<br/>__*Optional*__
+**setToValue**?🔹 | <code>string</code> | Creates a const with the given name and sets it equal to the given function keepDeclaration must also be true.<br/>__*Optional*__
+**textFileOptions**?🔹 | <code>[TextFileOptions](#projen-textfileoptions)</code> | options passed to underlying TextFile.<br/>__*Optional*__
+
+### Methods
+
+
+#### fn(..._)🔹 <a id="projen-javascript-ijavascriptfileoptions-fn"></a>
+
+Function containing relevant code. Arguments can be used to simulate the variables that would be available.
+
+Note: This Javascript is not executed in Projen, and it should only use values that would be available in the scope it is executed in.
+
+```ts
+fn(..._: any[]): any
+```
+
+* **_** (<code>any</code>)  *No description*
+
+__Returns__:
+* <code>any</code>
+
+
+
+## interface IJavascriptFunction 🔹 <a id="projen-javascript-ijavascriptfunction"></a>
+
+
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**callWith**?🔹 | <code>Array<any></code> | Represents the function as a call with the given string values. Values will be .toString()'d. keepDeclaration must also be true.<br/>__*Optional*__
+**keepDeclaration**?🔹 | <code>boolean</code> | Use the given function declaration when written to a file.<br/>__*Default*__: false Function declaration is stripped
+**postfix**?🔹 | <code>string</code> | Text added after the given function text.<br/>__*Optional*__
+**prefix**?🔹 | <code>string</code> | Text added before the given function text.<br/>__*Optional*__
+**setToValue**?🔹 | <code>string</code> | Creates a const with the given name and sets it equal to the given function keepDeclaration must also be true.<br/>__*Optional*__
+
+### Methods
+
+
+#### fn(..._)🔹 <a id="projen-javascript-ijavascriptfunction-fn"></a>
+
+Function containing relevant code. Arguments can be used to simulate the variables that would be available.
+
+Note: This Javascript is not executed in Projen, and it should only use values that would be available in the scope it is executed in.
+
+```ts
+fn(..._: any[]): any
+```
+
+* **_** (<code>any</code>)  *No description*
+
+__Returns__:
+* <code>any</code>
 
 
 

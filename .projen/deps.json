@@ -18,6 +18,10 @@
       "type": "build"
     },
     {
+      "name": "@types/js-beautify",
+      "type": "build"
+    },
+    {
       "name": "@types/node",
       "version": "^10.17.0",
       "type": "build"
@@ -128,6 +132,10 @@
     },
     {
       "name": "ini",
+      "type": "bundled"
+    },
+    {
+      "name": "js-beautify",
       "type": "bundled"
     },
     {
