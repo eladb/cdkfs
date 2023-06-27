@@ -285,6 +285,70 @@ test("second prerelease after the first prerelease", async () => {
   expect(result.version).toEqual("1.0.1-beta.1");
 });
 
+test("same commit same prerelease on beta branch", async () => {
+  const result = await testBump({
+    options: {
+      prerelease: "beta",
+      majorVersion: 1,
+    },
+    commits: [
+      { message: "first version", tag: "v1.0.0" },
+      { message: "fix(test): testing", tag: "v1.0.1-beta.0" },
+      { message: "fix(test): testing2", tag: "v1.0.1-beta.1" },
+    ],
+  });
+
+  expect(result.version).toEqual("1.0.1-beta.1");
+});
+
+test("same commit prerelease on regular branch", async () => {
+  const result = await testBump({
+    options: {
+      majorVersion: 1,
+      releaseSameCommitOnDifferentBranch: true,
+    },
+    commits: [
+      { message: "first version", tag: "v1.0.0" },
+      { message: "fix(test): testing", tag: "v1.0.1-beta.0" },
+      { message: "fix(test): testing2", tag: "v1.0.1-beta.1" },
+    ],
+  });
+
+  expect(result.version).toEqual("1.0.1");
+});
+
+test("same commit different prereleases", async () => {
+  const result = await testBump({
+    options: {
+      prerelease: "pre",
+      majorVersion: 1,
+      releaseSameCommitOnDifferentBranch: true,
+    },
+    commits: [
+      { message: "first version", tag: "v1.0.0" },
+      { message: "fix(test): testing", tag: "v1.0.1-beta.0" },
+      { message: "fix(test): testing2", tag: "v1.0.1-beta.1" },
+    ],
+  });
+
+  expect(result.version).toEqual("1.0.1-pre.0");
+});
+
+test("same commit same reqular releases", async () => {
+  const result = await testBump({
+    options: {
+      majorVersion: 1,
+    },
+    commits: [
+      { message: "first version", tag: "v1.0.0" },
+      { message: "fix(test): testing", tag: "v1.0.1-beta.0" },
+      { message: "fix(test): testing2", tag: "v1.0.1" },
+    ],
+  });
+
+  expect(result.version).toEqual("1.0.1");
+});
+
 //----------------------------------------------------------------------------------------------------------------------------------
 describe("newline at the end of version file", () => {
   test("created version file ends with a newline", async () => {

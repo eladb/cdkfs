@@ -36,6 +36,15 @@ export interface ReleaseProjectOptions {
   readonly releaseEveryCommit?: boolean;
 
   /**
+   * For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be
+   * released with different prerelese components like alpha, beta during the lifecycle. Setting this variable will
+   * allow releasing the same commit on multiple branches.
+   *
+   * @default false
+   */
+  readonly releaseSameCommitOnDifferentBranch?: boolean;
+
+  /**
    * CRON schedule to trigger new releases.
    *
    * @default - no scheduled releases
@@ -387,6 +396,8 @@ export class Release extends Component {
     // add the default branch (we need the internal method which does not require majorVersion)
     this.defaultBranch = this._addBranch(options.branch, {
       prerelease: options.prerelease,
+      releaseSameCommitOnDifferentBranch:
+        options.releaseSameCommitOnDifferentBranch,
       majorVersion: options.majorVersion,
       minMajorVersion: options.minMajorVersion,
       workflowName: options.releaseWorkflowName ?? "release",
@@ -538,6 +549,10 @@ export class Release extends Component {
 
     if (branch.prerelease) {
       env.PRERELEASE = branch.prerelease;
+    }
+
+    if (branch.releaseSameCommitOnDifferentBranch) {
+      env.RELEASE_SAME_COMMIT_ON_DIFFERENT_BRANCH = `${branch.releaseSameCommitOnDifferentBranch}`;
     }
 
     if (branch.tagPrefix) {
@@ -706,6 +721,15 @@ export interface BranchOptions {
    * @default "latest"
    */
   readonly npmDistTag?: string;
+
+  /**
+   * For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be
+   * released with different prerelese components like alpha, beta during the lifecycle. Setting this variable will
+   * allow releasing the same commit on multiple branches.
+   *
+   * @default false
+   */
+  readonly releaseSameCommitOnDifferentBranch?: boolean;
 }
 
 interface ReleaseBranch extends Partial<BranchOptions> {

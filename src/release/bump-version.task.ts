@@ -21,6 +21,8 @@ import * as logging from "../logging";
 
 const versionFile = process.env.OUTFILE;
 const prerelease = process.env.PRERELEASE;
+const releaseSameCommitOnDifferentBranch =
+  process.env.RELEASE_SAME_COMMIT_ON_DIFFERENT_BRANCH;
 const major = process.env.MAJOR;
 const minMajor = process.env.MIN_MAJOR;
 const changelog = process.env.CHANGELOG;
@@ -63,6 +65,8 @@ const opts: BumpOptions = {
   majorVersion: majorVersion,
   minMajorVersion: minMajorVersion,
   prerelease: prerelease,
+  releaseSameCommitOnDifferentBranch:
+    releaseSameCommitOnDifferentBranch === "true" ? true : false,
   bumpFile: bumpFile,
   releaseTagFile: releaseTagFile,
   tagPrefix: prefix,

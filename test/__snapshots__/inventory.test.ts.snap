@@ -4739,6 +4739,23 @@ exports[`inventory 1`] = `
         "switch": "release-failure-issue-label",
       },
       {
+        "default": "false",
+        "docs": "For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.",
+        "featured": false,
+        "fullType": {
+          "primitive": "boolean",
+        },
+        "jsonLike": true,
+        "name": "releaseSameCommitOnDifferentBranch",
+        "optional": true,
+        "parent": "ReleaseProjectOptions",
+        "path": [
+          "releaseSameCommitOnDifferentBranch",
+        ],
+        "simpleType": "boolean",
+        "switch": "release-same-commit-on-different-branch",
+      },
+      {
         "default": "- no scheduled releases",
         "deprecated": true,
         "docs": "CRON schedule to trigger new releases.",
@@ -7801,6 +7818,23 @@ exports[`inventory 1`] = `
         ],
         "simpleType": "string",
         "switch": "release-failure-issue-label",
+      },
+      {
+        "default": "false",
+        "docs": "For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.",
+        "featured": false,
+        "fullType": {
+          "primitive": "boolean",
+        },
+        "jsonLike": true,
+        "name": "releaseSameCommitOnDifferentBranch",
+        "optional": true,
+        "parent": "ReleaseProjectOptions",
+        "path": [
+          "releaseSameCommitOnDifferentBranch",
+        ],
+        "simpleType": "boolean",
+        "switch": "release-same-commit-on-different-branch",
       },
       {
         "default": "- no scheduled releases",
@@ -11832,6 +11866,23 @@ exports[`inventory 1`] = `
         "switch": "release-failure-issue-label",
       },
       {
+        "default": "false",
+        "docs": "For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.",
+        "featured": false,
+        "fullType": {
+          "primitive": "boolean",
+        },
+        "jsonLike": true,
+        "name": "releaseSameCommitOnDifferentBranch",
+        "optional": true,
+        "parent": "ReleaseProjectOptions",
+        "path": [
+          "releaseSameCommitOnDifferentBranch",
+        ],
+        "simpleType": "boolean",
+        "switch": "release-same-commit-on-different-branch",
+      },
+      {
         "default": "- no scheduled releases",
         "deprecated": true,
         "docs": "CRON schedule to trigger new releases.",
@@ -14700,6 +14751,23 @@ exports[`inventory 1`] = `
         "switch": "release-failure-issue-label",
       },
       {
+        "default": "false",
+        "docs": "For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.",
+        "featured": false,
+        "fullType": {
+          "primitive": "boolean",
+        },
+        "jsonLike": true,
+        "name": "releaseSameCommitOnDifferentBranch",
+        "optional": true,
+        "parent": "ReleaseProjectOptions",
+        "path": [
+          "releaseSameCommitOnDifferentBranch",
+        ],
+        "simpleType": "boolean",
+        "switch": "release-same-commit-on-different-branch",
+      },
+      {
         "default": "- no scheduled releases",
         "deprecated": true,
         "docs": "CRON schedule to trigger new releases.",
@@ -17531,6 +17599,23 @@ exports[`inventory 1`] = `
         ],
         "simpleType": "string",
         "switch": "release-failure-issue-label",
+      },
+      {
+        "default": "false",
+        "docs": "For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.",
+        "featured": false,
+        "fullType": {
+          "primitive": "boolean",
+        },
+        "jsonLike": true,
+        "name": "releaseSameCommitOnDifferentBranch",
+        "optional": true,
+        "parent": "ReleaseProjectOptions",
+        "path": [
+          "releaseSameCommitOnDifferentBranch",
+        ],
+        "simpleType": "boolean",
+        "switch": "release-same-commit-on-different-branch",
       },
       {
         "default": "- no scheduled releases",
@@ -21150,6 +21235,23 @@ exports[`inventory 1`] = `
         "switch": "release-failure-issue-label",
       },
       {
+        "default": "false",
+        "docs": "For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.",
+        "featured": false,
+        "fullType": {
+          "primitive": "boolean",
+        },
+        "jsonLike": true,
+        "name": "releaseSameCommitOnDifferentBranch",
+        "optional": true,
+        "parent": "ReleaseProjectOptions",
+        "path": [
+          "releaseSameCommitOnDifferentBranch",
+        ],
+        "simpleType": "boolean",
+        "switch": "release-same-commit-on-different-branch",
+      },
+      {
         "default": "- no scheduled releases",
         "deprecated": true,
         "docs": "CRON schedule to trigger new releases.",
@@ -23518,6 +23620,23 @@ exports[`inventory 1`] = `
         ],
         "simpleType": "string",
         "switch": "release-failure-issue-label",
+      },
+      {
+        "default": "false",
+        "docs": "For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.",
+        "featured": false,
+        "fullType": {
+          "primitive": "boolean",
+        },
+        "jsonLike": true,
+        "name": "releaseSameCommitOnDifferentBranch",
+        "optional": true,
+        "parent": "ReleaseProjectOptions",
+        "path": [
+          "releaseSameCommitOnDifferentBranch",
+        ],
+        "simpleType": "boolean",
+        "switch": "release-same-commit-on-different-branch",
       },
       {
         "default": "- no scheduled releases",
@@ -25959,6 +26078,23 @@ exports[`inventory 1`] = `
         "switch": "release-failure-issue-label",
       },
       {
+        "default": "false",
+        "docs": "For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.",
+        "featured": false,
+        "fullType": {
+          "primitive": "boolean",
+        },
+        "jsonLike": true,
+        "name": "releaseSameCommitOnDifferentBranch",
+        "optional": true,
+        "parent": "ReleaseProjectOptions",
+        "path": [
+          "releaseSameCommitOnDifferentBranch",
+        ],
+        "simpleType": "boolean",
+        "switch": "release-same-commit-on-different-branch",
+      },
+      {
         "default": "- no scheduled releases",
         "deprecated": true,
         "docs": "CRON schedule to trigger new releases.",
@@ -28294,6 +28430,23 @@ exports[`inventory 1`] = `
         ],
         "simpleType": "string",
         "switch": "release-failure-issue-label",
+      },
+      {
+        "default": "false",
+        "docs": "For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.",
+        "featured": false,
+        "fullType": {
+          "primitive": "boolean",
+        },
+        "jsonLike": true,
+        "name": "releaseSameCommitOnDifferentBranch",
+        "optional": true,
+        "parent": "ReleaseProjectOptions",
+        "path": [
+          "releaseSameCommitOnDifferentBranch",
+        ],
+        "simpleType": "boolean",
+        "switch": "release-same-commit-on-different-branch",
       },
       {
         "default": "- no scheduled releases",
@@ -31749,6 +31902,23 @@ exports[`inventory 1`] = `
         "switch": "release-failure-issue-label",
       },
       {
+        "default": "false",
+        "docs": "For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.",
+        "featured": false,
+        "fullType": {
+          "primitive": "boolean",
+        },
+        "jsonLike": true,
+        "name": "releaseSameCommitOnDifferentBranch",
+        "optional": true,
+        "parent": "ReleaseProjectOptions",
+        "path": [
+          "releaseSameCommitOnDifferentBranch",
+        ],
+        "simpleType": "boolean",
+        "switch": "release-same-commit-on-different-branch",
+      },
+      {
         "default": "- no scheduled releases",
         "deprecated": true,
         "docs": "CRON schedule to trigger new releases.",
@@ -34174,6 +34344,23 @@ exports[`inventory 1`] = `
         ],
         "simpleType": "string",
         "switch": "release-failure-issue-label",
+      },
+      {
+        "default": "false",
+        "docs": "For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.",
+        "featured": false,
+        "fullType": {
+          "primitive": "boolean",
+        },
+        "jsonLike": true,
+        "name": "releaseSameCommitOnDifferentBranch",
+        "optional": true,
+        "parent": "ReleaseProjectOptions",
+        "path": [
+          "releaseSameCommitOnDifferentBranch",
+        ],
+        "simpleType": "boolean",
+        "switch": "release-same-commit-on-different-branch",
       },
       {
         "default": "- no scheduled releases",
@@ -36692,6 +36879,23 @@ exports[`inventory 1`] = `
         "switch": "release-failure-issue-label",
       },
       {
+        "default": "false",
+        "docs": "For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.",
+        "featured": false,
+        "fullType": {
+          "primitive": "boolean",
+        },
+        "jsonLike": true,
+        "name": "releaseSameCommitOnDifferentBranch",
+        "optional": true,
+        "parent": "ReleaseProjectOptions",
+        "path": [
+          "releaseSameCommitOnDifferentBranch",
+        ],
+        "simpleType": "boolean",
+        "switch": "release-same-commit-on-different-branch",
+      },
+      {
         "default": "- no scheduled releases",
         "deprecated": true,
         "docs": "CRON schedule to trigger new releases.",
@@ -39184,6 +39388,23 @@ exports[`inventory 1`] = `
         ],
         "simpleType": "string",
         "switch": "release-failure-issue-label",
+      },
+      {
+        "default": "false",
+        "docs": "For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.",
+        "featured": false,
+        "fullType": {
+          "primitive": "boolean",
+        },
+        "jsonLike": true,
+        "name": "releaseSameCommitOnDifferentBranch",
+        "optional": true,
+        "parent": "ReleaseProjectOptions",
+        "path": [
+          "releaseSameCommitOnDifferentBranch",
+        ],
+        "simpleType": "boolean",
+        "switch": "release-same-commit-on-different-branch",
       },
       {
         "default": "- no scheduled releases",

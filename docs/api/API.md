@@ -3689,6 +3689,7 @@ new awscdk.AwsCdkConstructLibrary(options: AwsCdkConstructLibraryOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -4388,6 +4389,7 @@ new awscdk.AwsCdkTypeScriptApp(options: AwsCdkTypeScriptAppOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -4703,6 +4705,7 @@ new awscdk.ConstructLibraryAws(options: AwsCdkConstructLibraryOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -5336,6 +5339,7 @@ new cdk.ConstructLibrary(options: ConstructLibraryOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -5600,6 +5604,7 @@ new cdk.JsiiProject(options: JsiiProjectOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -6022,6 +6027,7 @@ new cdk8s.Cdk8sTypeScriptApp(options: Cdk8sTypeScriptAppOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -6209,6 +6215,7 @@ new cdk8s.ConstructLibraryCdk8s(options: ConstructLibraryCdk8sOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -6456,6 +6463,7 @@ new cdktf.ConstructLibraryCdktf(options: ConstructLibraryCdktfOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -9069,6 +9077,7 @@ new javascript.NodeProject(options: NodeProjectOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -10796,6 +10805,7 @@ new release.Release(project: GitHubProject, options: ReleaseOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -10845,6 +10855,7 @@ addBranch(branch: string, options: BranchOptions): void
   * **minMajorVersion** (<code>number</code>)  The minimum major version to release. __*Optional*__
   * **npmDistTag** (<code>string</code>)  The npm distribution tag to use for this branch. __*Default*__: "latest"
   * **prerelease** (<code>string</code>)  Bump the version as a pre-release tag. __*Default*__: normal releases
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **tagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: no prefix
   * **workflowName** (<code>string</code>)  The name of the release workflow. __*Default*__: "release-BRANCH"
 
@@ -11174,6 +11185,7 @@ new typescript.TypeScriptAppProject(options: TypeScriptProjectOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -11334,6 +11346,7 @@ new typescript.TypeScriptLibraryProject(options: TypeScriptProjectOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -11494,6 +11507,7 @@ new typescript.TypeScriptProject(options: TypeScriptProjectOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -12031,6 +12045,7 @@ new web.NextJsProject(options: NextJsProjectOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -12188,6 +12203,7 @@ new web.NextJsTypeScriptProject(options: NextJsTypeScriptProjectOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -12418,6 +12434,7 @@ new web.ReactProject(options: ReactProjectOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -12617,6 +12634,7 @@ new web.ReactTypeScriptProject(options: ReactTypeScriptProjectOptions)
   * **releaseEveryCommit** (<code>boolean</code>)  Automatically release new versions every commit to one of branches in `releaseBranches`. __*Default*__: true
   * **releaseFailureIssue** (<code>boolean</code>)  Create a github issue on every failed publishing task. __*Default*__: false
   * **releaseFailureIssueLabel** (<code>string</code>)  The label to apply to issues indicating publish failures. __*Default*__: "failed-release"
+  * **releaseSameCommitOnDifferentBranch** (<code>boolean</code>)  For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle. __*Default*__: false
   * **releaseSchedule** (<code>string</code>)  CRON schedule to trigger new releases. __*Default*__: no scheduled releases
   * **releaseTagPrefix** (<code>string</code>)  Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers. __*Default*__: "v"
   * **releaseTrigger** (<code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code>)  The release trigger to use. __*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -14004,6 +14022,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?🔹 | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
@@ -14392,6 +14411,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?🔹 | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
@@ -14613,6 +14633,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?⚠️ | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?⚠️ | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?⚠️ | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?⚠️ | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?⚠️ | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
@@ -15044,6 +15065,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?🔹 | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
@@ -15319,6 +15341,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?🔹 | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
@@ -15663,6 +15686,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?🔹 | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
@@ -15835,6 +15859,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?🔹 | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
@@ -16033,6 +16058,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?🔹 | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
@@ -18050,6 +18076,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?🔹 | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
@@ -18720,6 +18747,7 @@ Name | Type | Description
 **minMajorVersion**?🔹 | <code>number</code> | The minimum major version to release.<br/>__*Optional*__
 **npmDistTag**?🔹 | <code>string</code> | The npm distribution tag to use for this branch.<br/>__*Default*__: "latest"
 **prerelease**?🔹 | <code>string</code> | Bump the version as a pre-release tag.<br/>__*Default*__: normal releases
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **tagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: no prefix
 **workflowName**?🔹 | <code>string</code> | The name of the release workflow.<br/>__*Default*__: "release-BRANCH"
 
@@ -19045,6 +19073,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseTrigger**?🔹 | <code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code> | The release trigger to use.<br/>__*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -19079,6 +19108,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseTrigger**?🔹 | <code>[release.ReleaseTrigger](#projen-release-releasetrigger)</code> | The release trigger to use.<br/>__*Default*__: Continuous releases (`ReleaseTrigger.continuous()`)
@@ -19249,6 +19279,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?⚠️ | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?⚠️ | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?⚠️ | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?⚠️ | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?⚠️ | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
@@ -19399,6 +19430,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?🔹 | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
@@ -19743,6 +19775,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?🔹 | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
@@ -19890,6 +19923,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?🔹 | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
@@ -20060,6 +20094,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?🔹 | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
@@ -20236,6 +20271,7 @@ Name | Type | Description
 **releaseEveryCommit**?⚠️ | <code>boolean</code> | Automatically release new versions every commit to one of branches in `releaseBranches`.<br/>__*Default*__: true
 **releaseFailureIssue**?🔹 | <code>boolean</code> | Create a github issue on every failed publishing task.<br/>__*Default*__: false
 **releaseFailureIssueLabel**?🔹 | <code>string</code> | The label to apply to issues indicating publish failures.<br/>__*Default*__: "failed-release"
+**releaseSameCommitOnDifferentBranch**?🔹 | <code>boolean</code> | For cases where the merge strategy is fast-forward without "squash commits", same commit might need to be released with different prerelese components like alpha, beta during the lifecycle.<br/>__*Default*__: false
 **releaseSchedule**?⚠️ | <code>string</code> | CRON schedule to trigger new releases.<br/>__*Default*__: no scheduled releases
 **releaseTagPrefix**?🔹 | <code>string</code> | Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.<br/>__*Default*__: "v"
 **releaseToNpm**?🔹 | <code>boolean</code> | Automatically release to npm when new versions are introduced.<br/>__*Default*__: false
