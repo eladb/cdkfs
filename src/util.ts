@@ -18,24 +18,30 @@ const MAX_BUFFER = 10 * 1024 * 1024;
 /**
  * Executes a command with STDOUT > STDERR.
  */
-export function exec(command: string, options: { cwd: string }): void {
+export function exec(
+  command: string,
+  options: Omit<child_process.ExecSyncOptions, "maxBuffer" | "stdio">
+): void {
   logging.debug(command);
   child_process.execSync(command, {
+    ...options,
     stdio: ["inherit", 2, "pipe"], // "pipe" for STDERR means it appears in exceptions
     maxBuffer: MAX_BUFFER,
-    cwd: options.cwd,
   });
 }
 
 /**
  * Executes command and returns STDOUT. If the command fails (non-zero), throws an error.
  */
-export function execCapture(command: string, options: { cwd: string }) {
+export function execCapture(
+  command: string,
+  options: Omit<child_process.ExecSyncOptions, "maxBuffer" | "stdio">
+) {
   logging.debug(command);
   return child_process.execSync(command, {
+    ...options,
     stdio: ["inherit", "pipe", "pipe"], // "pipe" for STDERR means it appears in exceptions
     maxBuffer: MAX_BUFFER,
-    cwd: options.cwd,
   });
 }
 
@@ -44,14 +50,14 @@ export function execCapture(command: string, options: { cwd: string }) {
  */
 export function execOrUndefined(
   command: string,
-  options: { cwd: string }
+  options: Omit<child_process.ExecSyncOptions, "maxBuffer" | "stdio">
 ): string | undefined {
   try {
     const value = child_process
       .execSync(command, {
+        ...options,
         stdio: ["inherit", "pipe", "pipe"], // "pipe" for STDERR means it appears in exceptions
         maxBuffer: MAX_BUFFER,
-        cwd: options.cwd,
       })
       .toString("utf-8")
       .trim();

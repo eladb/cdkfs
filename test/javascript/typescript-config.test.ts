@@ -6,6 +6,7 @@ import {
   NodeProject,
   TypescriptConfig,
   TypescriptConfigExtends,
+  TypeScriptModule,
   TypeScriptModuleResolution,
 } from "../../src/javascript";
 import { withProjectDir } from "../util";
@@ -130,7 +131,7 @@ describe("TypescriptConfig", () => {
       const esmConfig = new TypescriptConfig(project, {
         fileName: "other/bases/tsconfig.esm.json",
         compilerOptions: {
-          module: "ESNext",
+          module: TypeScriptModule.ESNEXT,
           target: "ESNext",
           lib: ["ESNext"],
         },

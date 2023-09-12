@@ -36,7 +36,14 @@ export class TestProject extends GitHubProject {
 export function execProjenCLI(workdir: string, args: string[] = []) {
   const command = [process.execPath, PROJEN_CLI, ...args];
 
-  return exec(command.map((x) => `"${x}"`).join(" "), { cwd: workdir });
+  return exec(command.map((x) => `"${x}"`).join(" "), {
+    cwd: workdir,
+    env: {
+      ...process.env,
+      // Force "canonical" locale to be used. This avoids localized error messages causing substring matchers to fail.
+      LC_ALL: "C",
+    },
+  });
 }
 
 const autoRemove = new Set<string>();

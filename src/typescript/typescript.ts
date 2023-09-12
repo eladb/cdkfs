@@ -9,6 +9,8 @@ import {
   NodeProject,
   NodeProjectOptions,
   TypeScriptCompilerOptions,
+  TypeScriptModule,
+  TypeScriptModuleResolution,
   TypescriptConfig,
   TypescriptConfigOptions,
 } from "../javascript";
@@ -230,6 +232,9 @@ export class TypeScriptProject extends NodeProject {
       this.package.addField("types", entrypointTypes);
     }
 
+    const minNodeVersionMajor =
+      this.minNodeVersion != null ? semver.major(this.minNodeVersion) : 0;
+
     const compilerOptionDefaults: TypeScriptCompilerOptions = {
       alwaysStrict: true,
       declaration: true,
@@ -237,8 +242,29 @@ export class TypeScriptProject extends NodeProject {
       experimentalDecorators: true,
       inlineSourceMap: true,
       inlineSources: true,
-      lib: ["es2019"],
-      module: "CommonJS",
+      // For recommended module / moduleResolution / target / lib settings for
+      // each NodeJS platform version one can refer to:
+      // https://github.com/tsconfig/bases#available-tsconfigs
+      module:
+        minNodeVersionMajor >= 16
+          ? TypeScriptModule.NODE16
+          : TypeScriptModule.COMMONJS,
+      moduleResolution:
+        minNodeVersionMajor >= 16
+          ? TypeScriptModuleResolution.NODE16
+          : TypeScriptModuleResolution.NODE,
+      target:
+        minNodeVersionMajor >= 18
+          ? "ES2022"
+          : minNodeVersionMajor >= 16
+          ? "ES2021"
+          : "ES2019",
+      lib:
+        minNodeVersionMajor >= 18
+          ? ["es2023"]
+          : minNodeVersionMajor >= 16
+          ? ["es2021"]
+          : ["es2019"],
       noEmitOnError: false,
       noFallthroughCasesInSwitch: true,
       noImplicitAny: true,
@@ -247,11 +273,11 @@ export class TypeScriptProject extends NodeProject {
       noUnusedLocals: true,
       noUnusedParameters: true,
       resolveJsonModule: true,
+      skipLibCheck: true,
       strict: true,
       strictNullChecks: true,
       strictPropertyInitialization: true,
       stripInternal: true,
-      target: "ES2019",
     };
 
     if (options.disableTsconfigDev && options.disableTsconfig) {

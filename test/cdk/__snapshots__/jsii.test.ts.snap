@@ -1461,7 +1461,8 @@ test('hello', () => {
       "lib": [
         "es2019",
       ],
-      "module": "CommonJS",
+      "module": "commonjs",
+      "moduleResolution": "node",
       "noEmitOnError": false,
       "noFallthroughCasesInSwitch": true,
       "noImplicitAny": true,
@@ -1470,6 +1471,7 @@ test('hello', () => {
       "noUnusedLocals": true,
       "noUnusedParameters": true,
       "resolveJsonModule": true,
+      "skipLibCheck": true,
       "strict": true,
       "strictNullChecks": true,
       "strictPropertyInitialization": true,

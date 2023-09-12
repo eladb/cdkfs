@@ -7,10 +7,12 @@
     "experimentalDecorators": true,
     "inlineSourceMap": true,
     "inlineSources": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES2019",
     "lib": [
       "es2019"
     ],
-    "module": "CommonJS",
     "noEmitOnError": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -19,11 +21,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
-    "stripInternal": true,
-    "target": "ES2019"
+    "stripInternal": true
   },
   "include": [
     ".projenrc.js",

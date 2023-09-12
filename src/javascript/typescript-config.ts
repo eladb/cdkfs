@@ -78,6 +78,56 @@ export enum TypeScriptModuleResolution {
   BUNDLER = "bundler",
 }
 
+export class TypeScriptModule {
+  public static readonly NONE = "none";
+
+  public static readonly COMMONJS = "commonjs";
+
+  public static readonly AMD = "amd";
+
+  public static readonly UMD = "umd";
+
+  public static readonly SYSTEM = "system";
+
+  /** Also known as ES2015 */
+  public static readonly ES6 = "es6";
+
+  /** Also known as ES6 */
+  public static readonly ES2015 = "es2015";
+
+  /**
+   * In addition to the base functionality of ES2015/ES6, ES2020 adds support
+   * for dynamic imports and import.meta.
+   */
+  public static readonly ES2020 = "es2020";
+
+  /**
+   * In addition to the functionality of ES2020, ES2022 adds support for top
+   * level await.
+   */
+  public static readonly ES2022 = "es2022";
+
+  public static readonly ESNEXT = "esnext";
+
+  /**
+   * Available from TypeScript 4.7+. Integrates with Node's native ECMAScript
+   * Module support. The emitted JavaScript uses either CommonJS or ES2020
+   * output depending on the file extension and the value of the type setting
+   * in the nearest package.json. Module resolution also works differently.
+   */
+  public static readonly NODE16 = "node16";
+
+  /**
+   * Available from TypeScript 4.7+. Integrates with Node's native ECMAScript
+   * Module support. The emitted JavaScript uses either CommonJS or ES2020
+   * output depending on the file extension and the value of the type setting
+   * in the nearest package.json. Module resolution also works differently.
+   */
+  public static readonly NODENEXT = "nodenext";
+
+  private constructor() {}
+}
+
 /**
  * This flag controls how `import` works, there are 3 different options.
  *
@@ -297,22 +347,23 @@ export interface TypeScriptCompilerOptions {
   /**
    * Reference for type definitions / libraries to use (eg. ES2016, ES5, ES2018).
    *
-   * @default [ "es2018" ]
+   * @default ["es2023"] if the project's `minNodeVersion` is >= 18, ["es2021"] if the project's `minNodeVersion` is >= 16,
+   *          otherwise ["es2019"].
    */
   readonly lib?: string[];
 
   /**
-   * Sets the module system for the program.
+   * Sets the module system for the program. The `TypeScriptModule` class exposes constants for typical values.
    * See https://www.typescriptlang.org/docs/handbook/modules.html#ambient-modules.
    *
-   * @default "CommonJS"
+   * @default TypeScriptModule.COMMONJS if the project's `minNodeVersion` is less than 16, otherwise TypeScriptModule.NODE16.
    */
   readonly module?: string;
 
   /**
    * Determine how modules get resolved. Either "Node" for Node.js/io.js style resolution, or "Classic".
    *
-   * @default "node"
+   * @default TypeScriptModuleResolution.NODE if the project's `minNodeVersion` is less than 16, otherwise TypeScriptModuleResolution.NODE16.
    */
   readonly moduleResolution?: TypeScriptModuleResolution;
 
@@ -477,7 +528,8 @@ export interface TypeScriptCompilerOptions {
    * a lower target if your code is deployed to older environments, or a higher target if your
    * code is guaranteed to run in newer environments.
    *
-   * @default "ES2018"
+   * @default "ES2022" if the project's `minNodeVersion` is >= 18, "ES201" if the project's `minNodeVersion` is >= 16,
+   *          otherwise "ES2019".
    */
   readonly target?: string;
 
