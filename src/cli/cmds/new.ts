@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import { select, checkbox, input } from "@inquirer/prompts";
 import * as semver from "semver";
 import * as yargs from "yargs";
 import * as inventory from "../../inventory";
@@ -45,6 +46,11 @@ class Command implements yargs.CommandModule {
       type: "boolean",
       default: true,
       desc: "Run `git init` and create an initial commit (use --no-git to disable)",
+    });
+    args.option("interactive", {
+      type: "boolean",
+      default: false,
+      desc: "Run an interactive wizard",
     });
     args.example(
       "projen new awscdk-app-ts",
@@ -126,8 +132,57 @@ async function handler(args: any) {
       );
     }
 
-    // Handles the use case that nothing was specified since PROJECT-TYPE is now an optional positional parameter
-    yargs.showHelp();
+    if (!args.interactive) {
+      // Handles the use case that nothing was specified since PROJECT-TYPE is now an optional positional parameter
+      yargs.showHelp();
+      return;
+    }
+
+    const type = await select({
+      message: "Please select a project type",
+      choices: inventory.discover().map((item) => {
+        return {
+          name: `${item.docs} (${item.pjid})`,
+          value: item.pjid,
+        };
+      }),
+      pageSize: 20,
+    });
+    const options: Record<string, string> = {};
+    options.name = await input({
+      message: "Please specify the name of your project",
+    });
+
+    options["package-manager"] = await select({
+      message: "Which package manager would you like to use?",
+      choices: [
+        { name: "NPM", value: "npm" },
+        { name: "Yarn", value: "yarn" },
+        { name: "PNPM", value: "pnpm" },
+      ],
+    });
+
+    const components = await checkbox({
+      message: "Please select the components you need",
+      choices: [
+        { name: "Eslint", value: "eslint", checked: true },
+        { name: "Prettier", value: "prettier", checked: true },
+        { name: "Jest", value: "jest" },
+        { name: "Docgen", value: "docgen" },
+      ],
+    });
+
+    Object.assign(
+      options,
+      Object.fromEntries(components.map((component) => [component, true]))
+    );
+
+    const formattedArgs = Object.entries(options).map(([key, value]) => {
+      return `--${key}=${value}`;
+    });
+
+    console.log("Generated command:", `new ${type} ${formattedArgs.join(" ")}`);
+    yargs(["new", type, ...formattedArgs]).command(new Command()).argv;
   } catch (error: unknown) {
     if (error instanceof CliError) {
       logging.error(error.message);

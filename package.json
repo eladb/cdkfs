@@ -80,6 +80,7 @@
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
+    "@inquirer/prompts": "^3.1.1",
     "case": "^1.6.3",
     "chalk": "^4.1.2",
     "comment-json": "4.2.2",
@@ -95,6 +96,7 @@
   },
   "bundledDependencies": [
     "@iarna/toml",
+    "@inquirer/prompts",
     "case",
     "chalk",
     "comment-json",

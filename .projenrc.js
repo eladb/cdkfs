@@ -37,6 +37,7 @@ const project = new cdk.JsiiProject({
     "conventional-changelog-config-spec",
     "yaml@^2.2.2",
     "yargs",
+    "@inquirer/prompts",
     "case",
     "glob@^8",
     "semver",

@@ -135,6 +135,10 @@
       "type": "bundled"
     },
     {
+      "name": "@inquirer/prompts",
+      "type": "bundled"
+    },
+    {
       "name": "case",
       "type": "bundled"
     },
