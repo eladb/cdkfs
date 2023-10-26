@@ -1,5 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
+import { prompt } from "enquirer";
+import * as inventory from "../inventory";
 import * as logging from "../logging";
 import { exec } from "../util";
 
@@ -59,5 +61,32 @@ export class CliError extends Error {
   constructor(...lines: string[]) {
     super(lines.join("\n"));
     this.name = "CliError";
+  }
+}
+
+export class SelectProjectTypeError extends CliError {
+  constructor(message: string, spec: string, types: inventory.ProjectType[]) {
+    super(
+      `${message}:\n`,
+      ...types.map((t) => `    ${t.pjid}`),
+      "",
+      `Please specify the project type.`,
+      `Example: npx projen new --from ${spec} ${types[0].pjid}`
+    );
+  }
+}
+
+export async function RecoverableError(
+  question: any,
+  error: CliError
+): Promise<{ pjid: string }> {
+  if (process.env.CI) {
+    throw error;
+  }
+
+  try {
+    return (await prompt(question)) as any;
+  } catch {
+    throw error;
   }
 }

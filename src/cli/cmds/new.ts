@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import { prompt } from "enquirer";
 import * as semver from "semver";
 import * as yargs from "yargs";
 import * as inventory from "../../inventory";
@@ -14,7 +15,14 @@ import {
   isTruthy,
 } from "../../util";
 import { tryProcessMacro } from "../macros";
-import { CliError, installPackage, renderInstallCommand } from "../util";
+import { ProjectTypePrompt } from "../prompts";
+import {
+  CliError,
+  RecoverableError,
+  SelectProjectTypeError,
+  installPackage,
+  renderInstallCommand,
+} from "../util";
 
 class Command implements yargs.CommandModule {
   public readonly command = "new [PROJECT-TYPE-NAME] [OPTIONS]";
@@ -117,6 +125,14 @@ async function handler(args: any) {
     // project type is defined but was not matched by yargs, so print the list of supported types
     if (args.projectTypeName) {
       const types = inventory.discover();
+      await ProjectTypePrompt({ types, name: "pjid" });
+      const response = await prompt({
+        type: "input",
+        name: "username",
+        message: "What is your username?",
+      });
+      console.log(response);
+      console.log("hello");
       throw new CliError(
         `Project type "${args.projectTypeName}" not found. Available types:\n`,
         ...types.map((t) => `    ${t.pjid}`),
@@ -313,33 +329,105 @@ async function initProjectFromModule(baseDir: string, spec: string, args: any) {
     );
   }
 
-  const requested = args.projectTypeName;
-  const types = projects.map((p) => p.pjid);
+  const type = await (async (
+    requested: string
+  ): Promise<inventory.ProjectType> => {
+    // if user did not specify a project type but the module has more than one, we need them to tell us which one...
+    if (!requested && projects.length > 1) {
+      const { pjid } = await RecoverableError(
+        ProjectTypePrompt({
+          types: projects,
+          name: "pjid",
+        }),
+        new SelectProjectTypeError(
+          `Multiple project types found after installing "${spec}"`,
+          spec,
+          projects
+        )
+      );
+      requested = pjid;
+    }
 
-  // if user did not specify a project type but the module has more than one, we need them to tell us which one...
-  if (!requested && projects.length > 1) {
-    throw new CliError(
-      `Multiple project types found after installing "${spec}":\n`,
-      ...types.map((t) => `    ${t}`),
-      "",
-      `Please specify a project type.`,
-      `Example: npx projen new --from ${spec} ${types[0]}`
-    );
-  }
+    // if user did not specify a type (and we know we have only one), the select it. otherwise, search by pjid.
+    const candidate = !requested
+      ? projects[0]
+      : projects.find((p) => p.pjid === requested);
+    if (!candidate) {
+      throw new SelectProjectTypeError(
+        `Project type "${requested}" not found in "${spec}". Found:`,
+        spec,
+        projects
+      );
+    }
 
-  // if user did not specify a type (and we know we have only one), the select it. otherwise, search by pjid.
-  const type = !requested
-    ? projects[0]
-    : projects.find((p) => p.pjid === requested);
-  if (!type) {
-    throw new CliError(
-      `Project type "${requested}" not found in "${spec}". Found:\n`,
-      ...types.map((t) => `    ${t}`),
-      "",
-      `Please specify a valid project type.`,
-      `Example: npx projen new --from ${spec} ${types[0]}`
-    );
-  }
+    return candidate;
+  })(args.projectTypeName);
+
+  // const requested = for(args.projectTypeName)
+  //   .if(
+  //     (requested) => requested && projects.includes((p) => p.pjid === requested),
+  //     (requested) => projects.includes((p) => p.pjid === requested)
+  //   )
+  //   .if(
+  //     (requested) => !requested && projects.length === 1,
+  //     () => projects[0]
+  //   )
+  //   .recover(
+  //     ProjectTypePrompt({
+  //       types: projects,
+  //       name: 'whatevs'
+  //     })
+  //   );
+
+  //   .expect((requested) => )
+  //   .expect((requested) => projects.includes((p) => p.pjid === requested))
+  //   .fail(new CliError(
+  //     `Multiple project types found after installing "${spec}":\n`,
+  //     ...projects.map((p) => `    ${p.pjid}`),
+  //     "",
+  //     `Please specify a project type.`,
+  //     `Example: npx projen new --from ${spec} ${projects[0].pjid}`
+  //   ))
+  //   .fail(new CliError(
+  //     `Project type "${requested}" not found in "${spec}". Found:\n`,
+  //     ...projects.map((p) => `    ${p.pjid}`),
+  //     "",
+  //     `Please specify a valid project type.`,
+  //     `Example: npx projen new --from ${spec} ${projects[0].pjid}`
+  //   ))
+  //   .recover(
+  //     ProjectTypePrompt({
+  //       types: projects,
+  //       name: 'whatevs'
+  //     })
+  //   );
+
+  // const types = projects.map((p) => p.pjid);
+
+  // // if user did not specify a project type but the module has more than one, we need them to tell us which one...
+  // if (!requested && projects.length > 1) {
+  //   throw new CliError(
+  //     `Multiple project types found after installing "${spec}":\n`,
+  //     ...types.map((t) => `    ${t}`),
+  //     "",
+  //     `Please specify a project type.`,
+  //     `Example: npx projen new --from ${spec} ${types[0]}`
+  //   );
+  // }
+
+  // // if user did not specify a type (and we know we have only one), the select it. otherwise, search by pjid.
+  // const type = !requested
+  //   ? projects[0]
+  //   : projects.find((p) => p.pjid === requested);
+  // if (!type) {
+  //   throw new CliError(
+  //     `Project type "${requested}" not found in "${spec}". Found:\n`,
+  //     ...types.map((t) => `    ${t}`),
+  //     "",
+  //     `Please specify a valid project type.`,
+  //     `Example: npx projen new --from ${spec} ${types[0]}`
+  //   );
+  // }
 
   const missingOptions = [];
 

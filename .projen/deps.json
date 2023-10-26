@@ -152,6 +152,10 @@
       "type": "bundled"
     },
     {
+      "name": "enquirer",
+      "type": "bundled"
+    },
+    {
       "name": "fast-json-patch",
       "type": "bundled"
     },
