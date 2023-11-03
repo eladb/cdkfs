@@ -3,6 +3,7 @@ import { Project } from "..";
 import { PROJEN_RC } from "../common";
 import { Component } from "../component";
 import { NodeProject } from "../javascript";
+import { JsConfigFile } from "../js-config";
 import { JsonFile } from "../json";
 import { Task } from "../task";
 import { YamlFile } from "../yaml";
@@ -86,6 +87,12 @@ export interface EslintOptions {
    * @default false
    */
   readonly yaml?: boolean;
+
+  /**
+   * Write eslint configuration as JsConfig file instead of JSON
+   * @default false
+   */
+  readonly jsConfig?: boolean;
 }
 
 /**
@@ -409,7 +416,16 @@ export class Eslint extends Component {
         marker: true,
       });
     } else {
-      new JsonFile(project, ".eslintrc.json", {
+      let Config: typeof JsonFile | typeof JsConfigFile;
+      let configFileName: string;
+      if (options.jsConfig) {
+        Config = JsConfigFile;
+        configFileName = ".eslintrc.js";
+      } else {
+        Config = JsonFile;
+        configFileName = ".eslintrc.json";
+      }
+      new Config(project, configFileName, {
         obj: this.config,
         // https://eslint.org/docs/latest/user-guide/configuring/configuration-files#comments-in-configuration-files
         marker: true,

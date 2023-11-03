@@ -8701,6 +8701,7 @@ new javascript.Eslint(project: NodeProject, options: EslintOptions)
   * **devdirs** (<code>Array<string></code>)  Files or glob patterns or directories with source files that include tests and build tools. __*Default*__: []
   * **fileExtensions** (<code>Array<string></code>)  File types that should be linted (e.g. [ ".js", ".ts" ]). __*Default*__: [".ts"]
   * **ignorePatterns** (<code>Array<string></code>)  List of file patterns that should not be linted, using the same syntax as .gitignore patterns. __*Default*__: [ '*.js', '*.d.ts', 'node_modules/', '*.generated.ts', 'coverage' ]
+  * **jsConfig** (<code>boolean</code>)  Write eslint configuration as JsConfig file instead of JSON. __*Default*__: false
   * **lintProjenRc** (<code>boolean</code>)  Should we lint .projenrc.js. __*Default*__: true
   * **lintProjenRcFile** (<code>string</code>)  Projenrc file to lint. __*Default*__: PROJEN_RC
   * **prettier** (<code>boolean</code>)  Enable prettier for code formatting. __*Default*__: false
@@ -18327,6 +18328,7 @@ Name | Type | Description
 **devdirs**?🔹 | <code>Array<string></code> | Files or glob patterns or directories with source files that include tests and build tools.<br/>__*Default*__: []
 **fileExtensions**?🔹 | <code>Array<string></code> | File types that should be linted (e.g. [ ".js", ".ts" ]).<br/>__*Default*__: [".ts"]
 **ignorePatterns**?🔹 | <code>Array<string></code> | List of file patterns that should not be linted, using the same syntax as .gitignore patterns.<br/>__*Default*__: [ '*.js', '*.d.ts', 'node_modules/', '*.generated.ts', 'coverage' ]
+**jsConfig**?🔹 | <code>boolean</code> | Write eslint configuration as JsConfig file instead of JSON.<br/>__*Default*__: false
 **lintProjenRc**?⚠️ | <code>boolean</code> | Should we lint .projenrc.js.<br/>__*Default*__: true
 **lintProjenRcFile**?⚠️ | <code>string</code> | Projenrc file to lint.<br/>__*Default*__: PROJEN_RC
 **prettier**?🔹 | <code>boolean</code> | Enable prettier for code formatting.<br/>__*Default*__: false
