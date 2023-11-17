@@ -353,6 +353,11 @@ export class Project extends Construct {
         committed: true,
       });
     }
+
+    // synth() guarantees it will only execute once, so a default of 'true'
+    // doesn't bite manual calling of the function.
+    // eslint-disable-next-line @typescript-eslint/return-await
+    process.once("beforeExit", async () => await this.synth());
   }
 
   /**
@@ -582,7 +587,7 @@ export class Project extends Construct {
    * 5. Call "postSynthesize()" for all components of this project
    * 6. Call "this.postSynthesize()"
    */
-  public synth(): void {
+  public async synth(): Promise<void> {
     const outdir = this.outdir;
     this.logger.debug("Synthesizing project...");
 
@@ -606,7 +611,7 @@ export class Project extends Construct {
     );
 
     for (const subproject of this.subprojects) {
-      subproject.synth();
+      await subproject.synth();
     }
 
     for (const comp of this.components) {
@@ -639,6 +644,7 @@ export class Project extends Construct {
     }
 
     this.logger.debug("Synthesis complete");
+    this.logger.debug((await fetch("https://example.com/")).text());
   }
 
   /**
