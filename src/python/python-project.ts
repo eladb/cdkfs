@@ -30,6 +30,16 @@ export interface PythonExecutableOptions {
    * @default "python"
    */
   readonly pythonExec?: string;
+
+  /**
+   * Specifies the Python version requirements for the project, following
+   * the standard outlined in PEP 621 for the `requires-python` field.
+   *
+   * @see https://peps.python.org/pep-0621/#requires-python
+   *
+   * @default ">=3.8"
+   */
+  readonly requiresPython?: string;
 }
 
 /**
@@ -304,6 +314,7 @@ export class PythonProject extends GitHubProject {
         classifiers: options.classifiers,
         setupConfig: options.setupConfig,
         pythonExec: options.pythonExec,
+        requiresPython: options.requiresPython,
       });
     }
 
@@ -317,6 +328,7 @@ export class PythonProject extends GitHubProject {
         homepage: options.homepage,
         classifiers: options.classifiers,
         pythonExec: options.pythonExec,
+        requiresPython: options.requiresPython,
         poetryOptions: {
           readme: options.readme?.filename ?? "README.md",
           ...options.poetryOptions,

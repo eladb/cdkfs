@@ -14,7 +14,7 @@ classifiers = [ "Development Status :: 4 - Beta" ]
 readme = "README.md"
 
   [tool.poetry.dependencies]
-  python = "^3.8"
+  python = ">=3.8"
 
     [tool.poetry.dependencies.package1]
     git = "https://github.com/numpy/numpy.git"
@@ -387,7 +387,7 @@ exclude = [ "my_package/excluded.py" ]
   package1 = "0.0.1"
   package2 = "0.0.2"
   package3 = "*"
-  python = "^3.8"
+  python = ">=3.8"
 
 [tool.poetry.group.dev.dependencies]
 projen = "99.99.99"

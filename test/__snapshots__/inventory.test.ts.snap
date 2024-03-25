@@ -2284,6 +2284,23 @@ exports[`inventory 1`] = `
         "switch": "require-approval",
       },
       {
+        "default": "">=3.8"",
+        "docs": "Specifies the Python version requirements for the project, following the standard outlined in PEP 621 for the \`requires-python\` field.",
+        "featured": false,
+        "fullType": {
+          "primitive": "string",
+        },
+        "jsonLike": true,
+        "name": "requiresPython",
+        "optional": true,
+        "parent": "PythonExecutableOptions",
+        "path": [
+          "requiresPython",
+        ],
+        "simpleType": "string",
+        "switch": "requires-python",
+      },
+      {
         "default": "true",
         "docs": "Include sample code and test if the relevant directories don't exist.",
         "featured": false,
@@ -9772,6 +9789,23 @@ exports[`inventory 1`] = `
         ],
         "simpleType": "RenovatebotOptions",
         "switch": "renovatebot-options",
+      },
+      {
+        "default": "">=3.8"",
+        "docs": "Specifies the Python version requirements for the project, following the standard outlined in PEP 621 for the \`requires-python\` field.",
+        "featured": false,
+        "fullType": {
+          "primitive": "string",
+        },
+        "jsonLike": true,
+        "name": "requiresPython",
+        "optional": true,
+        "parent": "PythonExecutableOptions",
+        "path": [
+          "requiresPython",
+        ],
+        "simpleType": "string",
+        "switch": "requires-python",
       },
       {
         "default": "true",
@@ -30858,6 +30892,23 @@ exports[`inventory 1`] = `
         ],
         "simpleType": "RenovatebotOptions",
         "switch": "renovatebot-options",
+      },
+      {
+        "default": "">=3.8"",
+        "docs": "Specifies the Python version requirements for the project, following the standard outlined in PEP 621 for the \`requires-python\` field.",
+        "featured": false,
+        "fullType": {
+          "primitive": "string",
+        },
+        "jsonLike": true,
+        "name": "requiresPython",
+        "optional": true,
+        "parent": "PythonExecutableOptions",
+        "path": [
+          "requiresPython",
+        ],
+        "simpleType": "string",
+        "switch": "requires-python",
       },
       {
         "default": "true",

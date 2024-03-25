@@ -49,6 +49,16 @@ export class Poetry
   private readonly pythonExec: string;
 
   /**
+   * Specifies the Python version requirements for the project, following
+   * the standard outlined in PEP 621 for the `requires-python` field.
+   *
+   * @see https://peps.python.org/pep-0621/#requires-python
+   *
+   * @default ">=3.8"
+   */
+  readonly requiresPython?: string;
+
+  /**
    * Represents the configuration of the `pyproject.toml` file for a Poetry project.
    * This includes package metadata, dependencies, and Poetry-specific settings.
    */
@@ -56,7 +66,9 @@ export class Poetry
 
   constructor(project: Project, options: PoetryOptions) {
     super(project);
+
     this.pythonExec = options.pythonExec ?? "python";
+    this.requiresPython = options.requiresPython ?? ">=3.8";
 
     this.installTask = project.addTask("install", {
       description: "Install dependencies and update lockfile",
@@ -117,19 +129,17 @@ export class Poetry
 
   private synthDependencies() {
     const dependencies: { [key: string]: any } = {};
-    let pythonDefined: boolean = false;
+
+    // Go through all project dependencies and add them
     for (const pkg of this.project.deps.all) {
-      if (pkg.name === "python") {
-        pythonDefined = true;
-      }
       if (pkg.type === DependencyType.RUNTIME) {
         dependencies[pkg.name] = pkg.version ?? "*";
       }
     }
-    if (!pythonDefined) {
-      // Python version must be defined for poetry projects. Default to ^3.8.
-      dependencies.python = "^3.8";
-    }
+
+    // Set the Python version specifiers for the project
+    dependencies.python = this.requiresPython;
+
     return this.permitDependenciesWithMetadata(dependencies);
   }
 

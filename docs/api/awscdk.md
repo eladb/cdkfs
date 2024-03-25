@@ -14283,6 +14283,7 @@ const awsCdkPythonAppOptions: awscdk.AwsCdkPythonAppOptions = { ... }
 | <code><a href="#projen.awscdk.AwsCdkPythonAppOptions.property.poetryOptions">poetryOptions</a></code> | <code>projen.python.PoetryPyprojectOptionsWithoutDeps</code> | Additional options to set for poetry if using poetry. |
 | <code><a href="#projen.awscdk.AwsCdkPythonAppOptions.property.setupConfig">setupConfig</a></code> | <code>{[ key: string ]: any}</code> | Additional fields to pass in the setup() function if using setuptools. |
 | <code><a href="#projen.awscdk.AwsCdkPythonAppOptions.property.pythonExec">pythonExec</a></code> | <code>string</code> | Path to the python executable to use. |
+| <code><a href="#projen.awscdk.AwsCdkPythonAppOptions.property.requiresPython">requiresPython</a></code> | <code>string</code> | Specifies the Python version requirements for the project, following the standard outlined in PEP 621 for the `requires-python` field. |
 | <code><a href="#projen.awscdk.AwsCdkPythonAppOptions.property.moduleName">moduleName</a></code> | <code>string</code> | Name of the python package as used in imports and filenames. |
 | <code><a href="#projen.awscdk.AwsCdkPythonAppOptions.property.deps">deps</a></code> | <code>string[]</code> | List of runtime dependencies for this project. |
 | <code><a href="#projen.awscdk.AwsCdkPythonAppOptions.property.devDeps">devDeps</a></code> | <code>string[]</code> | List of dev dependencies for this project. |
@@ -14869,6 +14870,21 @@ public readonly pythonExec: string;
 - *Default:* "python"
 
 Path to the python executable to use.
+
+---
+
+##### `requiresPython`<sup>Optional</sup> <a name="requiresPython" id="projen.awscdk.AwsCdkPythonAppOptions.property.requiresPython"></a>
+
+```typescript
+public readonly requiresPython: string;
+```
+
+- *Type:* string
+- *Default:* ">=3.8"
+
+Specifies the Python version requirements for the project, following the standard outlined in PEP 621 for the `requires-python` field.
+
+> [https://peps.python.org/pep-0621/#requires-python](https://peps.python.org/pep-0621/#requires-python)
 
 ---
 

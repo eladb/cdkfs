@@ -22,10 +22,12 @@ export class Setuptools extends Component implements IPythonPackaging {
   public readonly publishTestTask: Task;
 
   private readonly pythonExec: string;
+  private readonly requiresPython: string;
 
   constructor(project: Project, options: SetuptoolsOptions) {
     super(project);
     this.pythonExec = options.pythonExec ?? "python";
+    this.requiresPython = options.requiresPython ?? ">=3.8";
 
     project.deps.addDependency("wheel@0.36.2", DependencyType.DEVENV);
     project.deps.addDependency("twine@3.3.0", DependencyType.DEVENV);
@@ -54,6 +56,7 @@ export class Setuptools extends Component implements IPythonPackaging {
       license: options.license,
       homepage: options.homepage,
       classifiers: options.classifiers,
+      python_requires: this.requiresPython,
       ...options.setupConfig,
     });
   }
