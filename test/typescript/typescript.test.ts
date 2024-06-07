@@ -2,12 +2,15 @@ import * as fs from "fs";
 import * as path from "path";
 import { Logger, TaskRuntime } from "../../src";
 import { DEFAULT_PROJEN_RC_JS_FILENAME } from "../../src/common";
-import { Transform } from "../../src/javascript";
 import {
-  mergeTsconfigOptions,
-  TsJestTsconfig,
-  TypeScriptProject,
-} from "../../src/typescript";
+  Node18TypescriptConfigPresets,
+  ProjenClassicTypescriptConfigPresets,
+  StrictestTypescriptConfigPresets,
+  Transform,
+  TypeScriptSetCompilerOptionsMergeMethod,
+  TypescriptConfigPresetsOptions,
+} from "../../src/javascript";
+import { TsJestTsconfig, TypeScriptProject } from "../../src/typescript";
 import { execProjenCLI, synthSnapshot, withProjectDir } from "../util";
 
 describe("TypeScriptProject with default settings", () => {
@@ -30,69 +33,6 @@ describe("TypeScriptProject with default settings", () => {
     project.synth();
 
     execProjenCLI(project.outdir, ["compile"]);
-  });
-});
-
-describe("mergeTsconfigOptions", () => {
-  test("merging includes", () => {
-    const mergedTsconfigOptions = mergeTsconfigOptions(
-      {
-        include: ["typescript.test.ts"],
-        compilerOptions: {},
-      },
-      {
-        include: ["abc"],
-        compilerOptions: {},
-      }
-    );
-
-    expect(mergedTsconfigOptions).toEqual(
-      expect.objectContaining({
-        include: ["typescript.test.ts", "abc"],
-      })
-    );
-  });
-
-  test("merging excludes", () => {
-    const mergedTsconfigOptions = mergeTsconfigOptions(
-      {
-        exclude: ["typescript.test.ts"],
-        compilerOptions: {},
-      },
-      {
-        exclude: ["abc"],
-        compilerOptions: {},
-      }
-    );
-
-    expect(mergedTsconfigOptions).toEqual(
-      expect.objectContaining({
-        exclude: ["typescript.test.ts", "abc"],
-      })
-    );
-  });
-
-  test("merging compilerOptions", () => {
-    const mergedTsconfigOptions = mergeTsconfigOptions(
-      {
-        compilerOptions: {
-          esModuleInterop: false,
-        },
-      },
-      {
-        compilerOptions: {
-          esModuleInterop: true,
-        },
-      }
-    );
-
-    expect(mergedTsconfigOptions).toEqual(
-      expect.objectContaining({
-        compilerOptions: {
-          esModuleInterop: true,
-        },
-      })
-    );
   });
 });
 
@@ -135,20 +75,374 @@ test("tsconfig prop is propagated to eslint and jest tsconfigs", () => {
       }),
     })
   );
+});
 
-  expect(out["tsconfig.dev.json"]).toEqual(
-    expect.objectContaining({
-      include: expect.arrayContaining([
-        DEFAULT_PROJEN_RC_JS_FILENAME,
+describe("compilerOptionsMergeMethod options", () => {
+  test("compilerOptionsMergeMethod === TypeScriptSetCompilerOptionsMergeMethod.MERGE", () => {
+    const prj = new TypeScriptProject({
+      name: "test",
+      defaultReleaseBranch: "test",
+      tsconfig: {
+        include: ["typescript.test.ts"],
+        compilerOptions: {
+          outDir: "foo", // should be ignored
+          rootDir: "bar", // should be ignored
+          esModuleInterop: false,
+        },
+        compilerOptionsMergeMethod:
+          TypeScriptSetCompilerOptionsMergeMethod.MERGE,
+      },
+    });
+
+    const out = synthSnapshot(prj);
+
+    expect(out["tsconfig.json"]).toEqual(
+      expect.objectContaining({
+        include: expect.arrayContaining([
+          `${prj.srcdir}/**/*.ts`,
+          "typescript.test.ts",
+        ]),
+        compilerOptions: expect.objectContaining({
+          outDir: prj.libdir,
+          rootDir: prj.srcdir,
+          esModuleInterop: false,
+          strict: true,
+          strictNullChecks: true,
+          // all of the other defaults will be here as well
+        }),
+      })
+    );
+  });
+
+  test("compilerOptionsMergeMethod === TypeScriptSetCompilerOptionsMergeMethod.OVERRIDE", () => {
+    const prj = new TypeScriptProject({
+      name: "test",
+      defaultReleaseBranch: "test",
+      tsconfig: {
+        include: ["typescript.test.ts"],
+        compilerOptions: {
+          outDir: "foo", // should be ignored
+          rootDir: "bar", // should be ignored
+          esModuleInterop: false,
+        },
+        compilerOptionsMergeMethod:
+          TypeScriptSetCompilerOptionsMergeMethod.OVERRIDE,
+      },
+    });
+
+    const out = synthSnapshot(prj);
+
+    expect(out["tsconfig.json"]).toEqual(
+      expect.objectContaining({
+        include: expect.arrayContaining([
+          `${prj.srcdir}/**/*.ts`,
+          "typescript.test.ts",
+        ]),
+        compilerOptions: {
+          outDir: prj.libdir,
+          rootDir: prj.srcdir,
+          esModuleInterop: false,
+        },
+      })
+    );
+  });
+
+  test("TypeScriptSetCompilerOptionsMergeMethod.MERGE_ALL", () => {
+    const prj = new TypeScriptProject({
+      name: "test",
+      defaultReleaseBranch: "test",
+      tsconfig: {
+        include: ["typescript.test.ts"],
+        compilerOptions: {
+          outDir: "foo",
+          rootDir: "bar",
+          esModuleInterop: false,
+        },
+        compilerOptionsMergeMethod:
+          TypeScriptSetCompilerOptionsMergeMethod.MERGE_ALL,
+      },
+    });
+
+    const out = synthSnapshot(prj);
+
+    expect(out["tsconfig.json"]).toEqual(
+      expect.objectContaining({
+        include: expect.arrayContaining([
+          `${prj.srcdir}/**/*.ts`,
+          "typescript.test.ts",
+        ]),
+        compilerOptions: expect.objectContaining({
+          outDir: "foo",
+          rootDir: "bar",
+          esModuleInterop: false,
+          strict: true,
+          strictNullChecks: true,
+          // all of the other defaults will be here as well
+        }),
+      })
+    );
+  });
+
+  test("tsconfigDevExtendsTsconfig", () => {
+    const prj = new TypeScriptProject({
+      name: "test",
+      defaultReleaseBranch: "test",
+      tsconfig: {
+        include: ["typescript.test.ts"],
+        compilerOptions: {
+          outDir: "foo",
+          rootDir: "bar",
+          esModuleInterop: false,
+        },
+        compilerOptionsMergeMethod:
+          TypeScriptSetCompilerOptionsMergeMethod.MERGE_ALL,
+      },
+      tsconfigDev: {
+        compilerOptions: {
+          esModuleInterop: true,
+        },
+      },
+      tsconfigDevExtendsTsconfig: true,
+    });
+
+    const out = synthSnapshot(prj);
+
+    expect(out["tsconfig.json"]).toEqual(
+      expect.objectContaining({
+        include: expect.arrayContaining([
+          `${prj.srcdir}/**/*.ts`,
+          "typescript.test.ts",
+        ]),
+        compilerOptions: expect.objectContaining({
+          outDir: "foo",
+          rootDir: "bar",
+          esModuleInterop: false,
+          strict: true,
+          strictNullChecks: true,
+          // all of the other defaults will be here as well
+        }),
+      })
+    );
+
+    expect(out["tsconfig.dev.json"]).toEqual(
+      expect.objectContaining({
+        include: [
+          "src/**/*.ts",
+          "test/**/*.ts",
+          "typescript.test.ts",
+          ".projenrc.js",
+        ],
+        compilerOptions: {
+          esModuleInterop: true,
+        },
+        extends: "./tsconfig.json",
+      })
+    );
+  });
+});
+
+describe("options.tsconfigPresets", () => {
+  test("tsconfigPresets and tsconfigDevPresets both set", () => {
+    const prj = new TypeScriptProject({
+      name: "test",
+      defaultReleaseBranch: "test",
+      tsconfig: {
+        include: ["typescript.test.ts"],
+        compilerOptions: {
+          outDir: "foo", // should be ignored
+          rootDir: "bar", // should be ignored
+
+          esModuleInterop: false, // should override preset
+        },
+        compilerOptionsMergeMethod:
+          TypeScriptSetCompilerOptionsMergeMethod.MERGE,
+      },
+      tsconfigPresets: TypescriptConfigPresetsOptions.STRICTEST,
+      tsconfigDevPresets: TypescriptConfigPresetsOptions.NODE18,
+    });
+
+    const out = synthSnapshot(prj);
+
+    expect(out["tsconfig.json"]).toEqual({
+      include: [`${prj.srcdir}/**/*.ts`, "typescript.test.ts"],
+      exclude: [],
+      compilerOptions: {
+        outDir: prj.libdir,
+        rootDir: prj.srcdir,
+
+        ...StrictestTypescriptConfigPresets.compilerOptions,
+
+        esModuleInterop: false,
+      },
+    });
+
+    expect(out["tsconfig.dev.json"]).toEqual({
+      include: [
         `${prj.srcdir}/**/*.ts`,
         `${prj.testdir}/**/*.ts`,
         "typescript.test.ts",
-      ]),
-      compilerOptions: expect.objectContaining({
+        ".projenrc.js",
+      ],
+      exclude: ["node_modules"],
+      compilerOptions: {
+        ...StrictestTypescriptConfigPresets.compilerOptions,
+        esModuleInterop: false,
+        ...Node18TypescriptConfigPresets.compilerOptions,
+      },
+    });
+  });
+
+  test("compilerOptionsMergeMethod === TypeScriptSetCompilerOptionsMergeMethod.OVERRIDE", () => {
+    const prj = new TypeScriptProject({
+      name: "test",
+      defaultReleaseBranch: "test",
+      tsconfig: {
+        include: ["typescript.test.ts"],
+        compilerOptions: {
+          outDir: "foo", // should be ignored
+          rootDir: "bar", // should be ignored
+          esModuleInterop: false,
+        },
+        compilerOptionsMergeMethod:
+          TypeScriptSetCompilerOptionsMergeMethod.OVERRIDE,
+      },
+    });
+
+    const out = synthSnapshot(prj);
+
+    expect(out["tsconfig.json"]).toEqual({
+      include: [`${prj.srcdir}/**/*.ts`, "typescript.test.ts"],
+      exclude: [],
+      compilerOptions: {
+        outDir: prj.libdir,
+        rootDir: prj.srcdir,
+        esModuleInterop: false,
+      },
+    });
+  });
+
+  test("TypeScriptSetCompilerOptionsMergeMethod.MERGE_ALL", () => {
+    const prj = new TypeScriptProject({
+      name: "test",
+      defaultReleaseBranch: "test",
+      tsconfig: {
+        include: ["typescript.test.ts"],
+        compilerOptions: {
+          outDir: "foo",
+          rootDir: "bar",
+          esModuleInterop: false,
+        },
+        compilerOptionsMergeMethod:
+          TypeScriptSetCompilerOptionsMergeMethod.MERGE_ALL,
+      },
+    });
+
+    const out = synthSnapshot(prj);
+
+    expect(out["tsconfig.json"]).toEqual({
+      include: [`${prj.srcdir}/**/*.ts`, "typescript.test.ts"],
+      exclude: [],
+      compilerOptions: {
+        outDir: "foo",
+        rootDir: "bar",
+        ...ProjenClassicTypescriptConfigPresets.compilerOptions,
+        esModuleInterop: false,
+      },
+    });
+  });
+
+  test("tsconfigDevExtendsTsconfig", () => {
+    const prj = new TypeScriptProject({
+      name: "test",
+      defaultReleaseBranch: "test",
+      tsconfig: {
+        fileName: "tsconfig.testName.json",
+        include: ["typescript.test.ts"],
+        compilerOptions: {
+          outDir: "foo",
+          rootDir: "bar",
+          esModuleInterop: false,
+        },
+        compilerOptionsMergeMethod:
+          TypeScriptSetCompilerOptionsMergeMethod.MERGE_ALL,
+      },
+      tsconfigDev: {
+        compilerOptions: {
+          esModuleInterop: true,
+        },
+      },
+      tsconfigDevExtendsTsconfig: true,
+    });
+
+    const out = synthSnapshot(prj);
+
+    expect(out["tsconfig.testName.json"]).toEqual({
+      include: [`${prj.srcdir}/**/*.ts`, "typescript.test.ts"],
+      exclude: [],
+      compilerOptions: {
+        outDir: "foo",
+        rootDir: "bar",
+        ...ProjenClassicTypescriptConfigPresets.compilerOptions,
+        esModuleInterop: false,
+      },
+    });
+
+    expect(out["tsconfig.dev.json"]).toEqual({
+      include: [
+        "src/**/*.ts",
+        "test/**/*.ts",
+        "typescript.test.ts",
+        ".projenrc.js",
+      ],
+      exclude: ["node_modules"],
+      compilerOptions: {
         esModuleInterop: true,
-      }),
-    })
-  );
+      },
+      extends: "./tsconfig.testName.json",
+    });
+  });
+
+  test("disableTsconfig", () => {
+    const prj = new TypeScriptProject({
+      name: "test",
+      defaultReleaseBranch: "test",
+      tsconfig: {
+        // ignored
+        include: ["typescript.test.ts"],
+        compilerOptions: {
+          outDir: "foo",
+          rootDir: "bar",
+          esModuleInterop: false,
+        },
+        compilerOptionsMergeMethod:
+          TypeScriptSetCompilerOptionsMergeMethod.MERGE_ALL,
+      },
+      disableTsconfig: true,
+      tsconfigDev: {
+        compilerOptions: {
+          esModuleInterop: true,
+        },
+      },
+      tsconfigDevExtendsTsconfig: true, // ignored
+    });
+
+    const out = synthSnapshot(prj);
+
+    expect(out["tsconfig.json"]).toBeUndefined();
+    expect(out["tsconfig.dev.json"]).toEqual({
+      include: [
+        "src/**/*.ts",
+        "test/**/*.ts",
+        "typescript.test.ts",
+        ".projenrc.js",
+      ],
+      exclude: ["node_modules"],
+      compilerOptions: {
+        esModuleInterop: true,
+        ...ProjenClassicTypescriptConfigPresets.compilerOptions,
+      },
+    });
+  });
 });
 
 test("sources and compiled output can be collocated", () => {

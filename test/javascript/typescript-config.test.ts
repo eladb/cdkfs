@@ -7,6 +7,7 @@ import {
   TypescriptConfig,
   TypescriptConfigExtends,
   TypeScriptModuleResolution,
+  TypeScriptSetCompilerOptionsMergeMethod,
 } from "../../src/javascript";
 import { withProjectDir } from "../util";
 
@@ -141,6 +142,149 @@ describe("TypescriptConfig", () => {
         // No extends
       });
     }).toThrowError(/Must provide either `extends` or `compilerOptions`/);
+  });
+
+  describe("TypeScriptSetCompilerOptionsMergeMethod", () => {
+    test("TypeScriptSetCompilerOptionsMergeMethod.MERGE", () => {
+      withProjectDir((outdir) => {
+        const project = new NodeProject({
+          name: "project",
+          defaultReleaseBranch: "main",
+          outdir,
+        });
+
+        const config = new TypescriptConfig(project, {
+          fileName: "tsconfig.build.json",
+          compilerOptions: { outDir: "buildDir", rootDir: "src" },
+        });
+
+        config.setCompilerOptions({
+          outDir: "buildDir2", // this should be ignored
+          rootDir: ".", // this should be ignored
+          target: "ESNext", // this should be added
+        }); // TypeScriptSetCompilerOptionsMergeMethod.MERGE is default
+
+        expect(config.compilerOptions).toEqual({
+          outDir: "buildDir",
+          rootDir: "src",
+          target: "ESNext",
+        });
+
+        config.setCompilerOptions({
+          outDir: "buildDir2", // this should be ignored
+          rootDir: ".", // this should be ignored
+          alwaysStrict: true, // this should be added
+          target: "ES6", // this should be changed
+        });
+
+        expect(config.compilerOptions).toEqual({
+          outDir: "buildDir",
+          rootDir: "src",
+          alwaysStrict: true,
+          target: "ES6",
+        });
+      });
+    });
+
+    test("TypeScriptSetCompilerOptionsMergeMethod.MERGE_ALL", () => {
+      withProjectDir((outdir) => {
+        const project = new NodeProject({
+          name: "project",
+          defaultReleaseBranch: "main",
+          outdir,
+        });
+
+        const config = new TypescriptConfig(project, {
+          fileName: "tsconfig.build.json",
+          compilerOptions: { outDir: "buildDir", rootDir: "src" },
+        });
+
+        config.setCompilerOptions(
+          {
+            outDir: "buildDir2", // this should be changed
+            rootDir: ".", // this should be changed
+            target: "ESNext", // this should be added
+          },
+          TypeScriptSetCompilerOptionsMergeMethod.MERGE_ALL
+        );
+
+        expect(config.compilerOptions).toEqual({
+          outDir: "buildDir2",
+          rootDir: ".",
+          target: "ESNext",
+        });
+
+        config.setCompilerOptions(
+          {
+            outDir: "buildDir2", // this should be changed
+            rootDir: ".", // this should be changed
+            alwaysStrict: true, // this should be added
+            target: "ES6", // this should be changed
+          },
+          TypeScriptSetCompilerOptionsMergeMethod.MERGE_ALL
+        );
+
+        expect(config.compilerOptions).toEqual({
+          outDir: "buildDir2",
+          rootDir: ".",
+          alwaysStrict: true,
+          target: "ES6",
+        });
+      });
+    });
+
+    test("TypeScriptSetCompilerOptionsMergeMethod.OVERRIDE", () => {
+      withProjectDir((outdir) => {
+        const project = new NodeProject({
+          name: "project",
+          defaultReleaseBranch: "main",
+          outdir,
+        });
+
+        const config = new TypescriptConfig(project, {
+          fileName: "tsconfig.build.json",
+          compilerOptions: {
+            outDir: "buildDir",
+            rootDir: "src",
+            alwaysStrict: true,
+            target: "ES6",
+          },
+        });
+
+        config.setCompilerOptions(
+          {
+            outDir: "buildDir2", // this should be ignored
+            rootDir: ".", // this should be ignored
+            // alwaysStrictt: undefiend, -- intentionally commented - this should be removed
+            // target: undefiend, -- intentionally commented - this should be removed
+            esModuleInterop: true, // this should be added
+          },
+          TypeScriptSetCompilerOptionsMergeMethod.OVERRIDE
+        );
+
+        expect(config.compilerOptions).toEqual({
+          outDir: "buildDir",
+          rootDir: "src",
+          esModuleInterop: true,
+        });
+
+        config.setCompilerOptions(
+          {
+            alwaysStrict: true, // this should be added
+            target: "ESNext", // this should be changed
+            // esModuleInterop: undefined, -- intentionally commented - this should be removed
+          },
+          TypeScriptSetCompilerOptionsMergeMethod.OVERRIDE
+        );
+
+        expect(config.compilerOptions).toEqual({
+          outDir: "buildDir",
+          rootDir: "src",
+          alwaysStrict: true,
+          target: "ESNext",
+        });
+      });
+    });
   });
 
   test("TypeScript should parse generated config with multiple extensions", () => {

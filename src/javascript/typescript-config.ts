@@ -136,6 +136,27 @@ export enum TypeScriptImportsNotUsedAsValues {
 }
 
 /**
+ * Determines how TypeScript should merge `compilerOptions` such as in {@link TypescriptConfig.setCompilerOptions}.
+ */
+export enum TypeScriptSetCompilerOptionsMergeMethod {
+  /**
+   * Merge **all** `compilerOptions` with the existing options, including `rootDir` and `outdir`
+   */
+  MERGE_ALL = "merge-all",
+
+  /**
+   * Merge "safe" `compilerOptions` that are not managed by a project, such as `rootDir` and `outdir`
+   */
+  MERGE = "merge",
+
+  /**
+   * Override "safe" `compilerOptions` that are not managed by a project, such as `rootDir` and `outdir`
+   * This will *reset* `compilerOptions` to the given value *except* `rootDir` and `outDir`
+   */
+  OVERRIDE = "override",
+}
+
+/**
  * Determines how JSX should get transformed into valid JavaScript.
  *
  * @see https://www.typescriptlang.org/docs/handbook/jsx.html
@@ -708,7 +729,7 @@ export class TypescriptConfigExtends {
 
 export class TypescriptConfig extends Component {
   private _extends: TypescriptConfigExtends;
-  public readonly compilerOptions?: TypeScriptCompilerOptions;
+  private _compilerOptions?: TypeScriptCompilerOptions;
   public readonly include: string[];
   public readonly exclude: string[];
   public readonly fileName: string;
@@ -729,13 +750,13 @@ export class TypescriptConfig extends Component {
     this.exclude = options.exclude ?? ["node_modules"];
     this.fileName = fileName;
 
-    this.compilerOptions = options.compilerOptions;
+    this._compilerOptions = { ...options.compilerOptions };
 
     this.file = new JsonFile(project, fileName, {
       allowComments: true,
       obj: {
         extends: () => this.renderExtends(),
-        compilerOptions: this.compilerOptions,
+        compilerOptions: () => this._compilerOptions,
         include: () => this.include,
         exclude: () => this.exclude,
       },
@@ -838,12 +859,53 @@ export class TypescriptConfig extends Component {
     ]);
   }
 
-  public addInclude(pattern: string) {
-    this.include.push(pattern);
+  public addInclude(...pattern: string[]) {
+    this.include.push(...pattern);
   }
 
-  public addExclude(pattern: string) {
-    this.exclude.push(pattern);
+  public addExclude(...pattern: string[]) {
+    this.exclude.push(...pattern);
+  }
+
+  /**
+   * Copy of the contents of the `compilerOptions` field.
+   */
+  public get compilerOptions(): TypeScriptCompilerOptions {
+    return { ...this._compilerOptions };
+  }
+
+  /**
+   * Set the `compilerOptions` field.
+   *
+   * @param newOptions New `compilerOptions` to merge or override with.
+   * @param mergeMethod How to merge the new options with the existing ones.
+   */
+  public setCompilerOptions(
+    newOptions: TypeScriptCompilerOptions,
+    mergeMethod: TypeScriptSetCompilerOptionsMergeMethod = TypeScriptSetCompilerOptionsMergeMethod.MERGE
+  ) {
+    if (mergeMethod === TypeScriptSetCompilerOptionsMergeMethod.MERGE_ALL) {
+      this._compilerOptions = { ...this._compilerOptions, ...newOptions };
+    } else if (mergeMethod === TypeScriptSetCompilerOptionsMergeMethod.MERGE) {
+      this._compilerOptions = {
+        ...this._compilerOptions,
+        ...newOptions,
+        outDir: this._compilerOptions?.outDir,
+        rootDir: this._compilerOptions?.rootDir,
+      };
+    } else if (
+      mergeMethod === TypeScriptSetCompilerOptionsMergeMethod.OVERRIDE
+    ) {
+      this._compilerOptions = {
+        ...newOptions,
+        outDir: this._compilerOptions?.outDir,
+        rootDir: this._compilerOptions?.rootDir,
+      };
+    } else {
+      throw new Error(
+        `Invalid TypeScriptSetCompilerOptionsMergeType: ${mergeMethod}`
+      );
+    }
   }
 
   preSynthesize() {

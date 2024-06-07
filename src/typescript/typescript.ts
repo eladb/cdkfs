@@ -10,10 +10,14 @@ import {
   NodeProjectOptions,
   Projenrc as NodeProjectProjenrc,
   Transform,
-  TypeScriptCompilerOptions,
+  TypeScriptSetCompilerOptionsMergeMethod,
   TypescriptConfig,
   TypescriptConfigOptions,
 } from "../javascript";
+import {
+  TypescriptConfigPresetsOptions,
+  getTypescriptConfigPresets,
+} from "../javascript/typescript-config-presets";
 import { hasDependencyVersion } from "../javascript/util";
 import { SampleDir } from "../sample-file";
 import { Task } from "../task";
@@ -234,6 +238,15 @@ export interface TsJestOptions {
   readonly transformOptions?: TsJestTransformOptions;
 }
 
+export interface TypescriptProjectConfigOptions
+  extends TypescriptConfigOptions {
+  /**
+   * Method used to merge provided compiler options with the defaults
+   * @default TypeScriptSetCompilerOptionsMergeMethod.MERGE
+   */
+  readonly compilerOptionsMergeMethod?: TypeScriptSetCompilerOptionsMergeMethod;
+}
+
 export interface TypeScriptProjectOptions extends NodeProjectOptions {
   /**
    * Typescript  artifacts output directory
@@ -302,20 +315,13 @@ export interface TypeScriptProjectOptions extends NodeProjectOptions {
    * Custom TSConfig
    * @default - default options
    */
-  readonly tsconfig?: TypescriptConfigOptions;
+  readonly tsconfig?: TypescriptProjectConfigOptions;
 
   /**
-   * Custom tsconfig options for the development tsconfig.json file (used for testing).
-   * @default - use the production tsconfig options
+   * Presets to choose as the base for the tsconfig file.
+   * @default TypescriptConfigPresetsOptions.PROJEN_CLASSIC
    */
-  readonly tsconfigDev?: TypescriptConfigOptions;
-
-  /**
-   * The name of the development tsconfig.json file.
-   *
-   * @default "tsconfig.dev.json"
-   */
-  readonly tsconfigDevFile?: string;
+  readonly tsconfigPresets?: TypescriptConfigPresetsOptions;
 
   /**
    * Do not generate a `tsconfig.json` file (used by jsii projects since
@@ -330,6 +336,34 @@ export interface TypeScriptProjectOptions extends NodeProjectOptions {
    * @default false
    */
   readonly disableTsconfigDev?: boolean;
+
+  /**
+   * Custom tsconfig options for the development tsconfig.json file (used for testing).
+   * @default - use the production tsconfig options
+   */
+  readonly tsconfigDev?: TypescriptProjectConfigOptions;
+
+  /**
+   * Use extends instead of duplication to make tsconfigDev inherit from tsconfig.
+   *
+   * Ignored if `disableTsconfig` or `disableTsconfigDev` is set to true.
+   *
+   * @default - false
+   */
+  readonly tsconfigDevExtendsTsconfig?: boolean;
+
+  /**
+   * The name of the development tsconfig.json file.
+   *
+   * @default "tsconfig.dev.json"
+   */
+  readonly tsconfigDevFile?: string;
+
+  /**
+   * Presets to choose as the base for the tsconfig dev file.
+   * @default TypescriptConfigPresetsOptions.PROJEN_CLASSIC
+   */
+  readonly tsconfigDevPresets?: TypescriptConfigPresetsOptions;
 
   /**
    * Generate one-time sample in `src/` and `test/` if there are no files there.
@@ -373,10 +407,54 @@ export class TypeScriptProject extends NodeProject {
   public readonly docsDirectory: string;
   public readonly eslint?: Eslint;
   public readonly tsconfigEslint?: TypescriptConfig;
+
+  /**
+   * A typescript configuration file which covers source files only.
+   *
+   * Exists unless {@link TypeScriptProjectOptions.disableTsconfig|`options.disableTsconfig`} is set to `true`.
+   *
+   * The file will be named {@link TypescriptProjectConfigOptions.fileName|options.tsconfig.fileName} or `tsconfig.json`.
+   * The file name can be retrieved from {@link TypescriptConfig.fileName|`tsconfig.fileName`}.
+   *
+   * Configured with all options from {@link TypeScriptProjectOptions.tsconfig|options.tsconfig} including:
+   * - `include` - added after {@link TypeScriptProjectOptions.srcdir|options.srcdir}
+   * - `exclude`
+   * - `extends`
+   *
+   * Special attention is given to {@link TypescriptProjectConfigOptions.compilerOptions|options.tsconfig.compilerOptions}:
+   * - `rootDir` and `outDir` are set to {@link TypeScriptProjectOptions.srcdir|`options.srcdir`} and
+   *   {@link TypeScriptProjectOptions.libdir|`options.libdir`} respectively.
+   * - {@link TypeScriptProjectOptions.tsconfigPresets|`options.tsconfigPresets`} (defaulting to
+   *   {@link TypescriptConfigPresetsOptions.PROJEN_CLASSIC|`PROJEN_CLASSIC`}) is applied, then the provided
+   *   `options.tsconfig.compilerOptions` are merged in using
+   *   {@link TypescriptProjectConfigOptions.compilerOptionsMergeMethod|`options.tsconfig.compilerOptionsMergeMethod`}.
+   *
+   */
   public readonly tsconfig?: TypescriptConfig;
 
   /**
    * A typescript configuration file which covers all files (sources, tests, projen).
+   *
+   * Same as `tsconfig` if {@link TypeScriptProjectOptions.disableTsconfig|`options.disableTsconfigDev`} is set to `true`.
+   *
+   * The file will be named {@link TypescriptProjectConfigOptions.fileName|`options.tsconfigDev.fileName`} or `tsconfig.dev.json`.
+   * The file name can be retrieved from {@link TypescriptConfig.fileName|`tsconfig.fileName`}.
+   *
+   * Configured with all options from {@link TypeScriptProjectOptions.tsconfigDev|options.tsconfigDev} including:
+   * - `include` - added after the includes from {@link tsconfig} (if not disabled), and {@link TypeScriptProjectOptions.testdir|options.testdir}
+   * - `exclude` - added after `"node_modules"`
+   * - `extends` - if {@link TypeScriptProjectOptions.tsconfigDevExtendsTsconfig|options.tsconfigDevExtendsTsconfig} is
+   *   set to `true`, the file *also* extends {@link tsconfig} (if not disabled).
+   *
+   * Special attention is given to {@link TypescriptProjectConfigOptions.compilerOptions|options.tsconfigDev.compilerOptions}:
+   * - `rootDir` and `outDir` are left undefined, so the whole project is covered.
+   * - if {@link TypeScriptProjectOptions.tsconfigDevExtendsTsconfig|`options.tsconfigDevExtendsTsconfig`} is set to `false`,
+   *   the `compilerOptions` are set to `tsconfig.compilerOptions`
+   * - {@link TypeScriptProjectOptions.tsconfigDevPresets|`options.tsconfigDevPresets`} (if defined) is applied
+   * - in the case of `options.disableTsconfig` being set to `true` and `options.tsconfigDevPresets` being undefined then
+   *   `TypescriptConfigPresetsOptions.PROJEN_CLASSIC` is applied
+   * - the provided `options.tsconfig.compilerOptions` are merged in using
+   *   {@link TypescriptProjectConfigOptions.compilerOptionsMergeMethod|`options.tsconfigDev.compilerOptionsMergeMethod`}.
    */
   public readonly tsconfigDev: TypescriptConfig;
 
@@ -453,30 +531,6 @@ export class TypeScriptProject extends NodeProject {
       this.package.addField("types", entrypointTypes);
     }
 
-    const compilerOptionDefaults: TypeScriptCompilerOptions = {
-      alwaysStrict: true,
-      declaration: true,
-      esModuleInterop: true,
-      experimentalDecorators: true,
-      inlineSourceMap: true,
-      inlineSources: true,
-      lib: ["es2019"],
-      module: "CommonJS",
-      noEmitOnError: false,
-      noFallthroughCasesInSwitch: true,
-      noImplicitAny: true,
-      noImplicitReturns: true,
-      noImplicitThis: true,
-      noUnusedLocals: true,
-      noUnusedParameters: true,
-      resolveJsonModule: true,
-      strict: true,
-      strictNullChecks: true,
-      strictPropertyInitialization: true,
-      stripInternal: true,
-      target: "ES2019",
-    };
-
     if (options.disableTsconfigDev && options.disableTsconfig) {
       throw new Error(
         "Cannot specify both 'disableTsconfigDev' and 'disableTsconfig' fields."
@@ -484,41 +538,85 @@ export class TypeScriptProject extends NodeProject {
     }
 
     if (!options.disableTsconfig) {
-      this.tsconfig = new TypescriptConfig(
-        this,
-        mergeTsconfigOptions(
-          {
-            include: [`${this.srcdir}/**/*.ts`],
-            // exclude: ['node_modules'], // TODO: shouldn't we exclude node_modules?
-            compilerOptions: {
-              rootDir: this.srcdir,
-              outDir: this.libdir,
-              ...compilerOptionDefaults,
-            },
-          },
-          options.tsconfig
-        )
-      );
+      this.tsconfig = new TypescriptConfig(this, {
+        fileName: options.tsconfig?.fileName,
+        include: [
+          `${this.srcdir}/**/*.ts`,
+          ...(options.tsconfig?.include ?? []),
+        ],
+        exclude: options.tsconfig?.exclude ?? [],
+        compilerOptions: {
+          rootDir: this.srcdir, // might be overridden below
+          outDir: this.libdir, // might be overridden below
+          ...getTypescriptConfigPresets(
+            options.tsconfigPresets ??
+              TypescriptConfigPresetsOptions.PROJEN_CLASSIC
+          ).compilerOptions,
+        },
+        extends: options.tsconfig?.extends,
+      });
+
+      if (options.tsconfig?.compilerOptions) {
+        this.tsconfig.setCompilerOptions(
+          options.tsconfig.compilerOptions,
+          options.tsconfig.compilerOptionsMergeMethod
+        );
+      }
     }
 
     if (options.disableTsconfigDev) {
       this.tsconfigDev = this.tsconfig!;
     } else {
       const tsconfigDevFile = options.tsconfigDevFile ?? "tsconfig.dev.json";
-      this.tsconfigDev = new TypescriptConfig(
-        this,
-        mergeTsconfigOptions(
-          {
-            fileName: tsconfigDevFile,
-            include: [`${this.srcdir}/**/*.ts`, `${this.testdir}/**/*.ts`],
 
-            exclude: ["node_modules"],
-            compilerOptions: compilerOptionDefaults,
-          },
-          options.tsconfig,
-          options.tsconfigDev
-        )
-      );
+      this.tsconfigDev = new TypescriptConfig(this, {
+        fileName: tsconfigDevFile,
+        include: [
+          `${this.srcdir}/**/*.ts`,
+          `${this.testdir}/**/*.ts`,
+          ...(options.tsconfig?.include ?? []),
+          ...(options.tsconfigDev?.include ?? []),
+        ],
+        exclude: ["node_modules", ...(options.tsconfigDev?.exclude ?? [])],
+        compilerOptions: options.tsconfigDev?.extends ? undefined : {}, // we'll maybe populate compilerOptions below
+        // No rootDir since we want the whole project covered
+        // No outDir since we won't write the output by default
+        extends: options.tsconfigDev?.extends,
+      });
+
+      if (this.tsconfig) {
+        if (options.tsconfigDevExtendsTsconfig) {
+          this.tsconfigDev.addExtends(this.tsconfig);
+        } else {
+          this.tsconfigDev.setCompilerOptions(
+            this.tsconfig.compilerOptions ?? {},
+            TypeScriptSetCompilerOptionsMergeMethod.OVERRIDE
+          );
+        }
+
+        if (options.tsconfigDevPresets) {
+          this.tsconfigDev.setCompilerOptions(
+            getTypescriptConfigPresets(options.tsconfigDevPresets)
+              .compilerOptions,
+            TypeScriptSetCompilerOptionsMergeMethod.MERGE
+          );
+        }
+      } else {
+        this.tsconfigDev.setCompilerOptions(
+          getTypescriptConfigPresets(
+            options.tsconfigDevPresets ??
+              TypescriptConfigPresetsOptions.PROJEN_CLASSIC
+          ).compilerOptions,
+          TypeScriptSetCompilerOptionsMergeMethod.MERGE
+        );
+      }
+
+      if (options.tsconfigDev?.compilerOptions) {
+        this.tsconfigDev.setCompilerOptions(
+          options.tsconfigDev.compilerOptions,
+          options.tsconfigDev.compilerOptionsMergeMethod
+        );
+      }
     }
 
     this.gitignore.include(`/${this.srcdir}/`);
@@ -809,25 +907,3 @@ export class TypeScriptLibraryProject extends TypeScriptProject {}
  */
 export interface TypeScriptLibraryProjectOptions
   extends TypeScriptProjectOptions {}
-
-/**
- * @internal
- */
-export function mergeTsconfigOptions(
-  ...options: (TypescriptConfigOptions | undefined)[]
-): TypescriptConfigOptions {
-  const definedOptions = options.filter(Boolean) as TypescriptConfigOptions[];
-  return definedOptions.reduce<TypescriptConfigOptions>(
-    (previous, current) => ({
-      ...previous,
-      ...current,
-      include: [...(previous.include ?? []), ...(current.include ?? [])],
-      exclude: [...(previous.exclude ?? []), ...(current.exclude ?? [])],
-      compilerOptions: {
-        ...previous.compilerOptions,
-        ...current.compilerOptions,
-      },
-    }),
-    { compilerOptions: {} }
-  );
-}

@@ -8,5 +8,6 @@ export * from "./npm-config";
 export * from "./prettier";
 export * from "./projenrc";
 export * from "./typescript-config";
+export * from "./typescript-config-presets";
 export * from "./upgrade-dependencies";
 export * from "./yarnrc";

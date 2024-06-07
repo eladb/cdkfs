@@ -2252,7 +2252,7 @@ When given a project, this it the project itself.
 | <code><a href="#projen.cdk8s.Cdk8sTypeScriptApp.property.watchTask">watchTask</a></code> | <code>projen.Task</code> | The "watch" task. |
 | <code><a href="#projen.cdk8s.Cdk8sTypeScriptApp.property.docgen">docgen</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#projen.cdk8s.Cdk8sTypeScriptApp.property.eslint">eslint</a></code> | <code>projen.javascript.Eslint</code> | *No description.* |
-| <code><a href="#projen.cdk8s.Cdk8sTypeScriptApp.property.tsconfig">tsconfig</a></code> | <code>projen.javascript.TypescriptConfig</code> | *No description.* |
+| <code><a href="#projen.cdk8s.Cdk8sTypeScriptApp.property.tsconfig">tsconfig</a></code> | <code>projen.javascript.TypescriptConfig</code> | A typescript configuration file which covers source files only. |
 | <code><a href="#projen.cdk8s.Cdk8sTypeScriptApp.property.tsconfigEslint">tsconfigEslint</a></code> | <code>projen.javascript.TypescriptConfig</code> | *No description.* |
 | <code><a href="#projen.cdk8s.Cdk8sTypeScriptApp.property.appEntrypoint">appEntrypoint</a></code> | <code>string</code> | The CDK8s app entrypoint. |
 | <code><a href="#projen.cdk8s.Cdk8sTypeScriptApp.property.cdk8sDeps">cdk8sDeps</a></code> | <code><a href="#projen.cdk8s.Cdk8sDeps">Cdk8sDeps</a></code> | *No description.* |
@@ -2951,6 +2951,27 @@ public readonly tsconfigDev: TypescriptConfig;
 
 A typescript configuration file which covers all files (sources, tests, projen).
 
+Same as `tsconfig` if {@link TypeScriptProjectOptions.disableTsconfig`options.disableTsconfigDev`} is set to `true`.
+
+The file will be named {@link TypescriptProjectConfigOptions.fileName`options.tsconfigDev.fileName`} or `tsconfig.dev.json`.
+The file name can be retrieved from {@link TypescriptConfig.fileName`tsconfig.fileName`}.
+
+Configured with all options from {@link TypeScriptProjectOptions.tsconfigDevoptions.tsconfigDev} including:
+- `include` - added after the includes from {@link tsconfig} (if not disabled), and {@link TypeScriptProjectOptions.testdiroptions.testdir}
+- `exclude` - added after `"node_modules"`
+- `extends` - if {@link TypeScriptProjectOptions.tsconfigDevExtendsTsconfigoptions.tsconfigDevExtendsTsconfig} is
+  set to `true`, the file *also* extends {@link tsconfig} (if not disabled).
+
+Special attention is given to {@link TypescriptProjectConfigOptions.compilerOptionsoptions.tsconfigDev.compilerOptions}:
+- `rootDir` and `outDir` are left undefined, so the whole project is covered.
+- if {@link TypeScriptProjectOptions.tsconfigDevExtendsTsconfig`options.tsconfigDevExtendsTsconfig`} is set to `false`,
+  the `compilerOptions` are set to `tsconfig.compilerOptions`
+- {@link TypeScriptProjectOptions.tsconfigDevPresets`options.tsconfigDevPresets`} (if defined) is applied
+- in the case of `options.disableTsconfig` being set to `true` and `options.tsconfigDevPresets` being undefined then
+  `TypescriptConfigPresetsOptions.PROJEN_CLASSIC` is applied
+- the provided `options.tsconfig.compilerOptions` are merged in using
+  {@link TypescriptProjectConfigOptions.compilerOptionsMergeMethod`options.tsconfigDev.compilerOptionsMergeMethod`}.
+
 ---
 
 ##### `watchTask`<sup>Required</sup> <a name="watchTask" id="projen.cdk8s.Cdk8sTypeScriptApp.property.watchTask"></a>
@@ -2992,6 +3013,26 @@ public readonly tsconfig: TypescriptConfig;
 ```
 
 - *Type:* projen.javascript.TypescriptConfig
+
+A typescript configuration file which covers source files only.
+
+Exists unless {@link TypeScriptProjectOptions.disableTsconfig`options.disableTsconfig`} is set to `true`.
+
+The file will be named {@link TypescriptProjectConfigOptions.fileNameoptions.tsconfig.fileName} or `tsconfig.json`.
+The file name can be retrieved from {@link TypescriptConfig.fileName`tsconfig.fileName`}.
+
+Configured with all options from {@link TypeScriptProjectOptions.tsconfigoptions.tsconfig} including:
+- `include` - added after {@link TypeScriptProjectOptions.srcdiroptions.srcdir}
+- `exclude`
+- `extends`
+
+Special attention is given to {@link TypescriptProjectConfigOptions.compilerOptionsoptions.tsconfig.compilerOptions}:
+- `rootDir` and `outDir` are set to {@link TypeScriptProjectOptions.srcdir`options.srcdir`} and
+  {@link TypeScriptProjectOptions.libdir`options.libdir`} respectively.
+- {@link TypeScriptProjectOptions.tsconfigPresets`options.tsconfigPresets`} (defaulting to
+  {@link TypescriptConfigPresetsOptions.PROJEN_CLASSIC`PROJEN_CLASSIC`}) is applied, then the provided
+  `options.tsconfig.compilerOptions` are merged in using
+  {@link TypescriptProjectConfigOptions.compilerOptionsMergeMethod`options.tsconfig.compilerOptionsMergeMethod`}.
 
 ---
 
@@ -3783,7 +3824,7 @@ When given a project, this it the project itself.
 | <code><a href="#projen.cdk8s.ConstructLibraryCdk8s.property.watchTask">watchTask</a></code> | <code>projen.Task</code> | The "watch" task. |
 | <code><a href="#projen.cdk8s.ConstructLibraryCdk8s.property.docgen">docgen</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#projen.cdk8s.ConstructLibraryCdk8s.property.eslint">eslint</a></code> | <code>projen.javascript.Eslint</code> | *No description.* |
-| <code><a href="#projen.cdk8s.ConstructLibraryCdk8s.property.tsconfig">tsconfig</a></code> | <code>projen.javascript.TypescriptConfig</code> | *No description.* |
+| <code><a href="#projen.cdk8s.ConstructLibraryCdk8s.property.tsconfig">tsconfig</a></code> | <code>projen.javascript.TypescriptConfig</code> | A typescript configuration file which covers source files only. |
 | <code><a href="#projen.cdk8s.ConstructLibraryCdk8s.property.tsconfigEslint">tsconfigEslint</a></code> | <code>projen.javascript.TypescriptConfig</code> | *No description.* |
 | <code><a href="#projen.cdk8s.ConstructLibraryCdk8s.property.cdk8sVersion">cdk8sVersion</a></code> | <code>string</code> | The CDK8s version this app is using. |
 | <code><a href="#projen.cdk8s.ConstructLibraryCdk8s.property.constructsVersion">constructsVersion</a></code> | <code>string</code> | The constructs version this app is using. |
@@ -4482,6 +4523,27 @@ public readonly tsconfigDev: TypescriptConfig;
 
 A typescript configuration file which covers all files (sources, tests, projen).
 
+Same as `tsconfig` if {@link TypeScriptProjectOptions.disableTsconfig`options.disableTsconfigDev`} is set to `true`.
+
+The file will be named {@link TypescriptProjectConfigOptions.fileName`options.tsconfigDev.fileName`} or `tsconfig.dev.json`.
+The file name can be retrieved from {@link TypescriptConfig.fileName`tsconfig.fileName`}.
+
+Configured with all options from {@link TypeScriptProjectOptions.tsconfigDevoptions.tsconfigDev} including:
+- `include` - added after the includes from {@link tsconfig} (if not disabled), and {@link TypeScriptProjectOptions.testdiroptions.testdir}
+- `exclude` - added after `"node_modules"`
+- `extends` - if {@link TypeScriptProjectOptions.tsconfigDevExtendsTsconfigoptions.tsconfigDevExtendsTsconfig} is
+  set to `true`, the file *also* extends {@link tsconfig} (if not disabled).
+
+Special attention is given to {@link TypescriptProjectConfigOptions.compilerOptionsoptions.tsconfigDev.compilerOptions}:
+- `rootDir` and `outDir` are left undefined, so the whole project is covered.
+- if {@link TypeScriptProjectOptions.tsconfigDevExtendsTsconfig`options.tsconfigDevExtendsTsconfig`} is set to `false`,
+  the `compilerOptions` are set to `tsconfig.compilerOptions`
+- {@link TypeScriptProjectOptions.tsconfigDevPresets`options.tsconfigDevPresets`} (if defined) is applied
+- in the case of `options.disableTsconfig` being set to `true` and `options.tsconfigDevPresets` being undefined then
+  `TypescriptConfigPresetsOptions.PROJEN_CLASSIC` is applied
+- the provided `options.tsconfig.compilerOptions` are merged in using
+  {@link TypescriptProjectConfigOptions.compilerOptionsMergeMethod`options.tsconfigDev.compilerOptionsMergeMethod`}.
+
 ---
 
 ##### `watchTask`<sup>Required</sup> <a name="watchTask" id="projen.cdk8s.ConstructLibraryCdk8s.property.watchTask"></a>
@@ -4523,6 +4585,26 @@ public readonly tsconfig: TypescriptConfig;
 ```
 
 - *Type:* projen.javascript.TypescriptConfig
+
+A typescript configuration file which covers source files only.
+
+Exists unless {@link TypeScriptProjectOptions.disableTsconfig`options.disableTsconfig`} is set to `true`.
+
+The file will be named {@link TypescriptProjectConfigOptions.fileNameoptions.tsconfig.fileName} or `tsconfig.json`.
+The file name can be retrieved from {@link TypescriptConfig.fileName`tsconfig.fileName`}.
+
+Configured with all options from {@link TypeScriptProjectOptions.tsconfigoptions.tsconfig} including:
+- `include` - added after {@link TypeScriptProjectOptions.srcdiroptions.srcdir}
+- `exclude`
+- `extends`
+
+Special attention is given to {@link TypescriptProjectConfigOptions.compilerOptionsoptions.tsconfig.compilerOptions}:
+- `rootDir` and `outDir` are set to {@link TypeScriptProjectOptions.srcdir`options.srcdir`} and
+  {@link TypeScriptProjectOptions.libdir`options.libdir`} respectively.
+- {@link TypeScriptProjectOptions.tsconfigPresets`options.tsconfigPresets`} (defaulting to
+  {@link TypescriptConfigPresetsOptions.PROJEN_CLASSIC`PROJEN_CLASSIC`}) is applied, then the provided
+  `options.tsconfig.compilerOptions` are merged in using
+  {@link TypescriptProjectConfigOptions.compilerOptionsMergeMethod`options.tsconfig.compilerOptionsMergeMethod`}.
 
 ---
 
@@ -6696,9 +6778,12 @@ const cdk8sTypeScriptAppOptions: cdk8s.Cdk8sTypeScriptAppOptions = { ... }
 | <code><a href="#projen.cdk8s.Cdk8sTypeScriptAppOptions.property.sampleCode">sampleCode</a></code> | <code>boolean</code> | Generate one-time sample in `src/` and `test/` if there are no files there. |
 | <code><a href="#projen.cdk8s.Cdk8sTypeScriptAppOptions.property.srcdir">srcdir</a></code> | <code>string</code> | Typescript sources directory. |
 | <code><a href="#projen.cdk8s.Cdk8sTypeScriptAppOptions.property.testdir">testdir</a></code> | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`. |
-| <code><a href="#projen.cdk8s.Cdk8sTypeScriptAppOptions.property.tsconfig">tsconfig</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom TSConfig. |
-| <code><a href="#projen.cdk8s.Cdk8sTypeScriptAppOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
+| <code><a href="#projen.cdk8s.Cdk8sTypeScriptAppOptions.property.tsconfig">tsconfig</a></code> | <code>projen.typescript.TypescriptProjectConfigOptions</code> | Custom TSConfig. |
+| <code><a href="#projen.cdk8s.Cdk8sTypeScriptAppOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.typescript.TypescriptProjectConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
+| <code><a href="#projen.cdk8s.Cdk8sTypeScriptAppOptions.property.tsconfigDevExtendsTsconfig">tsconfigDevExtendsTsconfig</a></code> | <code>boolean</code> | Use extends instead of duplication to make tsconfigDev inherit from tsconfig. |
 | <code><a href="#projen.cdk8s.Cdk8sTypeScriptAppOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name of the development tsconfig.json file. |
+| <code><a href="#projen.cdk8s.Cdk8sTypeScriptAppOptions.property.tsconfigDevPresets">tsconfigDevPresets</a></code> | <code>projen.javascript.TypescriptConfigPresetsOptions</code> | Presets to choose as the base for the tsconfig dev file. |
+| <code><a href="#projen.cdk8s.Cdk8sTypeScriptAppOptions.property.tsconfigPresets">tsconfigPresets</a></code> | <code>projen.javascript.TypescriptConfigPresetsOptions</code> | Presets to choose as the base for the tsconfig file. |
 | <code><a href="#projen.cdk8s.Cdk8sTypeScriptAppOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
 | <code><a href="#projen.cdk8s.Cdk8sTypeScriptAppOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#projen.cdk8s.Cdk8sTypeScriptAppOptions.property.cdk8sVersion">cdk8sVersion</a></code> | <code>string</code> | Minimum version of the cdk8s to depend on. |
@@ -8711,10 +8796,10 @@ compile the code in-memory.
 ##### `tsconfig`<sup>Optional</sup> <a name="tsconfig" id="projen.cdk8s.Cdk8sTypeScriptAppOptions.property.tsconfig"></a>
 
 ```typescript
-public readonly tsconfig: TypescriptConfigOptions;
+public readonly tsconfig: TypescriptProjectConfigOptions;
 ```
 
-- *Type:* projen.javascript.TypescriptConfigOptions
+- *Type:* projen.typescript.TypescriptProjectConfigOptions
 - *Default:* default options
 
 Custom TSConfig.
@@ -8724,13 +8809,28 @@ Custom TSConfig.
 ##### `tsconfigDev`<sup>Optional</sup> <a name="tsconfigDev" id="projen.cdk8s.Cdk8sTypeScriptAppOptions.property.tsconfigDev"></a>
 
 ```typescript
-public readonly tsconfigDev: TypescriptConfigOptions;
+public readonly tsconfigDev: TypescriptProjectConfigOptions;
 ```
 
-- *Type:* projen.javascript.TypescriptConfigOptions
+- *Type:* projen.typescript.TypescriptProjectConfigOptions
 - *Default:* use the production tsconfig options
 
 Custom tsconfig options for the development tsconfig.json file (used for testing).
+
+---
+
+##### `tsconfigDevExtendsTsconfig`<sup>Optional</sup> <a name="tsconfigDevExtendsTsconfig" id="projen.cdk8s.Cdk8sTypeScriptAppOptions.property.tsconfigDevExtendsTsconfig"></a>
+
+```typescript
+public readonly tsconfigDevExtendsTsconfig: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Use extends instead of duplication to make tsconfigDev inherit from tsconfig.
+
+Ignored if `disableTsconfig` or `disableTsconfigDev` is set to true.
 
 ---
 
@@ -8744,6 +8844,32 @@ public readonly tsconfigDevFile: string;
 - *Default:* "tsconfig.dev.json"
 
 The name of the development tsconfig.json file.
+
+---
+
+##### `tsconfigDevPresets`<sup>Optional</sup> <a name="tsconfigDevPresets" id="projen.cdk8s.Cdk8sTypeScriptAppOptions.property.tsconfigDevPresets"></a>
+
+```typescript
+public readonly tsconfigDevPresets: TypescriptConfigPresetsOptions;
+```
+
+- *Type:* projen.javascript.TypescriptConfigPresetsOptions
+- *Default:* TypescriptConfigPresetsOptions.PROJEN_CLASSIC
+
+Presets to choose as the base for the tsconfig dev file.
+
+---
+
+##### `tsconfigPresets`<sup>Optional</sup> <a name="tsconfigPresets" id="projen.cdk8s.Cdk8sTypeScriptAppOptions.property.tsconfigPresets"></a>
+
+```typescript
+public readonly tsconfigPresets: TypescriptConfigPresetsOptions;
+```
+
+- *Type:* projen.javascript.TypescriptConfigPresetsOptions
+- *Default:* TypescriptConfigPresetsOptions.PROJEN_CLASSIC
+
+Presets to choose as the base for the tsconfig file.
 
 ---
 
@@ -9123,9 +9249,12 @@ const constructLibraryCdk8sOptions: cdk8s.ConstructLibraryCdk8sOptions = { ... }
 | <code><a href="#projen.cdk8s.ConstructLibraryCdk8sOptions.property.sampleCode">sampleCode</a></code> | <code>boolean</code> | Generate one-time sample in `src/` and `test/` if there are no files there. |
 | <code><a href="#projen.cdk8s.ConstructLibraryCdk8sOptions.property.srcdir">srcdir</a></code> | <code>string</code> | Typescript sources directory. |
 | <code><a href="#projen.cdk8s.ConstructLibraryCdk8sOptions.property.testdir">testdir</a></code> | <code>string</code> | Jest tests directory. Tests files should be named `xxx.test.ts`. |
-| <code><a href="#projen.cdk8s.ConstructLibraryCdk8sOptions.property.tsconfig">tsconfig</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom TSConfig. |
-| <code><a href="#projen.cdk8s.ConstructLibraryCdk8sOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
+| <code><a href="#projen.cdk8s.ConstructLibraryCdk8sOptions.property.tsconfig">tsconfig</a></code> | <code>projen.typescript.TypescriptProjectConfigOptions</code> | Custom TSConfig. |
+| <code><a href="#projen.cdk8s.ConstructLibraryCdk8sOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.typescript.TypescriptProjectConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
+| <code><a href="#projen.cdk8s.ConstructLibraryCdk8sOptions.property.tsconfigDevExtendsTsconfig">tsconfigDevExtendsTsconfig</a></code> | <code>boolean</code> | Use extends instead of duplication to make tsconfigDev inherit from tsconfig. |
 | <code><a href="#projen.cdk8s.ConstructLibraryCdk8sOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name of the development tsconfig.json file. |
+| <code><a href="#projen.cdk8s.ConstructLibraryCdk8sOptions.property.tsconfigDevPresets">tsconfigDevPresets</a></code> | <code>projen.javascript.TypescriptConfigPresetsOptions</code> | Presets to choose as the base for the tsconfig dev file. |
+| <code><a href="#projen.cdk8s.ConstructLibraryCdk8sOptions.property.tsconfigPresets">tsconfigPresets</a></code> | <code>projen.javascript.TypescriptConfigPresetsOptions</code> | Presets to choose as the base for the tsconfig file. |
 | <code><a href="#projen.cdk8s.ConstructLibraryCdk8sOptions.property.tsJestOptions">tsJestOptions</a></code> | <code>projen.typescript.TsJestOptions</code> | Options for ts-jest. |
 | <code><a href="#projen.cdk8s.ConstructLibraryCdk8sOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#projen.cdk8s.ConstructLibraryCdk8sOptions.property.author">author</a></code> | <code>string</code> | The name of the library author. |
@@ -11147,10 +11276,10 @@ compile the code in-memory.
 ##### `tsconfig`<sup>Optional</sup> <a name="tsconfig" id="projen.cdk8s.ConstructLibraryCdk8sOptions.property.tsconfig"></a>
 
 ```typescript
-public readonly tsconfig: TypescriptConfigOptions;
+public readonly tsconfig: TypescriptProjectConfigOptions;
 ```
 
-- *Type:* projen.javascript.TypescriptConfigOptions
+- *Type:* projen.typescript.TypescriptProjectConfigOptions
 - *Default:* default options
 
 Custom TSConfig.
@@ -11160,13 +11289,28 @@ Custom TSConfig.
 ##### `tsconfigDev`<sup>Optional</sup> <a name="tsconfigDev" id="projen.cdk8s.ConstructLibraryCdk8sOptions.property.tsconfigDev"></a>
 
 ```typescript
-public readonly tsconfigDev: TypescriptConfigOptions;
+public readonly tsconfigDev: TypescriptProjectConfigOptions;
 ```
 
-- *Type:* projen.javascript.TypescriptConfigOptions
+- *Type:* projen.typescript.TypescriptProjectConfigOptions
 - *Default:* use the production tsconfig options
 
 Custom tsconfig options for the development tsconfig.json file (used for testing).
+
+---
+
+##### `tsconfigDevExtendsTsconfig`<sup>Optional</sup> <a name="tsconfigDevExtendsTsconfig" id="projen.cdk8s.ConstructLibraryCdk8sOptions.property.tsconfigDevExtendsTsconfig"></a>
+
+```typescript
+public readonly tsconfigDevExtendsTsconfig: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Use extends instead of duplication to make tsconfigDev inherit from tsconfig.
+
+Ignored if `disableTsconfig` or `disableTsconfigDev` is set to true.
 
 ---
 
@@ -11180,6 +11324,32 @@ public readonly tsconfigDevFile: string;
 - *Default:* "tsconfig.dev.json"
 
 The name of the development tsconfig.json file.
+
+---
+
+##### `tsconfigDevPresets`<sup>Optional</sup> <a name="tsconfigDevPresets" id="projen.cdk8s.ConstructLibraryCdk8sOptions.property.tsconfigDevPresets"></a>
+
+```typescript
+public readonly tsconfigDevPresets: TypescriptConfigPresetsOptions;
+```
+
+- *Type:* projen.javascript.TypescriptConfigPresetsOptions
+- *Default:* TypescriptConfigPresetsOptions.PROJEN_CLASSIC
+
+Presets to choose as the base for the tsconfig dev file.
+
+---
+
+##### `tsconfigPresets`<sup>Optional</sup> <a name="tsconfigPresets" id="projen.cdk8s.ConstructLibraryCdk8sOptions.property.tsconfigPresets"></a>
+
+```typescript
+public readonly tsconfigPresets: TypescriptConfigPresetsOptions;
+```
+
+- *Type:* projen.javascript.TypescriptConfigPresetsOptions
+- *Default:* TypescriptConfigPresetsOptions.PROJEN_CLASSIC
+
+Presets to choose as the base for the tsconfig file.
 
 ---
 

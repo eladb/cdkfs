@@ -4056,6 +4056,7 @@ new javascript.TypescriptConfig(project: Project, options: TypescriptConfigOptio
 | <code><a href="#projen.javascript.TypescriptConfig.addExtends">addExtends</a></code> | Extend from base `TypescriptConfig` instance. |
 | <code><a href="#projen.javascript.TypescriptConfig.addInclude">addInclude</a></code> | *No description.* |
 | <code><a href="#projen.javascript.TypescriptConfig.resolveExtendsPath">resolveExtendsPath</a></code> | Resolve valid TypeScript extends paths relative to this config. |
+| <code><a href="#projen.javascript.TypescriptConfig.setCompilerOptions">setCompilerOptions</a></code> | Set the `compilerOptions` field. |
 
 ---
 
@@ -4149,6 +4150,30 @@ Path to resolve against.
 
 ---
 
+##### `setCompilerOptions` <a name="setCompilerOptions" id="projen.javascript.TypescriptConfig.setCompilerOptions"></a>
+
+```typescript
+public setCompilerOptions(newOptions: TypeScriptCompilerOptions, mergeMethod?: TypeScriptSetCompilerOptionsMergeMethod): void
+```
+
+Set the `compilerOptions` field.
+
+###### `newOptions`<sup>Required</sup> <a name="newOptions" id="projen.javascript.TypescriptConfig.setCompilerOptions.parameter.newOptions"></a>
+
+- *Type:* <a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a>
+
+New `compilerOptions` to merge or override with.
+
+---
+
+###### `mergeMethod`<sup>Optional</sup> <a name="mergeMethod" id="projen.javascript.TypescriptConfig.setCompilerOptions.parameter.mergeMethod"></a>
+
+- *Type:* <a href="#projen.javascript.TypeScriptSetCompilerOptionsMergeMethod">TypeScriptSetCompilerOptionsMergeMethod</a>
+
+How to merge the new options with the existing ones.
+
+---
+
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
@@ -4212,12 +4237,12 @@ Test whether the given construct is a component.
 | --- | --- | --- |
 | <code><a href="#projen.javascript.TypescriptConfig.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#projen.javascript.TypescriptConfig.property.project">project</a></code> | <code>projen.Project</code> | *No description.* |
+| <code><a href="#projen.javascript.TypescriptConfig.property.compilerOptions">compilerOptions</a></code> | <code><a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a></code> | Copy of the contents of the `compilerOptions` field. |
 | <code><a href="#projen.javascript.TypescriptConfig.property.exclude">exclude</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#projen.javascript.TypescriptConfig.property.extends">extends</a></code> | <code>string[]</code> | Array of base `tsconfig.json` paths. Any absolute paths are resolved relative to this instance, while any relative paths are used as is. |
 | <code><a href="#projen.javascript.TypescriptConfig.property.file">file</a></code> | <code>projen.JsonFile</code> | *No description.* |
 | <code><a href="#projen.javascript.TypescriptConfig.property.fileName">fileName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#projen.javascript.TypescriptConfig.property.include">include</a></code> | <code>string[]</code> | *No description.* |
-| <code><a href="#projen.javascript.TypescriptConfig.property.compilerOptions">compilerOptions</a></code> | <code><a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a></code> | *No description.* |
 
 ---
 
@@ -4240,6 +4265,18 @@ public readonly project: Project;
 ```
 
 - *Type:* projen.Project
+
+---
+
+##### `compilerOptions`<sup>Required</sup> <a name="compilerOptions" id="projen.javascript.TypescriptConfig.property.compilerOptions"></a>
+
+```typescript
+public readonly compilerOptions: TypeScriptCompilerOptions;
+```
+
+- *Type:* <a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a>
+
+Copy of the contents of the `compilerOptions` field.
 
 ---
 
@@ -4292,16 +4329,6 @@ public readonly include: string[];
 ```
 
 - *Type:* string[]
-
----
-
-##### `compilerOptions`<sup>Optional</sup> <a name="compilerOptions" id="projen.javascript.TypescriptConfig.property.compilerOptions"></a>
-
-```typescript
-public readonly compilerOptions: TypeScriptCompilerOptions;
-```
-
-- *Type:* <a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a>
 
 ---
 
@@ -13807,6 +13834,318 @@ new javascript.JestReporter(name: string, options?: {[ key: string ]: any})
 
 
 
+### Node18TypescriptConfigPresets <a name="Node18TypescriptConfigPresets" id="projen.javascript.Node18TypescriptConfigPresets"></a>
+
+TypeScript config presets for Node 18.
+
+#### Initializers <a name="Initializers" id="projen.javascript.Node18TypescriptConfigPresets.Initializer"></a>
+
+```typescript
+import { javascript } from 'projen'
+
+new javascript.Node18TypescriptConfigPresets()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.javascript.Node18TypescriptConfigPresets.applyPreset">applyPreset</a></code> | *No description.* |
+
+---
+
+##### `applyPreset` <a name="applyPreset" id="projen.javascript.Node18TypescriptConfigPresets.applyPreset"></a>
+
+```typescript
+import { javascript } from 'projen'
+
+javascript.Node18TypescriptConfigPresets.applyPreset(to: TypescriptConfig, reset?: boolean)
+```
+
+###### `to`<sup>Required</sup> <a name="to" id="projen.javascript.Node18TypescriptConfigPresets.applyPreset.parameter.to"></a>
+
+- *Type:* <a href="#projen.javascript.TypescriptConfig">TypescriptConfig</a>
+
+---
+
+###### `reset`<sup>Optional</sup> <a name="reset" id="projen.javascript.Node18TypescriptConfigPresets.applyPreset.parameter.reset"></a>
+
+- *Type:* boolean
+
+---
+
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.javascript.Node18TypescriptConfigPresets.property.compilerOptions">compilerOptions</a></code> | <code><a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a></code> | *No description.* |
+| <code><a href="#projen.javascript.Node18TypescriptConfigPresets.property.mergeMethod">mergeMethod</a></code> | <code><a href="#projen.javascript.TypeScriptSetCompilerOptionsMergeMethod">TypeScriptSetCompilerOptionsMergeMethod</a></code> | *No description.* |
+
+---
+
+##### `compilerOptions`<sup>Required</sup> <a name="compilerOptions" id="projen.javascript.Node18TypescriptConfigPresets.property.compilerOptions"></a>
+
+```typescript
+public readonly compilerOptions: TypeScriptCompilerOptions;
+```
+
+- *Type:* <a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a>
+
+---
+
+##### `mergeMethod`<sup>Required</sup> <a name="mergeMethod" id="projen.javascript.Node18TypescriptConfigPresets.property.mergeMethod"></a>
+
+```typescript
+public readonly mergeMethod: TypeScriptSetCompilerOptionsMergeMethod;
+```
+
+- *Type:* <a href="#projen.javascript.TypeScriptSetCompilerOptionsMergeMethod">TypeScriptSetCompilerOptionsMergeMethod</a>
+
+---
+
+### Node20TypescriptConfigPresets <a name="Node20TypescriptConfigPresets" id="projen.javascript.Node20TypescriptConfigPresets"></a>
+
+TypeScript config presets for Node 20.
+
+#### Initializers <a name="Initializers" id="projen.javascript.Node20TypescriptConfigPresets.Initializer"></a>
+
+```typescript
+import { javascript } from 'projen'
+
+new javascript.Node20TypescriptConfigPresets()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.javascript.Node20TypescriptConfigPresets.applyPreset">applyPreset</a></code> | *No description.* |
+
+---
+
+##### `applyPreset` <a name="applyPreset" id="projen.javascript.Node20TypescriptConfigPresets.applyPreset"></a>
+
+```typescript
+import { javascript } from 'projen'
+
+javascript.Node20TypescriptConfigPresets.applyPreset(to: TypescriptConfig, reset?: boolean)
+```
+
+###### `to`<sup>Required</sup> <a name="to" id="projen.javascript.Node20TypescriptConfigPresets.applyPreset.parameter.to"></a>
+
+- *Type:* <a href="#projen.javascript.TypescriptConfig">TypescriptConfig</a>
+
+---
+
+###### `reset`<sup>Optional</sup> <a name="reset" id="projen.javascript.Node20TypescriptConfigPresets.applyPreset.parameter.reset"></a>
+
+- *Type:* boolean
+
+---
+
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.javascript.Node20TypescriptConfigPresets.property.compilerOptions">compilerOptions</a></code> | <code><a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a></code> | *No description.* |
+| <code><a href="#projen.javascript.Node20TypescriptConfigPresets.property.mergeMethod">mergeMethod</a></code> | <code><a href="#projen.javascript.TypeScriptSetCompilerOptionsMergeMethod">TypeScriptSetCompilerOptionsMergeMethod</a></code> | *No description.* |
+
+---
+
+##### `compilerOptions`<sup>Required</sup> <a name="compilerOptions" id="projen.javascript.Node20TypescriptConfigPresets.property.compilerOptions"></a>
+
+```typescript
+public readonly compilerOptions: TypeScriptCompilerOptions;
+```
+
+- *Type:* <a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a>
+
+---
+
+##### `mergeMethod`<sup>Required</sup> <a name="mergeMethod" id="projen.javascript.Node20TypescriptConfigPresets.property.mergeMethod"></a>
+
+```typescript
+public readonly mergeMethod: TypeScriptSetCompilerOptionsMergeMethod;
+```
+
+- *Type:* <a href="#projen.javascript.TypeScriptSetCompilerOptionsMergeMethod">TypeScriptSetCompilerOptionsMergeMethod</a>
+
+---
+
+### ProjenClassicTypescriptConfigPresets <a name="ProjenClassicTypescriptConfigPresets" id="projen.javascript.ProjenClassicTypescriptConfigPresets"></a>
+
+Classic Projen project TypeScript config presets.
+
+There were previously the default Projen TypeScript configs.
+
+#### Initializers <a name="Initializers" id="projen.javascript.ProjenClassicTypescriptConfigPresets.Initializer"></a>
+
+```typescript
+import { javascript } from 'projen'
+
+new javascript.ProjenClassicTypescriptConfigPresets()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.javascript.ProjenClassicTypescriptConfigPresets.applyPreset">applyPreset</a></code> | *No description.* |
+
+---
+
+##### `applyPreset` <a name="applyPreset" id="projen.javascript.ProjenClassicTypescriptConfigPresets.applyPreset"></a>
+
+```typescript
+import { javascript } from 'projen'
+
+javascript.ProjenClassicTypescriptConfigPresets.applyPreset(to: TypescriptConfig, reset?: boolean)
+```
+
+###### `to`<sup>Required</sup> <a name="to" id="projen.javascript.ProjenClassicTypescriptConfigPresets.applyPreset.parameter.to"></a>
+
+- *Type:* <a href="#projen.javascript.TypescriptConfig">TypescriptConfig</a>
+
+---
+
+###### `reset`<sup>Optional</sup> <a name="reset" id="projen.javascript.ProjenClassicTypescriptConfigPresets.applyPreset.parameter.reset"></a>
+
+- *Type:* boolean
+
+---
+
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.javascript.ProjenClassicTypescriptConfigPresets.property.compilerOptions">compilerOptions</a></code> | <code><a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a></code> | *No description.* |
+| <code><a href="#projen.javascript.ProjenClassicTypescriptConfigPresets.property.mergeMethod">mergeMethod</a></code> | <code><a href="#projen.javascript.TypeScriptSetCompilerOptionsMergeMethod">TypeScriptSetCompilerOptionsMergeMethod</a></code> | *No description.* |
+
+---
+
+##### `compilerOptions`<sup>Required</sup> <a name="compilerOptions" id="projen.javascript.ProjenClassicTypescriptConfigPresets.property.compilerOptions"></a>
+
+```typescript
+public readonly compilerOptions: TypeScriptCompilerOptions;
+```
+
+- *Type:* <a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a>
+
+---
+
+##### `mergeMethod`<sup>Required</sup> <a name="mergeMethod" id="projen.javascript.ProjenClassicTypescriptConfigPresets.property.mergeMethod"></a>
+
+```typescript
+public readonly mergeMethod: TypeScriptSetCompilerOptionsMergeMethod;
+```
+
+- *Type:* <a href="#projen.javascript.TypeScriptSetCompilerOptionsMergeMethod">TypeScriptSetCompilerOptionsMergeMethod</a>
+
+---
+
+### StrictestTypescriptConfigPresets <a name="StrictestTypescriptConfigPresets" id="projen.javascript.StrictestTypescriptConfigPresets"></a>
+
+Strictest TypeScript config presets.
+
+Using these presets will enable all strict TypeScript compiler options,
+which should theoretically catch the most errors.
+
+Enabling these may require code changes to satisfy the compiler. For example, `noImplicitOverride` will require
+`override` annotations on methods that override parent class methods.
+
+#### Initializers <a name="Initializers" id="projen.javascript.StrictestTypescriptConfigPresets.Initializer"></a>
+
+```typescript
+import { javascript } from 'projen'
+
+new javascript.StrictestTypescriptConfigPresets()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.javascript.StrictestTypescriptConfigPresets.applyPreset">applyPreset</a></code> | *No description.* |
+
+---
+
+##### `applyPreset` <a name="applyPreset" id="projen.javascript.StrictestTypescriptConfigPresets.applyPreset"></a>
+
+```typescript
+import { javascript } from 'projen'
+
+javascript.StrictestTypescriptConfigPresets.applyPreset(to: TypescriptConfig, reset?: boolean)
+```
+
+###### `to`<sup>Required</sup> <a name="to" id="projen.javascript.StrictestTypescriptConfigPresets.applyPreset.parameter.to"></a>
+
+- *Type:* <a href="#projen.javascript.TypescriptConfig">TypescriptConfig</a>
+
+---
+
+###### `reset`<sup>Optional</sup> <a name="reset" id="projen.javascript.StrictestTypescriptConfigPresets.applyPreset.parameter.reset"></a>
+
+- *Type:* boolean
+
+---
+
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.javascript.StrictestTypescriptConfigPresets.property.compilerOptions">compilerOptions</a></code> | <code><a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a></code> | *No description.* |
+| <code><a href="#projen.javascript.StrictestTypescriptConfigPresets.property.mergeMethod">mergeMethod</a></code> | <code><a href="#projen.javascript.TypeScriptSetCompilerOptionsMergeMethod">TypeScriptSetCompilerOptionsMergeMethod</a></code> | *No description.* |
+
+---
+
+##### `compilerOptions`<sup>Required</sup> <a name="compilerOptions" id="projen.javascript.StrictestTypescriptConfigPresets.property.compilerOptions"></a>
+
+```typescript
+public readonly compilerOptions: TypeScriptCompilerOptions;
+```
+
+- *Type:* <a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a>
+
+---
+
+##### `mergeMethod`<sup>Required</sup> <a name="mergeMethod" id="projen.javascript.StrictestTypescriptConfigPresets.property.mergeMethod"></a>
+
+```typescript
+public readonly mergeMethod: TypeScriptSetCompilerOptionsMergeMethod;
+```
+
+- *Type:* <a href="#projen.javascript.TypeScriptSetCompilerOptionsMergeMethod">TypeScriptSetCompilerOptionsMergeMethod</a>
+
+---
+
 ### Transform <a name="Transform" id="projen.javascript.Transform"></a>
 
 #### Initializers <a name="Initializers" id="projen.javascript.Transform.Initializer"></a>
@@ -13903,6 +14242,90 @@ Base `TypescriptConfig` instances.
 
 ---
 
+
+
+### TypescriptConfigPresets <a name="TypescriptConfigPresets" id="projen.javascript.TypescriptConfigPresets"></a>
+
+Abstract class for TypeScript config presets.
+
+A subclass of this class should define the `compilerOptions` and `mergeMethod` static properties.
+
+You can use a presets subclass in one of two ways:
+
+1. Call `applyPreset` on an instance of `TypescriptConfig` to apply the preset to the config, optionally resetting
+   the config first.
+2. Use the `compilerOptions` property directly, which is a `TypescriptConfig` instance
+
+#### Initializers <a name="Initializers" id="projen.javascript.TypescriptConfigPresets.Initializer"></a>
+
+```typescript
+import { javascript } from 'projen'
+
+new javascript.TypescriptConfigPresets()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.javascript.TypescriptConfigPresets.applyPreset">applyPreset</a></code> | *No description.* |
+
+---
+
+##### `applyPreset` <a name="applyPreset" id="projen.javascript.TypescriptConfigPresets.applyPreset"></a>
+
+```typescript
+import { javascript } from 'projen'
+
+javascript.TypescriptConfigPresets.applyPreset(to: TypescriptConfig, reset?: boolean)
+```
+
+###### `to`<sup>Required</sup> <a name="to" id="projen.javascript.TypescriptConfigPresets.applyPreset.parameter.to"></a>
+
+- *Type:* <a href="#projen.javascript.TypescriptConfig">TypescriptConfig</a>
+
+---
+
+###### `reset`<sup>Optional</sup> <a name="reset" id="projen.javascript.TypescriptConfigPresets.applyPreset.parameter.reset"></a>
+
+- *Type:* boolean
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.javascript.TypescriptConfigPresets.property.compilerOptions">compilerOptions</a></code> | <code><a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a></code> | *No description.* |
+| <code><a href="#projen.javascript.TypescriptConfigPresets.property.mergeMethod">mergeMethod</a></code> | <code><a href="#projen.javascript.TypeScriptSetCompilerOptionsMergeMethod">TypeScriptSetCompilerOptionsMergeMethod</a></code> | *No description.* |
+
+---
+
+##### `compilerOptions`<sup>Required</sup> <a name="compilerOptions" id="projen.javascript.TypescriptConfigPresets.property.compilerOptions"></a>
+
+```typescript
+public readonly compilerOptions: TypeScriptCompilerOptions;
+```
+
+- *Type:* <a href="#projen.javascript.TypeScriptCompilerOptions">TypeScriptCompilerOptions</a>
+
+---
+
+##### `mergeMethod`<sup>Required</sup> <a name="mergeMethod" id="projen.javascript.TypescriptConfigPresets.property.mergeMethod"></a>
+
+```typescript
+public readonly mergeMethod: TypeScriptSetCompilerOptionsMergeMethod;
+```
+
+- *Type:* <a href="#projen.javascript.TypeScriptSetCompilerOptionsMergeMethod">TypeScriptSetCompilerOptionsMergeMethod</a>
+
+---
 
 
 ### UpgradeDependenciesSchedule <a name="UpgradeDependenciesSchedule" id="projen.javascript.UpgradeDependenciesSchedule"></a>
@@ -14646,6 +15069,43 @@ No trailing commas.
 ---
 
 
+### TypescriptConfigPresetsOptions <a name="TypescriptConfigPresetsOptions" id="projen.javascript.TypescriptConfigPresetsOptions"></a>
+
+Known TypeScript config presets.
+
+Use {@link getTypescriptConfigPresets} to get a presets object from this enum values.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.javascript.TypescriptConfigPresetsOptions.PROJEN_CLASSIC">PROJEN_CLASSIC</a></code> | *No description.* |
+| <code><a href="#projen.javascript.TypescriptConfigPresetsOptions.NODE18">NODE18</a></code> | *No description.* |
+| <code><a href="#projen.javascript.TypescriptConfigPresetsOptions.NODE20">NODE20</a></code> | *No description.* |
+| <code><a href="#projen.javascript.TypescriptConfigPresetsOptions.STRICTEST">STRICTEST</a></code> | *No description.* |
+
+---
+
+##### `PROJEN_CLASSIC` <a name="PROJEN_CLASSIC" id="projen.javascript.TypescriptConfigPresetsOptions.PROJEN_CLASSIC"></a>
+
+---
+
+
+##### `NODE18` <a name="NODE18" id="projen.javascript.TypescriptConfigPresetsOptions.NODE18"></a>
+
+---
+
+
+##### `NODE20` <a name="NODE20" id="projen.javascript.TypescriptConfigPresetsOptions.NODE20"></a>
+
+---
+
+
+##### `STRICTEST` <a name="STRICTEST" id="projen.javascript.TypescriptConfigPresetsOptions.STRICTEST"></a>
+
+---
+
+
 ### TypeScriptImportsNotUsedAsValues <a name="TypeScriptImportsNotUsedAsValues" id="projen.javascript.TypeScriptImportsNotUsedAsValues"></a>
 
 This flag controls how `import` works, there are 3 different options.
@@ -14846,6 +15306,41 @@ Resolution strategy which attempts to mimic resolution patterns of modern bundle
 from TypeScript 5.0 onwards.
 
 > [https://www.typescriptlang.org/tsconfig#moduleResolution](https://www.typescriptlang.org/tsconfig#moduleResolution)
+
+---
+
+
+### TypeScriptSetCompilerOptionsMergeMethod <a name="TypeScriptSetCompilerOptionsMergeMethod" id="projen.javascript.TypeScriptSetCompilerOptionsMergeMethod"></a>
+
+Determines how TypeScript should merge `compilerOptions` such as in {@link TypescriptConfig.setCompilerOptions}.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.javascript.TypeScriptSetCompilerOptionsMergeMethod.MERGE_ALL">MERGE_ALL</a></code> | Merge **all** `compilerOptions` with the existing options, including `rootDir` and `outdir`. |
+| <code><a href="#projen.javascript.TypeScriptSetCompilerOptionsMergeMethod.MERGE">MERGE</a></code> | Merge "safe" `compilerOptions` that are not managed by a project, such as `rootDir` and `outdir`. |
+| <code><a href="#projen.javascript.TypeScriptSetCompilerOptionsMergeMethod.OVERRIDE">OVERRIDE</a></code> | Override "safe" `compilerOptions` that are not managed by a project, such as `rootDir` and `outdir` This will *reset* `compilerOptions` to the given value *except* `rootDir` and `outDir`. |
+
+---
+
+##### `MERGE_ALL` <a name="MERGE_ALL" id="projen.javascript.TypeScriptSetCompilerOptionsMergeMethod.MERGE_ALL"></a>
+
+Merge **all** `compilerOptions` with the existing options, including `rootDir` and `outdir`.
+
+---
+
+
+##### `MERGE` <a name="MERGE" id="projen.javascript.TypeScriptSetCompilerOptionsMergeMethod.MERGE"></a>
+
+Merge "safe" `compilerOptions` that are not managed by a project, such as `rootDir` and `outdir`.
+
+---
+
+
+##### `OVERRIDE` <a name="OVERRIDE" id="projen.javascript.TypeScriptSetCompilerOptionsMergeMethod.OVERRIDE"></a>
+
+Override "safe" `compilerOptions` that are not managed by a project, such as `rootDir` and `outdir` This will *reset* `compilerOptions` to the given value *except* `rootDir` and `outDir`.
 
 ---
 
