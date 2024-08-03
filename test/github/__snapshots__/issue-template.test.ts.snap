@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`issue-template include config 1`] = `
+"
+blank_issues_enabled: false
+contact_links:
+  - name: Support
+    url: https://example.com/support
+    about: Get support for this project
+"
+`;
+
+exports[`issue-template includes bug-report.md 1`] = `"<!-- Bug report template content -->"`;
+
+exports[`issue-template includes feature-request.yml 1`] = `
+"
+name: Feature Request
+description: Suggest a new feature for the project
+title: "[FEATURE] "
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to fill out this feature request
+"
+`;

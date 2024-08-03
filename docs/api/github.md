@@ -2349,6 +2349,188 @@ contexts.
 ---
 
 
+### IssueTemplate <a name="IssueTemplate" id="projen.github.IssueTemplate"></a>
+
+Generates Issue Templates for GitHub repositories see  {@link https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests}.
+
+#### Initializers <a name="Initializers" id="projen.github.IssueTemplate.Initializer"></a>
+
+```typescript
+import { github } from 'projen'
+
+new github.IssueTemplate(scope: IConstruct, options: IssueTemplateOptions)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.github.IssueTemplate.Initializer.parameter.scope">scope</a></code> | <code>constructs.IConstruct</code> | *No description.* |
+| <code><a href="#projen.github.IssueTemplate.Initializer.parameter.options">options</a></code> | <code><a href="#projen.github.IssueTemplateOptions">IssueTemplateOptions</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="projen.github.IssueTemplate.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `options`<sup>Required</sup> <a name="options" id="projen.github.IssueTemplate.Initializer.parameter.options"></a>
+
+- *Type:* <a href="#projen.github.IssueTemplateOptions">IssueTemplateOptions</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.github.IssueTemplate.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#projen.github.IssueTemplate.postSynthesize">postSynthesize</a></code> | Called after synthesis. |
+| <code><a href="#projen.github.IssueTemplate.preSynthesize">preSynthesize</a></code> | Called before synthesis. |
+| <code><a href="#projen.github.IssueTemplate.synthesize">synthesize</a></code> | Synthesizes files to the project output directory. |
+| <code><a href="#projen.github.IssueTemplate.addTemplates">addTemplates</a></code> | Adds issue templates to the project. |
+
+---
+
+##### `toString` <a name="toString" id="projen.github.IssueTemplate.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `postSynthesize` <a name="postSynthesize" id="projen.github.IssueTemplate.postSynthesize"></a>
+
+```typescript
+public postSynthesize(): void
+```
+
+Called after synthesis.
+
+Order is *not* guaranteed.
+
+##### `preSynthesize` <a name="preSynthesize" id="projen.github.IssueTemplate.preSynthesize"></a>
+
+```typescript
+public preSynthesize(): void
+```
+
+Called before synthesis.
+
+##### `synthesize` <a name="synthesize" id="projen.github.IssueTemplate.synthesize"></a>
+
+```typescript
+public synthesize(): void
+```
+
+Synthesizes files to the project output directory.
+
+##### `addTemplates` <a name="addTemplates" id="projen.github.IssueTemplate.addTemplates"></a>
+
+```typescript
+public addTemplates(options: IssueTemplateOptions): void
+```
+
+Adds issue templates to the project.
+
+###### `options`<sup>Required</sup> <a name="options" id="projen.github.IssueTemplate.addTemplates.parameter.options"></a>
+
+- *Type:* <a href="#projen.github.IssueTemplateOptions">IssueTemplateOptions</a>
+
+The options for adding issue templates.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.github.IssueTemplate.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#projen.github.IssueTemplate.isComponent">isComponent</a></code> | Test whether the given construct is a component. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="projen.github.IssueTemplate.isConstruct"></a>
+
+```typescript
+import { github } from 'projen'
+
+github.IssueTemplate.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="projen.github.IssueTemplate.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isComponent` <a name="isComponent" id="projen.github.IssueTemplate.isComponent"></a>
+
+```typescript
+import { github } from 'projen'
+
+github.IssueTemplate.isComponent(x: any)
+```
+
+Test whether the given construct is a component.
+
+###### `x`<sup>Required</sup> <a name="x" id="projen.github.IssueTemplate.isComponent.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.github.IssueTemplate.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#projen.github.IssueTemplate.property.project">project</a></code> | <code>projen.Project</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="projen.github.IssueTemplate.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="projen.github.IssueTemplate.property.project"></a>
+
+```typescript
+public readonly project: Project;
+```
+
+- *Type:* projen.Project
+
+---
+
+
 ### Mergify <a name="Mergify" id="projen.github.Mergify"></a>
 
 #### Initializers <a name="Initializers" id="projen.github.Mergify.Initializer"></a>
@@ -4629,6 +4811,62 @@ The name of the artifact the patch is stored as.
 
 ---
 
+### ContactLinks <a name="ContactLinks" id="projen.github.ContactLinks"></a>
+
+#### Initializer <a name="Initializer" id="projen.github.ContactLinks.Initializer"></a>
+
+```typescript
+import { github } from 'projen'
+
+const contactLinks: github.ContactLinks = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.github.ContactLinks.property.about">about</a></code> | <code>string</code> | A brief description of the contact link. |
+| <code><a href="#projen.github.ContactLinks.property.name">name</a></code> | <code>string</code> | The name of the contact link. |
+| <code><a href="#projen.github.ContactLinks.property.url">url</a></code> | <code>string</code> | The URL of the contact link. |
+
+---
+
+##### `about`<sup>Required</sup> <a name="about" id="projen.github.ContactLinks.property.about"></a>
+
+```typescript
+public readonly about: string;
+```
+
+- *Type:* string
+
+A brief description of the contact link.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="projen.github.ContactLinks.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the contact link.
+
+---
+
+##### `url`<sup>Required</sup> <a name="url" id="projen.github.ContactLinks.property.url"></a>
+
+```typescript
+public readonly url: string;
+```
+
+- *Type:* string
+
+The URL of the contact link.
+
+---
+
 ### ContributorStatementOptions <a name="ContributorStatementOptions" id="projen.github.ContributorStatementOptions"></a>
 
 Options for requiring a contributor statement on Pull Requests.
@@ -6389,6 +6627,100 @@ public readonly name: string;
 - *Type:* string
 
 The name of the user.
+
+---
+
+### IssueTemplateConfigOptions <a name="IssueTemplateConfigOptions" id="projen.github.IssueTemplateConfigOptions"></a>
+
+Options for configuring issue templates in a repository.
+
+> [{@link https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository#configuring-the-template-chooser}]({@link https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository#configuring-the-template-chooser})
+
+#### Initializer <a name="Initializer" id="projen.github.IssueTemplateConfigOptions.Initializer"></a>
+
+```typescript
+import { github } from 'projen'
+
+const issueTemplateConfigOptions: github.IssueTemplateConfigOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.github.IssueTemplateConfigOptions.property.blankIssuesEnabled">blankIssuesEnabled</a></code> | <code>boolean</code> | Indicates whether blank issues (issues without a template) are allowed. |
+| <code><a href="#projen.github.IssueTemplateConfigOptions.property.contactLinks">contactLinks</a></code> | <code><a href="#projen.github.ContactLinks">ContactLinks</a>[]</code> | An array of contact links to display in the issue template chooser. |
+
+---
+
+##### `blankIssuesEnabled`<sup>Optional</sup> <a name="blankIssuesEnabled" id="projen.github.IssueTemplateConfigOptions.property.blankIssuesEnabled"></a>
+
+```typescript
+public readonly blankIssuesEnabled: boolean;
+```
+
+- *Type:* boolean
+
+Indicates whether blank issues (issues without a template) are allowed.
+
+---
+
+##### `contactLinks`<sup>Optional</sup> <a name="contactLinks" id="projen.github.IssueTemplateConfigOptions.property.contactLinks"></a>
+
+```typescript
+public readonly contactLinks: ContactLinks[];
+```
+
+- *Type:* <a href="#projen.github.ContactLinks">ContactLinks</a>[]
+
+An array of contact links to display in the issue template chooser.
+
+---
+
+### IssueTemplateOptions <a name="IssueTemplateOptions" id="projen.github.IssueTemplateOptions"></a>
+
+Options for `IssueTemplate`.
+
+#### Initializer <a name="Initializer" id="projen.github.IssueTemplateOptions.Initializer"></a>
+
+```typescript
+import { github } from 'projen'
+
+const issueTemplateOptions: github.IssueTemplateOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.github.IssueTemplateOptions.property.templates">templates</a></code> | <code>{[ key: string ]: string}</code> | An array of issue template file names and their contents. |
+| <code><a href="#projen.github.IssueTemplateOptions.property.configOptions">configOptions</a></code> | <code><a href="#projen.github.IssueTemplateConfigOptions">IssueTemplateConfigOptions</a></code> | Configuration options for the config.yml file. Only applicable if includeConfig is true. |
+
+---
+
+##### `templates`<sup>Required</sup> <a name="templates" id="projen.github.IssueTemplateOptions.property.templates"></a>
+
+```typescript
+public readonly templates: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+An array of issue template file names and their contents.
+
+The file names should include the extension (.md or .yml).
+
+---
+
+##### `configOptions`<sup>Optional</sup> <a name="configOptions" id="projen.github.IssueTemplateOptions.property.configOptions"></a>
+
+```typescript
+public readonly configOptions: IssueTemplateConfigOptions;
+```
+
+- *Type:* <a href="#projen.github.IssueTemplateConfigOptions">IssueTemplateConfigOptions</a>
+
+Configuration options for the config.yml file. Only applicable if includeConfig is true.
 
 ---
 
