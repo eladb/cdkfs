@@ -524,6 +524,8 @@ Returns the singleton Eslint component of a project or undefined if there is non
 | <code><a href="#projen.javascript.Eslint.property.project">project</a></code> | <code>projen.Project</code> | *No description.* |
 | <code><a href="#projen.javascript.Eslint.property.config">config</a></code> | <code>any</code> | Direct access to the eslint configuration (escape hatch). |
 | <code><a href="#projen.javascript.Eslint.property.eslintTask">eslintTask</a></code> | <code>projen.Task</code> | eslint task. |
+| <code><a href="#projen.javascript.Eslint.property.fileFormat">fileFormat</a></code> | <code><a href="#projen.javascript.EslintConfigFileFormat">EslintConfigFileFormat</a></code> | File format. |
+| <code><a href="#projen.javascript.Eslint.property.fileName">fileName</a></code> | <code>string</code> | File name. |
 | <code><a href="#projen.javascript.Eslint.property.ignorePatterns">ignorePatterns</a></code> | <code>string[]</code> | File patterns that should not be linted. |
 | <code><a href="#projen.javascript.Eslint.property.lintPatterns">lintPatterns</a></code> | <code>string[]</code> | Returns an immutable copy of the lintPatterns being used by this eslint configuration. |
 | <code><a href="#projen.javascript.Eslint.property.overrides">overrides</a></code> | <code><a href="#projen.javascript.EslintOverride">EslintOverride</a>[]</code> | eslint overrides. |
@@ -574,6 +576,30 @@ public readonly eslintTask: Task;
 - *Type:* projen.Task
 
 eslint task.
+
+---
+
+##### `fileFormat`<sup>Required</sup> <a name="fileFormat" id="projen.javascript.Eslint.property.fileFormat"></a>
+
+```typescript
+public readonly fileFormat: EslintConfigFileFormat;
+```
+
+- *Type:* <a href="#projen.javascript.EslintConfigFileFormat">EslintConfigFileFormat</a>
+
+File format.
+
+---
+
+##### `fileName`<sup>Required</sup> <a name="fileName" id="projen.javascript.Eslint.property.fileName"></a>
+
+```typescript
+public readonly fileName: string;
+```
+
+- *Type:* string
+
+File name.
 
 ---
 
@@ -5775,6 +5801,8 @@ Whether to fix eslint issues when running the eslint task.
 
 ### EslintOptions <a name="EslintOptions" id="projen.javascript.EslintOptions"></a>
 
+Options for eslint.
+
 #### Initializer <a name="Initializer" id="projen.javascript.EslintOptions.Initializer"></a>
 
 ```typescript
@@ -5787,12 +5815,13 @@ const eslintOptions: javascript.EslintOptions = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#projen.javascript.EslintOptions.property.dirs">dirs</a></code> | <code>string[]</code> | Files or glob patterns or directories with source files to lint (e.g. [ "src" ]). |
 | <code><a href="#projen.javascript.EslintOptions.property.aliasExtensions">aliasExtensions</a></code> | <code>string[]</code> | Enable import alias for module paths. |
 | <code><a href="#projen.javascript.EslintOptions.property.aliasMap">aliasMap</a></code> | <code>{[ key: string ]: string}</code> | Enable import alias for module paths. |
 | <code><a href="#projen.javascript.EslintOptions.property.commandOptions">commandOptions</a></code> | <code><a href="#projen.javascript.EslintCommandOptions">EslintCommandOptions</a></code> | Options for eslint command executed by eslint task. |
 | <code><a href="#projen.javascript.EslintOptions.property.devdirs">devdirs</a></code> | <code>string[]</code> | Files or glob patterns or directories with source files that include tests and build tools. |
+| <code><a href="#projen.javascript.EslintOptions.property.dirs">dirs</a></code> | <code>string[]</code> | Files or glob patterns or directories with source files to lint (e.g. [ "src" ]). |
 | <code><a href="#projen.javascript.EslintOptions.property.fileExtensions">fileExtensions</a></code> | <code>string[]</code> | File types that should be linted (e.g. [ ".js", ".ts" ]). |
+| <code><a href="#projen.javascript.EslintOptions.property.fileFormat">fileFormat</a></code> | <code><a href="#projen.javascript.EslintConfigFileFormat">EslintConfigFileFormat</a></code> | File format to use. |
 | <code><a href="#projen.javascript.EslintOptions.property.ignorePatterns">ignorePatterns</a></code> | <code>string[]</code> | List of file patterns that should not be linted, using the same syntax as .gitignore patterns. |
 | <code><a href="#projen.javascript.EslintOptions.property.lintProjenRc">lintProjenRc</a></code> | <code>boolean</code> | Should we lint .projenrc.js. |
 | <code><a href="#projen.javascript.EslintOptions.property.lintProjenRcFile">lintProjenRcFile</a></code> | <code>string</code> | Projenrc file to lint. |
@@ -5801,18 +5830,6 @@ const eslintOptions: javascript.EslintOptions = { ... }
 | <code><a href="#projen.javascript.EslintOptions.property.tsAlwaysTryTypes">tsAlwaysTryTypes</a></code> | <code>boolean</code> | Always try to resolve types under `<root>@types` directory even it doesn't contain any source code. |
 | <code><a href="#projen.javascript.EslintOptions.property.tsconfigPath">tsconfigPath</a></code> | <code>string</code> | Path to `tsconfig.json` which should be used by eslint. |
 | <code><a href="#projen.javascript.EslintOptions.property.yaml">yaml</a></code> | <code>boolean</code> | Write eslint configuration as YAML instead of JSON. |
-
----
-
-##### `dirs`<sup>Required</sup> <a name="dirs" id="projen.javascript.EslintOptions.property.dirs"></a>
-
-```typescript
-public readonly dirs: string[];
-```
-
-- *Type:* string[]
-
-Files or glob patterns or directories with source files to lint (e.g. [ "src" ]).
 
 ---
 
@@ -5869,6 +5886,18 @@ These sources are linted but may also import packages from `devDependencies`.
 
 ---
 
+##### `dirs`<sup>Optional</sup> <a name="dirs" id="projen.javascript.EslintOptions.property.dirs"></a>
+
+```typescript
+public readonly dirs: string[];
+```
+
+- *Type:* string[]
+
+Files or glob patterns or directories with source files to lint (e.g. [ "src" ]).
+
+---
+
 ##### `fileExtensions`<sup>Optional</sup> <a name="fileExtensions" id="projen.javascript.EslintOptions.property.fileExtensions"></a>
 
 ```typescript
@@ -5879,6 +5908,19 @@ public readonly fileExtensions: string[];
 - *Default:* [".ts"]
 
 File types that should be linted (e.g. [ ".js", ".ts" ]).
+
+---
+
+##### `fileFormat`<sup>Optional</sup> <a name="fileFormat" id="projen.javascript.EslintOptions.property.fileFormat"></a>
+
+```typescript
+public readonly fileFormat: EslintConfigFileFormat;
+```
+
+- *Type:* <a href="#projen.javascript.EslintConfigFileFormat">EslintConfigFileFormat</a>
+- *Default:* EslintConfigFileFormat.JSON
+
+File format to use.
 
 ---
 
@@ -5983,7 +6025,9 @@ Path to `tsconfig.json` which should be used by eslint.
 
 ---
 
-##### `yaml`<sup>Optional</sup> <a name="yaml" id="projen.javascript.EslintOptions.property.yaml"></a>
+##### ~~`yaml`~~<sup>Optional</sup> <a name="yaml" id="projen.javascript.EslintOptions.property.yaml"></a>
+
+- *Deprecated:* use `fileFormat` instead
 
 ```typescript
 public readonly yaml: boolean;
@@ -14486,6 +14530,71 @@ Carriage Return + Line Feed characters (\r\n), common on Windows.
 ##### `LF` <a name="LF" id="projen.javascript.EndOfLine.LF"></a>
 
 Line Feed only (\n), common on Linux and macOS as well as inside git repos.
+
+---
+
+
+### EslintConfigFileFormat <a name="EslintConfigFileFormat" id="projen.javascript.EslintConfigFileFormat"></a>
+
+What format should the eslint file be.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.javascript.EslintConfigFileFormat.JAVASCRIPT_FLAT_ESM">JAVASCRIPT_FLAT_ESM</a></code> | JavaScript file (new flat format) - using ESM-style imports/exports. |
+| <code><a href="#projen.javascript.EslintConfigFileFormat.JAVASCRIPT_FLAT_CJS">JAVASCRIPT_FLAT_CJS</a></code> | JavaScript file (new flat format) - using CJS-style require/module.exports. |
+| <code><a href="#projen.javascript.EslintConfigFileFormat.JAVASCRIPT_OLD_CJS">JAVASCRIPT_OLD_CJS</a></code> | JavaScript file (new flat format) - using CJS-style require/module.exports. |
+| <code><a href="#projen.javascript.EslintConfigFileFormat.JSON">JSON</a></code> | JSON file. |
+| <code><a href="#projen.javascript.EslintConfigFileFormat.YAML">YAML</a></code> | YAML file. |
+
+---
+
+##### `JAVASCRIPT_FLAT_ESM` <a name="JAVASCRIPT_FLAT_ESM" id="projen.javascript.EslintConfigFileFormat.JAVASCRIPT_FLAT_ESM"></a>
+
+JavaScript file (new flat format) - using ESM-style imports/exports.
+
+> [https://eslint.org/docs/latest/use/configure/configuration-files-new](https://eslint.org/docs/latest/use/configure/configuration-files-new)
+
+---
+
+
+##### `JAVASCRIPT_FLAT_CJS` <a name="JAVASCRIPT_FLAT_CJS" id="projen.javascript.EslintConfigFileFormat.JAVASCRIPT_FLAT_CJS"></a>
+
+JavaScript file (new flat format) - using CJS-style require/module.exports.
+
+> [https://eslint.org/docs/latest/use/configure/configuration-files-new](https://eslint.org/docs/latest/use/configure/configuration-files-new)
+
+---
+
+
+##### `JAVASCRIPT_OLD_CJS` <a name="JAVASCRIPT_OLD_CJS" id="projen.javascript.EslintConfigFileFormat.JAVASCRIPT_OLD_CJS"></a>
+
+JavaScript file (new flat format) - using CJS-style require/module.exports.
+
+> [https://eslint.org/docs/latest/use/configure/configuration-files-new](https://eslint.org/docs/latest/use/configure/configuration-files-new)
+
+---
+
+
+##### ~~`JSON`~~ <a name="JSON" id="projen.javascript.EslintConfigFileFormat.JSON"></a>
+
+- *Deprecated:* ESLINT project is transitioning away from this format, use `JAVASCRIPT_FLAT` instead
+
+JSON file.
+
+> [https://eslint.org/docs/latest/use/configure/configuration-files](https://eslint.org/docs/latest/use/configure/configuration-files)
+
+---
+
+
+##### ~~`YAML`~~ <a name="YAML" id="projen.javascript.EslintConfigFileFormat.YAML"></a>
+
+- *Deprecated:* ESLINT project is transitioning away from this format, use `JAVASCRIPT_FLAT` instead
+
+YAML file.
+
+> [https://eslint.org/docs/latest/use/configure/configuration-files](https://eslint.org/docs/latest/use/configure/configuration-files)
 
 ---
 

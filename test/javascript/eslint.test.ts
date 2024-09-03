@@ -1,11 +1,19 @@
-import { TaskRuntime } from "../../src";
-import { Eslint, NodeProject } from "../../src/javascript";
-import { synthSnapshot } from "../util";
+import { execSync } from "child_process";
+import { readFileSync } from "fs";
+import * as path from "path";
+import { SampleFile, TaskRuntime } from "../../src";
+import {
+  Eslint,
+  EslintConfigFileFormat,
+  NodeProject,
+} from "../../src/javascript";
+import { TypeScriptProject } from "../../src/typescript";
+import { synthSnapshot, withProjectDir } from "../util";
 
 test("devdirs", () => {
   // GIVEN
   const project = new NodeProject({
-    name: "test",
+    name: "testProject",
     defaultReleaseBranch: "master",
   });
 
@@ -24,7 +32,7 @@ describe("prettier", () => {
   test("snapshot", () => {
     // GIVEN
     const project = new NodeProject({
-      name: "test",
+      name: "testProject",
       defaultReleaseBranch: "master",
     });
 
@@ -44,7 +52,7 @@ describe("alias", () => {
   test("custom config", () => {
     // GIVEN
     const project = new NodeProject({
-      name: "test",
+      name: "testProject",
       defaultReleaseBranch: "master",
     });
 
@@ -77,7 +85,7 @@ describe("alias", () => {
 test("tsAlwaysTryTypes", () => {
   // GIVEN
   const project = new NodeProject({
-    name: "test",
+    name: "testProject",
     defaultReleaseBranch: "master",
   });
 
@@ -98,7 +106,7 @@ test("tsAlwaysTryTypes", () => {
 test("if the prettier is configured, eslint is configured accordingly", () => {
   // GIVEN
   const project = new NodeProject({
-    name: "test",
+    name: "testProject",
     defaultReleaseBranch: "master",
     prettier: true,
   });
@@ -227,7 +235,7 @@ test("setting sortExtends to a comparer should use that to sort the extends arra
 test("can output yml instead of json", () => {
   // GIVEN
   const project = new NodeProject({
-    name: "test",
+    name: "testProject",
     defaultReleaseBranch: "main",
     prettier: true,
   });
@@ -248,7 +256,7 @@ test("can output yml instead of json", () => {
 test("can override the parser", () => {
   // GIVEN
   const project = new NodeProject({
-    name: "test",
+    name: "testProject",
     defaultReleaseBranch: "master",
     prettier: true,
   });
@@ -274,7 +282,7 @@ test("can override the parser", () => {
 test("creates a eslint task", () => {
   // GIVEN
   const project = new NodeProject({
-    name: "test",
+    name: "testProject",
     defaultReleaseBranch: "master",
     prettier: true,
   });
@@ -313,7 +321,7 @@ test("excludes --fix flag when fix is disabled", () => {
 test("omit --ext when no extensions are specified", () => {
   // GIVEN
   const project = new NodeProject({
-    name: "test",
+    name: "testProject",
     defaultReleaseBranch: "master",
     prettier: true,
   });
@@ -334,7 +342,7 @@ test("omit --ext when no extensions are specified", () => {
 test("add --ext when extensions are specified", () => {
   // GIVEN
   const project = new NodeProject({
-    name: "test",
+    name: "testProject",
     defaultReleaseBranch: "master",
     prettier: true,
   });
@@ -372,7 +380,7 @@ test("supports specifying extra task args", () => {
 test("allow modification of the eslint task", () => {
   // GIVEN
   const project = new NodeProject({
-    name: "test",
+    name: "testProject",
     defaultReleaseBranch: "master",
     prettier: true,
   });
@@ -391,4 +399,70 @@ test("allow modification of the eslint task", () => {
 
   // THEN
   expect(eslint.eslintTask.steps[0].args).toContain(newTestArg);
+});
+
+test.each([
+  EslintConfigFileFormat.JSON,
+  EslintConfigFileFormat.JAVASCRIPT_OLD_CJS,
+  EslintConfigFileFormat.JAVASCRIPT_FLAT_CJS,
+  EslintConfigFileFormat.JAVASCRIPT_FLAT_ESM,
+])(
+  "eslint snapshot matches format '%s'",
+  (fileFormat: EslintConfigFileFormat) => {
+    // GIVEN
+    const project = new NodeProject({
+      name: "testProject",
+      defaultReleaseBranch: "master",
+      prettier: true,
+    });
+
+    // WHEN
+    const eslint = new Eslint(project, {
+      dirs: ["src"],
+      lintProjenRc: false,
+      fileFormat,
+    });
+    eslint.addExtends("./node_modules/coding-standard/eslintDefaults.js");
+    eslint.addExtends("./node_modules/coding-standard/.eslintrc-es6");
+    eslint.addExtends("./projen/eslintrc.js");
+
+    const output = synthSnapshot(project);
+
+    // THEN
+    expect(output[eslint.fileName]).toMatchSnapshot();
+  }
+);
+
+test.each([
+  EslintConfigFileFormat.JSON,
+  EslintConfigFileFormat.YAML,
+  EslintConfigFileFormat.JAVASCRIPT_OLD_CJS,
+  EslintConfigFileFormat.JAVASCRIPT_FLAT_CJS,
+  EslintConfigFileFormat.JAVASCRIPT_FLAT_ESM,
+])("eslint runs with %s", (fileFormat: EslintConfigFileFormat) => {
+  withProjectDir((projectdir) => {
+    const project = new TypeScriptProject({
+      defaultReleaseBranch: "main",
+      name: "testProject",
+      outdir: projectdir,
+      eslint: true,
+      eslintOptions: {
+        fileFormat,
+      },
+      release: true,
+    });
+    const testFilename = "src/format-test.ts";
+    const contents = "    export  const  foo  =  { 'bar'  :   \"baz\",\n\n }  ";
+    new SampleFile(project, testFilename, {
+      contents,
+    });
+    project.synth();
+
+    const fullTestFilename = path.join(projectdir, testFilename);
+    expect(readFileSync(fullTestFilename).toString()).toEqual(contents);
+    execSync("npx projen eslint", { cwd: projectdir, stdio: "inherit" });
+    expect(readFileSync(fullTestFilename).toString()).toEqual(
+      "export const foo = { bar: 'baz' };"
+    );
+  });
 });

@@ -42,7 +42,7 @@ exports[`cdk-watchful 1`] = `
     "*.d.ts",
     "node_modules/",
     "*.generated.ts",
-    "coverage",
+    "./coverage",
     "!.projenrc.js"
   ],
   "rules": {
@@ -1577,7 +1577,7 @@ exports[`cdk8s 1`] = `
     "*.d.ts",
     "node_modules/",
     "*.generated.ts",
-    "coverage",
+    "./coverage",
     "!.projenrc.js"
   ],
   "rules": {
@@ -2779,7 +2779,7 @@ exports[`cdk8s-cli 1`] = `
     "*.d.ts",
     "node_modules/",
     "*.generated.ts",
-    "coverage",
+    "./coverage",
     "/templates/",
     "!.projenrc.js"
   ],

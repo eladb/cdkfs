@@ -15,7 +15,7 @@ exports[`JsiiProject with default settings synthesizes 1`] = `
       "*.d.ts",
       "node_modules/",
       "*.generated.ts",
-      "coverage",
+      "./coverage",
       "!.projenrc.js",
     ],
     "overrides": [
@@ -1525,7 +1525,7 @@ exports[`JsiiProject with jsiiVersion: '*' synthesizes 1`] = `
       "*.d.ts",
       "node_modules/",
       "*.generated.ts",
-      "coverage",
+      "./coverage",
       "!.projenrc.js",
     ],
     "overrides": [
@@ -3018,7 +3018,7 @@ exports[`JsiiProject with jsiiVersion: '^1.78.1' synthesizes 1`] = `
       "*.d.ts",
       "node_modules/",
       "*.generated.ts",
-      "coverage",
+      "./coverage",
       "!.projenrc.js",
     ],
     "overrides": [
@@ -4505,7 +4505,7 @@ exports[`JsiiProject with jsiiVersion: '~5.0.0' synthesizes 1`] = `
       "*.d.ts",
       "node_modules/",
       "*.generated.ts",
-      "coverage",
+      "./coverage",
       "!.projenrc.js",
     ],
     "overrides": [
