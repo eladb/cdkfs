@@ -1729,6 +1729,7 @@ exports[`inventory 1`] = `
         "switch": "homepage",
       },
       {
+        "default": ""Apache-2.0"",
         "docs": "License of this package as an SPDX identifier.",
         "featured": false,
         "fullType": {
@@ -9278,6 +9279,7 @@ exports[`inventory 1`] = `
         "switch": "k8s-spec-version",
       },
       {
+        "default": ""Apache-2.0"",
         "docs": "License of this package as an SPDX identifier.",
         "featured": false,
         "fullType": {
@@ -30504,6 +30506,7 @@ exports[`inventory 1`] = `
         "switch": "homepage",
       },
       {
+        "default": ""Apache-2.0"",
         "docs": "License of this package as an SPDX identifier.",
         "featured": false,
         "fullType": {

@@ -6064,6 +6064,7 @@ public readonly license: string;
 ```
 
 - *Type:* string
+- *Default:* "Apache-2.0"
 
 License of this package as an SPDX identifier.
 

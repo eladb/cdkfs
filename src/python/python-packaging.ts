@@ -44,6 +44,8 @@ export interface PythonPackagingOptions {
 
   /**
    * License of this package as an SPDX identifier.
+   *
+   * @default "Apache-2.0"
    */
   readonly license?: string;
 

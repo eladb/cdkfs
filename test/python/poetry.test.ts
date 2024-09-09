@@ -243,7 +243,7 @@ test("generates correct pyproject.toml content", () => {
     poetry: true,
     homepage: "http://www.example.com",
     description: "A short project description",
-    license: "Apache-2.0",
+    license: "MIT",
     deps: ["aws-cdk-lib@^2.128.0"],
     devDeps: ["black@^24.2.0", "flake8@^7.0.0"],
   });
@@ -259,7 +259,7 @@ test("generates correct pyproject.toml content", () => {
         name: "test-python-project",
         version: "0.1.0",
         description: "A short project description",
-        license: "Apache-2.0",
+        license: "MIT",
         authors: ["First Last <email@example.com>"],
         homepage: "http://www.example.com",
         readme: "README.md",
@@ -286,4 +286,28 @@ test("generates correct pyproject.toml content", () => {
   };
 
   expect(actualContentObject).toEqual(expectedContentObject);
+});
+
+test("default license is Apache-2.0 when not provided", () => {
+  // Creating a poetry project without specifying a license
+  const projectWithoutLicense = new TestPythonProject({
+    poetry: true,
+  });
+
+  // Generating the pyproject.toml content
+  const snapshotWithoutLicense = synthSnapshot(projectWithoutLicense);
+  const actualTomlContentWithoutLicense =
+    snapshotWithoutLicense["pyproject.toml"];
+
+  // Parsing the TOML content to a JavaScript object
+  const actualContentObjectWithoutLicense = TOML.parse(
+    actualTomlContentWithoutLicense
+  ) as any;
+
+  // Navigating to the license field within the parsed TOML content
+  const actualLicense = actualContentObjectWithoutLicense.tool.poetry
+    .license as string;
+
+  // Asserting that the actual license is Apache-2.0
+  expect(actualLicense).toEqual("Apache-2.0");
 });
