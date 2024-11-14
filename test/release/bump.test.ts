@@ -80,6 +80,22 @@ test("first release, with prerelease", async () => {
   expect(result.bumpfile).toStrictEqual("0.0.0-beta.0");
 });
 
+test("two initial releases, with prerelease", async () => {
+  const resultA = await testBump({
+    options: { prerelease: "beta" },
+  });
+  expect(resultA.version).toStrictEqual("0.0.0-beta.0");
+  expect(resultA.changelog.includes("## 0.0.0-beta.0")).toBeTruthy();
+  expect(resultA.bumpfile).toStrictEqual("0.0.0-beta.0");
+
+  const resultB = await testBump({
+    options: { prerelease: "beta" },
+  });
+  expect(resultB.version).toStrictEqual("0.0.0-beta.1");
+  expect(resultB.changelog.includes("## 0.0.0-beta.1")).toBeTruthy();
+  expect(resultB.bumpfile).toStrictEqual("0.0.0-beta.1");
+});
+
 test("first release, with prefix", async () => {
   const result = await testBump({
     options: { tagPrefix: "prefix/" },
@@ -554,24 +570,36 @@ async function testBump(
   opts: {
     options?: Partial<BumpOptions>;
     commits?: { message: string; tag?: string; path?: string }[];
+    /**
+     * Run git init and other setup
+     * @default true
+     */
+    init?: boolean;
+    /**
+     * Print output to stdout, useful for debugging
+     * @default false
+     */
+    printOutput?: boolean;
   } = {}
 ) {
+  const stdio = opts.printOutput ? "inherit" : "pipe";
   const workdir = mkdtempSync(join(tmpdir(), "bump-test-"));
 
   const git = (cmd: string) =>
     execSync(`git ${cmd}`, {
       cwd: workdir,
-      stdio: "inherit",
+      stdio,
       timeout: 10_000, // let's try to catch hanging processes sooner than later
     });
 
   // init a git repository
-  git("init -b main");
-  git('config user.email "you@example.com"');
-  git('config user.name "Your Name"');
-  git("config commit.gpgsign false");
-  git("config tag.gpgsign false");
-
+  if (opts.init ?? true) {
+    git("init -b main");
+    git('config user.email "you@example.com"');
+    git('config user.name "Your Name"');
+    git("config commit.gpgsign false");
+    git("config tag.gpgsign false");
+  }
   const commit = async (message: string, path: string = "dummy.txt") => {
     const filePath = join(workdir, path);
     await fs.mkdir(dirname(filePath), { recursive: true });

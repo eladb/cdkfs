@@ -39,13 +39,14 @@ export class TestProject extends GitHubProject {
 
 interface ProjenCLIExecOptions {
   preInstallProjen?: boolean;
+  printOutput?: boolean;
 }
 
 export function execProjenCLI(
   workdir: string,
   args: string[] = [],
   env?: Record<string, string>,
-  { preInstallProjen = true }: ProjenCLIExecOptions = {}
+  { preInstallProjen = true, printOutput = false }: ProjenCLIExecOptions = {}
 ) {
   const command = [process.execPath, PROJEN_CLI, ...args];
 
@@ -60,7 +61,11 @@ export function execProjenCLI(
     );
   }
 
-  return exec(command.map((x) => `"${x}"`).join(" "), { cwd: workdir, env });
+  return exec(command.map((x) => `"${x}"`).join(" "), {
+    cwd: workdir,
+    env,
+    stdio: printOutput ? "inherit" : "pipe",
+  });
 }
 
 const autoRemove = new Set<string>();

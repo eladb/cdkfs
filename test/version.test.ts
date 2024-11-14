@@ -119,12 +119,46 @@ describe("bump task", () => {
       expect(result.version).toEqual("0.1.1");
     });
   });
+
+  // test("regressions", async () => {
+  //   withProjectDir((projectdir) => {
+  //     const project = new TestProject({
+  //       outdir: projectdir,
+  //     });
+  //     const version = new Version(project, {
+  //       versionInputFile: "package.json",
+  //       artifactsDirectory: "dist",
+  //     });
+  //     version.bumpTask.env("MAJOR", "0");
+  //     version.bumpTask.env("PRERELEASE", "alpha");
+
+  //     project.synth();
+
+  //     // Bump the first time to generate the initial version
+  //     let result = testBumpTask({
+  //       printOutput: true,
+  //       workdir: project.outdir,
+  //       commits: [
+  //         { message: "feat: stuff", tag: "v0.0.1-alpha.0" },
+  //         { message: "fix: new change" },
+  //       ],
+  //     });
+
+  //     // Bump again to see if the version is the same
+  //     result = testBumpTask({
+  //       workdir: project.outdir,
+  //     });
+
+  //     expect(result.version).toEqual("0.0.1-alpha.1");
+  //   });
+  // });
 });
 
 function testBumpTask(
   opts: {
     workdir?: string;
     commits?: { message: string; tag?: string; path?: string }[];
+    printOutput?: boolean;
   } = {}
 ) {
   const workdir = opts.workdir ?? mkdtempSync(join(tmpdir(), "bump-test-"));
@@ -132,17 +166,10 @@ function testBumpTask(
   const git = (cmd: string) =>
     execSync(`git ${cmd}`, {
       cwd: workdir,
-      stdio: "inherit",
+      stdio: opts.printOutput ? "inherit" : "pipe",
       // let's try to catch hanging processes sooner than later
       timeout: 10_000,
     });
-
-  // Initialize a git repository
-  git("init -b main");
-  git('config user.email "you@example.com"');
-  git('config user.name "Your Name"');
-  git("config commit.gpgsign false");
-  git("config tag.gpgsign false");
 
   const commit = (message: string, path: string = "dummy.txt") => {
     const filePath = join(workdir, path);
@@ -162,7 +189,9 @@ function testBumpTask(
   }
 
   // Bump the version
-  execProjenCLI(workdir, ["bump"]);
+  execProjenCLI(workdir, ["bump"], undefined, {
+    printOutput: opts.printOutput,
+  });
 
   return {
     version: JSON.parse(readFileSync(join(workdir, "package.json"), "utf-8"))
