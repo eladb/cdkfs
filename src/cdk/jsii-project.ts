@@ -1,4 +1,4 @@
-import { Range, major } from "semver";
+import { Range, coerce, major } from "semver";
 import { Task } from "..";
 import { JsiiPacmakTarget, JSII_TOOLCHAIN } from "./consts";
 import { JsiiDocgen } from "./jsii-docgen";
@@ -209,11 +209,11 @@ export class JsiiProject extends TypeScriptProject {
   constructor(options: JsiiProjectOptions) {
     const { authorEmail, authorUrl } = parseAuthorAddress(options);
 
-    // True if jsii version 1.x is compatible with the requested version range.
-    const usesLegacyJsii =
-      options.jsiiVersion == null ||
-      (options.jsiiVersion !== "*" &&
-        new Range(options.jsiiVersion).intersects(new Range("1.x")));
+    // Draw some conclusions about the expected jsii version and version line
+    const jsiiVersion = options.jsiiVersion ?? '1.x';
+    const userManagesJsiiVersion = jsiiVersion === '*' || jsiiVersion.trim() === '';
+    const jsiiVersionLine = parseJsiiVersionLine(jsiiVersion);
+    const usesLegacyJsii = !userManagesJsiiVersion && jsiiVersionLine === '1.x';
 
     const defaultOptions: Partial<TypeScriptProjectOptions> = {
       repository: options.repositoryUrl,
@@ -400,6 +400,11 @@ export class JsiiProject extends TypeScriptProject {
       "jsii-diff",
       "jsii-pacmak"
     );
+
+    // Add TypeScript as a dev dependency for jsii >= 5.0
+    if (jsiiSuffix && !usesLegacyJsii) {
+      this.addDevDeps(`typescript@~${jsiiVersionLine}.0`);
+    }
 
     this.gitignore.exclude(".jsii", "tsconfig.json");
     this.npmignore?.include(".jsii");
@@ -653,6 +658,22 @@ const publishTo: PublishToTarget = {
   dotnet: "publishToNuget",
   go: "publishToGo",
 };
+
+function parseJsiiVersionLine(jsiiVersion: string): "1.x" | `${number}.${number}` {
+  if (!jsiiVersion || jsiiVersion === "*") {
+    undefined;
+  } 
+
+  if (new Range(jsiiVersion).intersects(new Range("1.x"))) {
+    return '1.x';
+  }
+
+  const version = coerce(jsiiVersion);
+
+  if (version && version.major && version.minor) {
+    return `${version.major}.${version.minor}`;
+  }
+}
 
 function parseAuthorAddress(options: JsiiProjectOptions) {
   let authorEmail = options.authorEmail;
