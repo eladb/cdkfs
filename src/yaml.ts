@@ -4,7 +4,7 @@ import { IResolver } from "./file";
 import { ObjectFile, ObjectFileOptions } from "./object-file";
 
 /**
- * Options for `JsonFile`.
+ * Options for `YamlFile`.
  */
 export interface YamlFileOptions extends ObjectFileOptions {
   /**
@@ -13,6 +13,15 @@ export interface YamlFileOptions extends ObjectFileOptions {
    * @default - 0
    */
   readonly lineWidth?: number;
+  /**
+   * Search value for `String.replace()` on the resulting YAML.
+   * Will be converted to a regex with the `g` flag.
+   */
+  readonly searchValue?: string;
+  /**
+   * Replace value for `String.replace()` on the resulting YAML.
+   */
+  readonly replaceValue?: string;
 }
 
 /**
@@ -23,10 +32,20 @@ export class YamlFile extends ObjectFile {
    * Maximum line width (set to 0 to disable folding).
    */
   public lineWidth: number;
+  /**
+   * Search value for `String.replace()` on the resulting YAML.
+   */
+  private readonly searchValue?: string;
+  /**
+   * Replace value for `String.replace()` on the resulting YAML.
+   */
+  private readonly replaceValue?: string;
 
   constructor(scope: IConstruct, filePath: string, options: YamlFileOptions) {
     super(scope, filePath, options);
     this.lineWidth = options.lineWidth ?? 0;
+    this.searchValue = options.searchValue;
+    this.replaceValue = options.replaceValue;
   }
 
   protected synthesizeContent(resolver: IResolver): string | undefined {
@@ -35,13 +54,15 @@ export class YamlFile extends ObjectFile {
       return undefined;
     }
 
-    return [
-      ...(this.marker ? [`# ${this.marker}`] : []),
-      "",
-      YAML.stringify(JSON.parse(json), {
-        indent: 2,
-        lineWidth: this.lineWidth,
-      }),
-    ].join("\n");
+    let yaml = YAML.stringify(JSON.parse(json), {
+      indent: 2,
+      lineWidth: this.lineWidth,
+    });
+    if (this.searchValue && this.replaceValue) {
+      const searchValueRegex = new RegExp(this.searchValue, "g");
+      yaml = yaml.replace(searchValueRegex, this.replaceValue);
+    }
+
+    return [...(this.marker ? [`# ${this.marker}`] : []), "", yaml].join("\n");
   }
 }

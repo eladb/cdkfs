@@ -167,6 +167,10 @@ export class CiConfiguration extends Component {
       obj: () => this.renderCI(),
       // GitLab needs to read the file from the repository in order to work.
       committed: true,
+      // string replacement for !reference tags: https://docs.gitlab.com/ee/ci/yaml/yaml_optimization.html#reference-tags
+      // otherwise, it will be rendered in quotes and not be recognized by GitLab
+      searchValue: new RegExp(/"!reference \[(.+?), (.+?)\]"/g).source,
+      replaceValue: "!reference [$1, $2]",
     });
     const defaults = options?.default;
     if (defaults) {

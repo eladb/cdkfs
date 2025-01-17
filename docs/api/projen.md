@@ -13876,7 +13876,7 @@ Omits empty objects and arrays.
 
 ### YamlFileOptions <a name="YamlFileOptions" id="projen.YamlFileOptions"></a>
 
-Options for `JsonFile`.
+Options for `YamlFile`.
 
 #### Initializer <a name="Initializer" id="projen.YamlFileOptions.Initializer"></a>
 
@@ -13898,6 +13898,8 @@ const yamlFileOptions: YamlFileOptions = { ... }
 | <code><a href="#projen.YamlFileOptions.property.obj">obj</a></code> | <code>any</code> | The object that will be serialized. You can modify the object's contents before synthesis. |
 | <code><a href="#projen.YamlFileOptions.property.omitEmpty">omitEmpty</a></code> | <code>boolean</code> | Omits empty objects and arrays. |
 | <code><a href="#projen.YamlFileOptions.property.lineWidth">lineWidth</a></code> | <code>number</code> | Maximum line width (set to 0 to disable folding). |
+| <code><a href="#projen.YamlFileOptions.property.replaceValue">replaceValue</a></code> | <code>string</code> | Replace value for `String.replace()` on the resulting YAML. |
+| <code><a href="#projen.YamlFileOptions.property.searchValue">searchValue</a></code> | <code>string</code> | Search value for `String.replace()` on the resulting YAML. Will be converted to a regex with the `g` flag. |
 
 ---
 
@@ -14012,6 +14014,30 @@ public readonly lineWidth: number;
 - *Default:* 0
 
 Maximum line width (set to 0 to disable folding).
+
+---
+
+##### `replaceValue`<sup>Optional</sup> <a name="replaceValue" id="projen.YamlFileOptions.property.replaceValue"></a>
+
+```typescript
+public readonly replaceValue: string;
+```
+
+- *Type:* string
+
+Replace value for `String.replace()` on the resulting YAML.
+
+---
+
+##### `searchValue`<sup>Optional</sup> <a name="searchValue" id="projen.YamlFileOptions.property.searchValue"></a>
+
+```typescript
+public readonly searchValue: string;
+```
+
+- *Type:* string
+
+Search value for `String.replace()` on the resulting YAML. Will be converted to a regex with the `g` flag.
 
 ---
 
