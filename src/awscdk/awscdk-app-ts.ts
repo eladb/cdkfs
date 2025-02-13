@@ -116,6 +116,24 @@ export class AwsCdkTypeScriptApp extends TypeScriptAppProject {
         // we don't want it to be added to the pre-compile phase.
         runBundleTask: RunBundleTask.MANUAL,
       },
+      // Override TypeScript compiler options for CDK projects to use ES2020
+      // This is to align projen output to `cdk init --language typescript`
+      tsconfig: {
+        ...options.tsconfig,
+        compilerOptions: {
+          ...options.tsconfig?.compilerOptions,
+          lib: ["es2020"],
+          target: "ES2020",
+        },
+      },
+      tsconfigDev: {
+        ...options.tsconfigDev,
+        compilerOptions: {
+          ...options.tsconfigDev?.compilerOptions,
+          lib: ["es2020"],
+          target: "ES2020",
+        },
+      },
     });
 
     this.cdkDeps = new AwsCdkDepsJs(this, {
