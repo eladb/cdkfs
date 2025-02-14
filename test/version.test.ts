@@ -120,6 +120,35 @@ describe("bump task", () => {
     });
   });
 
+  test("can use an environment variable to force a version suffix", async () => {
+    withProjectDir((projectdir) => {
+      const project = new TestProject({
+        outdir: projectdir,
+      });
+      new Version(project, {
+        versionInputFile: "package.json",
+        artifactsDirectory: "dist",
+      });
+
+      project.synth();
+
+      // Bump the first time to generate the initial version
+      let result = testBumpTask({
+        workdir: project.outdir,
+        env: {
+          ...process.env,
+          FORCE_VERSION_SUFFIX: "test.0",
+        },
+        commits: [
+          { message: "chore(release): v0.1.0", tag: "v0.1.0" },
+          { message: "new change" },
+        ],
+      });
+
+      expect(result.version).toEqual("0.1.1-test.0");
+    });
+  });
+
   test("can invoke a shell command to come up with the next version", async () => {
     withProjectDir((projectdir) => {
       const project = new TestProject({
@@ -176,6 +205,7 @@ describe("bump task", () => {
 function testBumpTask(
   opts: {
     workdir?: string;
+    env?: Record<string, string>;
     commits?: { message: string; tag?: string; path?: string }[];
   } = {}
 ) {
@@ -214,7 +244,7 @@ function testBumpTask(
   }
 
   // Bump the version
-  execProjenCLI(workdir, ["bump"]);
+  execProjenCLI(workdir, ["bump"], opts.env);
 
   return {
     version: JSON.parse(readFileSync(join(workdir, "package.json"), "utf-8"))

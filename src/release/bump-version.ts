@@ -127,6 +127,20 @@ export interface BumpOptions {
    * @default - The next version will be determined based on the commit history and project settings.
    */
   readonly nextVersionCommand?: string;
+
+  /**
+   * Append a version suffix at the end of the version string
+   *
+   * This can be used to generate fake version numbers for pre-release
+   * integration testing.
+   *
+   * Example: if the current version is `1.2.3`, the generated version can be
+   * something like `1.2.4-test.0`, which is guaranteed to never conflict with
+   * any other (real) version, even if `1.2.4` is released in the mean time.
+   *
+   * @default - No suffix
+   */
+  readonly forceSuffix?: string;
 }
 
 /**
@@ -283,7 +297,8 @@ export async function bump(cwd: string, options: BumpOptions) {
 
   await fs.rm(rcfile, { force: true, recursive: true });
 
-  const newVersion = (await tryReadVersionFile(versionFile)).version;
+  const updatedVersionFile = await tryReadVersionFile(versionFile);
+  let newVersion = updatedVersionFile.version;
   if (!newVersion) {
     throw new Error(`bump failed: ${versionFile} does not have a version set`);
   }
@@ -302,6 +317,20 @@ export async function bump(cwd: string, options: BumpOptions) {
         `bump failed: this branch is configured to only publish v${major}.${minor} releases - bump resulted in ${newVersion}`
       );
     }
+  }
+
+  // Apply a forced suffix if given
+  if (options.forceSuffix) {
+    let suffix = options.forceSuffix;
+    if (!suffix.match(/^-/)) suffix = `-${suffix}`;
+    if (!suffix.match(/\d$/)) suffix += ".0";
+    newVersion = `${newVersion}${suffix}`;
+    updatedVersionFile.contents.version = newVersion;
+
+    const updatedContents =
+      JSON.stringify(updatedVersionFile.contents, undefined, 2) +
+      (updatedVersionFile.newline ? "\n" : "");
+    await fs.writeFile(versionFile, updatedContents, "utf-8");
   }
 
   await fs.writeFile(bumpFile, newVersion);

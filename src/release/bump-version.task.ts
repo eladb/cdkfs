@@ -32,6 +32,7 @@ const versionrcOptions = process.env.VERSIONRCOPTIONS;
 const releasableCommits = process.env.RELEASABLE_COMMITS;
 const bumpPackage = process.env.BUMP_PACKAGE;
 const nextVersionCommand = process.env.NEXT_VERSION_COMMAND;
+const forceSuffix = process.env.FORCE_VERSION_SUFFIX;
 
 if (!versionFile) {
   throw new Error("OUTFILE is required");
@@ -75,6 +76,7 @@ const opts: BumpOptions = {
   releasableCommits,
   bumpPackage,
   nextVersionCommand: nextVersionCommand ? nextVersionCommand : undefined,
+  forceSuffix: forceSuffix ? forceSuffix : undefined,
 };
 logging.debug(opts);
 
