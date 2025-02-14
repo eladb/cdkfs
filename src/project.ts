@@ -595,6 +595,18 @@ export class Project extends Construct {
   }
 
   /**
+   * Unannotates generated files matching the specified glob pattern.
+   *
+   * This method is intended to be overridden by subclasses to provide
+   * specific functionality for unannotating generated files.
+   *
+   * @param _glob the glob pattern to match files that need to be unannotated.
+   */
+  public unannotateGenerated(_glob: string): void {
+    // nothing to do at the abstract level
+  }
+
+  /**
    * Synthesize all project files into `outdir`.
    *
    * 1. Call "this.preSynthesize()"

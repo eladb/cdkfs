@@ -90,6 +90,24 @@ export class GitAttributesFile extends FileBase {
   }
 
   /**
+   * Remove attributes from a set of files.
+   * @param glob Glob pattern to match files in the repo
+   * @param attributes Attributes to remove from these files.
+   */
+  public removeAttributes(glob: string, ...attributes: string[]) {
+    if (!this.attributes.has(glob)) {
+      return;
+    }
+    const set = this.attributes.get(glob)!;
+    for (const attribute of attributes) {
+      set.delete(attribute);
+    }
+    if (set.size === 0) {
+      this.attributes.delete(glob);
+    }
+  }
+
+  /**
    * Add attributes necessary to mark these files as stored in LFS
    */
   public addLfsPattern(glob: string) {

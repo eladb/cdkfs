@@ -356,15 +356,32 @@ export interface YarnrcOptions {
 }
 
 export class Yarnrc extends Component {
+  /**
+   * Removes component node and resets the project configuration mutated by the Yarnrc component.
+   * Useful when the component is being dynamically unmounted from the project.
+   *
+   * @param nodeId - the id of the component node
+   * @param project - the project to remove the component from
+   */
+  public static removeNode(nodeId: string, project: Project) {
+    project.node.tryRemoveChild(nodeId);
+    this.resetGitAttributes(project);
+  }
+
+  private static resetGitAttributes({ gitattributes }: Project) {
+    gitattributes.removeAttributes("/.yarn/**", "linguist-vendored");
+    gitattributes.removeAttributes("/.yarn/releases/*", "binary");
+    gitattributes.removeAttributes("/.yarn/plugins/**/*", "binary");
+    gitattributes.removeAttributes("/.pnp.*", "binary", "linguist-vendored");
+  }
+
   constructor(project: Project, version: string, options: YarnrcOptions = {}) {
     super(project);
 
     this.validateOptionsForVersion(semver.major(version), options);
     this.updateGitAttributes();
 
-    new YamlFile(project, ".yarnrc.yml", {
-      obj: options,
-    });
+    new YamlFile(this, ".yarnrc.yml", { obj: options });
   }
 
   private updateGitAttributes() {

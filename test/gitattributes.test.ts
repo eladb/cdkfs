@@ -82,6 +82,30 @@ describe("GitAttributesFile", () => {
     });
   });
 
+  test("should remove attributes to files", () => {
+    withProjectDir((outdir) => {
+      // The TestProject already contains a .gitattributes file
+      const project = new TestProject({
+        outdir,
+      });
+
+      project.gitattributes.addAttributes("*.txt", "text");
+      project.gitattributes.addAttributes("*.md", "text", "markdown");
+
+      project.gitattributes.removeAttributes("*.txt", "text");
+      project.gitattributes.removeAttributes("*.md", "text");
+
+      const snap = synthSnapshot(project);
+
+      const lines: string[] = snap[".gitattributes"]
+        .split("\n")
+        .map((line: string) => line.trim());
+
+      expect(lines).toContain("*.md markdown");
+      expect(lines).not.toContain("*.txt");
+    });
+  });
+
   test("should add a LFS pattern", () => {
     withProjectDir((outdir) => {
       // The TestProject already contains a .gitattributes file

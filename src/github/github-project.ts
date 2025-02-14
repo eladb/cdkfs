@@ -248,4 +248,13 @@ export class GitHubProject extends Project {
   public annotateGenerated(glob: string): void {
     this.gitattributes.addAttributes(glob, "linguist-generated");
   }
+
+  /**
+   * Removes the "linguist-generated" attribute from the `.gitattributes` file.
+   *
+   * @param glob the glob pattern specifying the files to unannotate.
+   */
+  public unannotateGenerated(glob: string): void {
+    this.gitattributes.removeAttributes(glob, "linguist-generated");
+  }
 }
