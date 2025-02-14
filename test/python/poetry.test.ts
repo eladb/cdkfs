@@ -101,7 +101,7 @@ test("poetry enabled with specified python version", () => {
   expect(snapshot["pyproject.toml"]).toContain('python = "^3.8,<=3.11"');
 });
 
-test("poetry enabled with poetry-specific options", () => {
+describe("poetry enabled with poetry-specific options", () => {
   const p = new TestPythonProject({
     poetry: true,
     homepage: "http://www.example.com",
@@ -142,13 +142,21 @@ test("poetry enabled with poetry-specific options", () => {
       urls: {
         "bug tracker": "https://github.com/test-python-project/issues",
       },
+      packageMode: false,
     },
   });
-
-  expect(synthSnapshot(p)).toMatchSnapshot();
+  const snapshot = synthSnapshot(p);
+  const actualTomlContent = snapshot["pyproject.toml"];
+  const actualObjectContent = TOML.parse(actualTomlContent) as any;
+  it("should match the snapshot", () => {
+    expect(snapshot).toMatchSnapshot();
+  });
+  it("should set package-mode correctly", () => {
+    expect(actualObjectContent.tool.poetry["package-mode"]).toBe(false);
+  });
 });
 
-test("poetry correctly handles dependencies with toml inline tables", () => {
+describe("poetry correctly handles dependencies with toml inline tables", () => {
   const p = new TestPythonProject({
     poetry: true,
     homepage: "http://www.example.com",
@@ -167,29 +175,37 @@ test("poetry correctly handles dependencies with toml inline tables", () => {
   const snapshot = synthSnapshot(p);
   const actualTomlContent = snapshot["pyproject.toml"];
   const actualObjectContent = TOML.parse(actualTomlContent) as any;
-
-  // Handles TOML table with strings
-  expect(actualObjectContent.tool.poetry.dependencies.package1).toEqual({
-    git: "https://github.com/numpy/numpy.git",
-    tag: "v0.13.2",
+  it("should not have a value for package-mode", () => {
+    expect(actualObjectContent.tool.poetry["package-mode"]).toBeUndefined();
+  });
+  it("should set git dependencies correctly", () => {
+    // Handles TOML table with strings
+    expect(actualObjectContent.tool.poetry.dependencies.package1).toEqual({
+      git: "https://github.com/numpy/numpy.git",
+      tag: "v0.13.2",
+    });
   });
 
-  // Handles TOML table with boolean
-  expect(actualObjectContent.tool.poetry.dependencies.package2).toEqual({
-    path: "../my-package/",
-    develop: false,
+  it("should set path dependencies correctly", () => {
+    // Handles TOML table with boolean
+    expect(actualObjectContent.tool.poetry.dependencies.package2).toEqual({
+      path: "../my-package/",
+      develop: false,
+    });
   });
-
-  // Handles TOML table with array
-  expect(actualObjectContent.tool.poetry.dependencies.package3).toEqual({
-    version: "^20.1",
-    extras: ["extra1", "extra2"],
+  it("should set extras dependencies correctly", () => {
+    // Handles TOML table with array
+    expect(actualObjectContent.tool.poetry.dependencies.package3).toEqual({
+      version: "^20.1",
+      extras: ["extra1", "extra2"],
+    });
   });
-
-  // Handles TOML table with both single and double quotes
-  expect(actualObjectContent.tool.poetry.dependencies.package4).toEqual({
-    version: "^2.2",
-    markers: "python_version <= '3.4' or sys_platform == 'win32'",
+  it("should set environment markers dependencies correctly", () => {
+    // Handles TOML table with both single and double quotes
+    expect(actualObjectContent.tool.poetry.dependencies.package4).toEqual({
+      version: "^2.2",
+      markers: "python_version <= '3.4' or sys_platform == 'win32'",
+    });
   });
 
   // Handles TOML array of tables

@@ -366,6 +366,13 @@ export interface PoetryPyprojectOptionsWithoutDeps {
    * E.g. "Bug Tracker"
    */
   readonly urls?: { [key: string]: string };
+  /**
+   * Package mode (optional).
+   * @see https://python-poetry.org/docs/pyproject/#package-mode
+   * @default true
+   * @example false
+   */
+  readonly packageMode?: boolean;
 }
 
 /**
@@ -403,7 +410,9 @@ export class PoetryPyproject extends Component {
     super(project);
 
     const { dependencies, devDependencies, ...otherOptions } = options;
-    const decamelizedOptions = decamelizeKeysRecursively(otherOptions);
+    const decamelizedOptions = decamelizeKeysRecursively(otherOptions, {
+      separator: "-",
+    });
 
     const tomlStructure: any = {
       tool: {
