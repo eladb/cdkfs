@@ -29,6 +29,7 @@ import {
   JobPermissions,
   JobStep,
   JobStepConfiguration,
+  Tools,
   Triggers,
 } from "../github/workflows-model";
 import { IgnoreFile, IgnoreFileOptions } from "../ignore-file";
@@ -114,8 +115,8 @@ export interface NodeProjectOptions
 
   /**
    * Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/
-   * Uses codecov/codecov-action@v4
-   * A secret is required for private repos. Configured with `@codeCovTokenSecret`
+   * Uses codecov/codecov-action
+   * A secret is required for private repos. Configured with `codeCovTokenSecret`
    * @default false
    */
   readonly codeCov?: boolean;
@@ -354,6 +355,13 @@ export interface BuildWorkflowOptions extends BuildWorkflowCommonOptions {
    * @default true
    */
   readonly mutableBuild?: boolean;
+
+  /**
+   * Additional tools required for the build job.
+   *
+   * @default - required tools
+   */
+  readonly tools?: Tools;
 }
 
 /**

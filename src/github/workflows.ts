@@ -469,6 +469,18 @@ function setupTools(tools: workflows.Tools) {
     });
   }
 
+  if (tools.rust) {
+    steps.push({
+      uses: "actions-rust-lang/setup-rust-toolchain@v1",
+      with: { toolchain: tools.rust.version },
+    });
+  }
+
+  if (tools.custom) {
+    const customSteps = tools.custom.flatMap((tool) => tool.setupSteps());
+    steps.push(...customSteps);
+  }
+
   return steps;
 }
 

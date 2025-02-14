@@ -171,8 +171,8 @@ export interface Job extends CommonJobDefinition {
   readonly services?: Record<string, ContainerOptions>;
 
   /**
-   * Tools required for this job. Translates into `actions/setup-xxx` steps at
-   * the beginning of the job.
+   * Tools required for this job.
+   * Translates into `actions/setup-xxx` steps at the beginning of the job.
    */
   readonly tools?: Tools;
 }
@@ -182,7 +182,7 @@ export interface Job extends CommonJobDefinition {
  */
 export interface Tools {
   /**
-   * Setup java (temurin distribution).
+   * Setup java (corretto distribution).
    * @default - not installed
    */
   readonly java?: ToolRequirement;
@@ -210,6 +210,25 @@ export interface Tools {
    * @default - not installed
    */
   readonly dotnet?: ToolRequirement;
+
+  /**
+   * Setup rust toolchain
+   * @default - not installed
+   */
+  readonly rust?: ToolRequirement;
+
+  /**
+   * Setup additional custom tools
+   * @default - no custom tools are added
+   */
+  readonly custom?: ITool[];
+}
+
+/**
+ * Custom setup steps to configure a tool in a workflow job.
+ */
+export interface ITool {
+  setupSteps(): JobStep[];
 }
 
 /**
@@ -282,7 +301,7 @@ export interface AppPermissions {
   readonly organizationPackages?: AppPermission;
   readonly organizationSecrets?: AppPermission;
   readonly organizationSelfHostedRunners?: AppPermission;
-  readonly orgnaizationUserBlocking?: AppPermission;
+  readonly organizationUserBlocking?: AppPermission;
   readonly teamDiscussions?: AppPermission;
 }
 
@@ -304,7 +323,7 @@ export enum JobPermission {
  * The permissions available for an access token for a GitHub App.
  */
 export enum AppPermission {
-  /** Read-only acccess */
+  /** Read-only access */
   READ = "read",
   /** Read-write access */
   WRITE = "write",

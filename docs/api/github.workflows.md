@@ -43,7 +43,7 @@ const appPermissions: github.workflows.AppPermissions = { ... }
 | <code><a href="#projen.github.workflows.AppPermissions.property.organizationProjects">organizationProjects</a></code> | <code>projen.github.workflows.AppPermission</code> | *No description.* |
 | <code><a href="#projen.github.workflows.AppPermissions.property.organizationSecrets">organizationSecrets</a></code> | <code>projen.github.workflows.AppPermission</code> | *No description.* |
 | <code><a href="#projen.github.workflows.AppPermissions.property.organizationSelfHostedRunners">organizationSelfHostedRunners</a></code> | <code>projen.github.workflows.AppPermission</code> | *No description.* |
-| <code><a href="#projen.github.workflows.AppPermissions.property.orgnaizationUserBlocking">orgnaizationUserBlocking</a></code> | <code>projen.github.workflows.AppPermission</code> | *No description.* |
+| <code><a href="#projen.github.workflows.AppPermissions.property.organizationUserBlocking">organizationUserBlocking</a></code> | <code>projen.github.workflows.AppPermission</code> | *No description.* |
 | <code><a href="#projen.github.workflows.AppPermissions.property.packages">packages</a></code> | <code>projen.github.workflows.AppPermission</code> | *No description.* |
 | <code><a href="#projen.github.workflows.AppPermissions.property.pages">pages</a></code> | <code>projen.github.workflows.AppPermission</code> | *No description.* |
 | <code><a href="#projen.github.workflows.AppPermissions.property.pullRequests">pullRequests</a></code> | <code>projen.github.workflows.AppPermission</code> | *No description.* |
@@ -241,10 +241,10 @@ public readonly organizationSelfHostedRunners: AppPermission;
 
 ---
 
-##### `orgnaizationUserBlocking`<sup>Optional</sup> <a name="orgnaizationUserBlocking" id="projen.github.workflows.AppPermissions.property.orgnaizationUserBlocking"></a>
+##### `organizationUserBlocking`<sup>Optional</sup> <a name="organizationUserBlocking" id="projen.github.workflows.AppPermissions.property.organizationUserBlocking"></a>
 
 ```typescript
-public readonly orgnaizationUserBlocking: AppPermission;
+public readonly organizationUserBlocking: AppPermission;
 ```
 
 - *Type:* projen.github.workflows.AppPermission
@@ -1319,8 +1319,7 @@ public readonly tools: Tools;
 
 Tools required for this job.
 
-Translates into `actions/setup-xxx` steps at
-the beginning of the job.
+Translates into `actions/setup-xxx` steps at the beginning of the job.
 
 ---
 
@@ -3178,11 +3177,26 @@ const tools: github.workflows.Tools = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#projen.github.workflows.Tools.property.custom">custom</a></code> | <code>projen.github.workflows.ITool[]</code> | Setup additional custom tools. |
 | <code><a href="#projen.github.workflows.Tools.property.dotnet">dotnet</a></code> | <code>projen.github.workflows.ToolRequirement</code> | Setup .NET Core. |
 | <code><a href="#projen.github.workflows.Tools.property.go">go</a></code> | <code>projen.github.workflows.ToolRequirement</code> | Setup golang. |
-| <code><a href="#projen.github.workflows.Tools.property.java">java</a></code> | <code>projen.github.workflows.ToolRequirement</code> | Setup java (temurin distribution). |
+| <code><a href="#projen.github.workflows.Tools.property.java">java</a></code> | <code>projen.github.workflows.ToolRequirement</code> | Setup java (corretto distribution). |
 | <code><a href="#projen.github.workflows.Tools.property.node">node</a></code> | <code>projen.github.workflows.ToolRequirement</code> | Setup node.js. |
 | <code><a href="#projen.github.workflows.Tools.property.python">python</a></code> | <code>projen.github.workflows.ToolRequirement</code> | Setup python. |
+| <code><a href="#projen.github.workflows.Tools.property.rust">rust</a></code> | <code>projen.github.workflows.ToolRequirement</code> | Setup rust toolchain. |
+
+---
+
+##### `custom`<sup>Optional</sup> <a name="custom" id="projen.github.workflows.Tools.property.custom"></a>
+
+```typescript
+public readonly custom: ITool[];
+```
+
+- *Type:* projen.github.workflows.ITool[]
+- *Default:* no custom tools are added
+
+Setup additional custom tools.
 
 ---
 
@@ -3221,7 +3235,7 @@ public readonly java: ToolRequirement;
 - *Type:* projen.github.workflows.ToolRequirement
 - *Default:* not installed
 
-Setup java (temurin distribution).
+Setup java (corretto distribution).
 
 ---
 
@@ -3248,6 +3262,19 @@ public readonly python: ToolRequirement;
 - *Default:* not installed
 
 Setup python.
+
+---
+
+##### `rust`<sup>Optional</sup> <a name="rust" id="projen.github.workflows.Tools.property.rust"></a>
+
+```typescript
+public readonly rust: ToolRequirement;
+```
+
+- *Type:* projen.github.workflows.ToolRequirement
+- *Default:* not installed
+
+Setup rust toolchain.
 
 ---
 
@@ -3890,6 +3917,28 @@ Which workflow to trigger on.
 ---
 
 
+## Protocols <a name="Protocols" id="Protocols"></a>
+
+### ITool <a name="ITool" id="projen.github.workflows.ITool"></a>
+
+- *Implemented By:* projen.github.workflows.ITool
+
+Custom setup steps to configure a tool in a workflow job.
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.github.workflows.ITool.setupSteps">setupSteps</a></code> | *No description.* |
+
+---
+
+##### `setupSteps` <a name="setupSteps" id="projen.github.workflows.ITool.setupSteps"></a>
+
+```typescript
+public setupSteps(): JobStep[]
+```
+
 
 ## Enums <a name="Enums" id="Enums"></a>
 
@@ -3901,7 +3950,7 @@ The permissions available for an access token for a GitHub App.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#projen.github.workflows.AppPermission.READ">READ</a></code> | Read-only acccess. |
+| <code><a href="#projen.github.workflows.AppPermission.READ">READ</a></code> | Read-only access. |
 | <code><a href="#projen.github.workflows.AppPermission.WRITE">WRITE</a></code> | Read-write access. |
 | <code><a href="#projen.github.workflows.AppPermission.ADMIN">ADMIN</a></code> | Read-write and admin access. |
 
@@ -3909,7 +3958,7 @@ The permissions available for an access token for a GitHub App.
 
 ##### `READ` <a name="READ" id="projen.github.workflows.AppPermission.READ"></a>
 
-Read-only acccess.
+Read-only access.
 
 ---
 

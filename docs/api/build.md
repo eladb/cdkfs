@@ -550,6 +550,7 @@ const buildWorkflowOptions: build.BuildWorkflowOptions = { ... }
 | <code><a href="#projen.build.BuildWorkflowOptions.property.postBuildSteps">postBuildSteps</a></code> | <code>projen.github.workflows.JobStep[]</code> | Steps to execute after build. |
 | <code><a href="#projen.build.BuildWorkflowOptions.property.runsOn">runsOn</a></code> | <code>string[]</code> | Github Runner selection labels. |
 | <code><a href="#projen.build.BuildWorkflowOptions.property.runsOnGroup">runsOnGroup</a></code> | <code>projen.GroupRunnerOptions</code> | Github Runner Group selection options. |
+| <code><a href="#projen.build.BuildWorkflowOptions.property.tools">tools</a></code> | <code>projen.github.workflows.Tools</code> | Tools required for this job. |
 
 ---
 
@@ -726,6 +727,21 @@ public readonly runsOnGroup: GroupRunnerOptions;
 - *Type:* projen.GroupRunnerOptions
 
 Github Runner Group selection options.
+
+---
+
+##### `tools`<sup>Optional</sup> <a name="tools" id="projen.build.BuildWorkflowOptions.property.tools"></a>
+
+```typescript
+public readonly tools: Tools;
+```
+
+- *Type:* projen.github.workflows.Tools
+- *Default:* none
+
+Tools required for this job.
+
+Translates into `actions/setup-xxx` steps at the beginning of the job.
 
 ---
 

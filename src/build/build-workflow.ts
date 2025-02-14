@@ -132,6 +132,13 @@ export interface BuildWorkflowOptions extends BuildWorkflowCommonOptions {
    * @throws {Error} if both `runsOn` and `runsOnGroup` are specified
    */
   readonly runsOnGroup?: GroupRunnerOptions;
+
+  /**
+   * Tools required for this job.
+   * Translates into `actions/setup-xxx` steps at the beginning of the job.
+   * @default - none
+   */
+  readonly tools?: Tools;
 }
 
 export class BuildWorkflow extends Component {
@@ -377,6 +384,7 @@ export class BuildWorkflow extends Component {
       permissions: {
         contents: JobPermission.WRITE,
       },
+      tools: options.tools,
       needs: [BUILD_JOBID],
       if: `always() && ${SELF_MUTATION_CONDITION} && ${NOT_FORK}`,
       steps: [
