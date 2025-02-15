@@ -165,7 +165,7 @@ export class Eslint extends Component {
   /**
    * eslint rules.
    */
-  public readonly rules: { [rule: string]: any[] };
+  public readonly rules: { [rule: string]: any };
 
   /**
    * eslint overrides.
@@ -180,7 +180,7 @@ export class Eslint extends Component {
   /**
    * Direct access to the eslint configuration (escape hatch)
    */
-  public readonly config: any;
+  public readonly config: string;
 
   /**
    * File patterns that should not be linted
@@ -189,13 +189,13 @@ export class Eslint extends Component {
 
   private _formattingRules: Record<string, any>;
   private readonly _allowDevDeps: Set<string>;
-  private readonly _plugins = new Set<string>();
+  private readonly _plugins: {importPath: string, pluginName: string, alias: string}[] = [];
   private readonly _extends = new Set<string>();
   private readonly _fileExtensions: Set<string>;
   private readonly _flagArgs: Set<string>;
   private readonly _lintPatterns: Set<string>;
   private readonly nodeProject: NodeProject;
-  private readonly sortExtends: ICompareString;
+  // private readonly sortExtends: ICompareString;
 
   constructor(project: NodeProject, options: EslintOptions) {
     super(project);
@@ -204,12 +204,14 @@ export class Eslint extends Component {
 
     project.addDevDeps(
       "eslint@^9",
-      "@typescript-eslint/eslint-plugin@^8",
-      "@typescript-eslint/parser@^8",
+      "@eslint/js@^9",
+      "typescript-eslint@^8",
       "eslint-import-resolver-typescript",
-      "eslint-plugin-import"
+      "eslint-plugin-import",
+      "@stylistic/eslint-plugin"
     );
 
+    // TODO
     if (options.aliasMap) {
       project.addDevDeps("eslint-import-resolver-alias");
     }
@@ -237,7 +239,7 @@ export class Eslint extends Component {
     }
     this._flagArgs.add("--no-error-on-unmatched-pattern");
 
-    this.sortExtends = options.sortExtends ?? new ExtendsDefaultOrder();
+    // this.sortExtends = options.sortExtends ?? new ExtendsDefaultOrder();
 
     this.eslintTask = project.addTask("eslint", {
       description: "Runs eslint against the codebase",
@@ -254,34 +256,33 @@ export class Eslint extends Component {
 
     this._formattingRules = {
       // @see https://github.com/typescript-eslint/typescript-eslint/issues/8072
-      indent: ["off"],
+      indent: "off",
       "@stylistic/indent": ["error", 2],
 
       // Style
-      quotes: ["error", "single", { avoidEscape: true }],
-      "comma-dangle": ["error", "always-multiline"], // ensures clean diffs, see https://medium.com/@nikgraf/why-you-should-enforce-dangling-commas-for-multiline-statements-d034c98e36f8
-      "comma-spacing": ["error", { before: false, after: true }], // space after, no space before
-      "no-multi-spaces": ["error", { ignoreEOLComments: false }], // no multi spaces
-      "array-bracket-spacing": ["error", "never"], // [1, 2, 3]
-      "array-bracket-newline": ["error", "consistent"], // enforce consistent line breaks between brackets
-      "object-curly-spacing": ["error", "always"], // { key: 'value' }
-      "object-curly-newline": ["error", { multiline: true, consistent: true }], // enforce consistent line breaks between braces
-      "object-property-newline": [
+      "@stylistic/quotes": ["error", "single", { avoidEscape: true }],
+      "@stylistic/comma-dangle": ["error", "always-multiline"], // ensures clean diffs, see https://medium.com/@nikgraf/why-you-should-enforce-dangling-commas-for-multiline-statements-d034c98e36f8
+      "@stylistic/comma-spacing": ["error", { before: false, after: true }], // space after, no space before
+      "@stylistic/no-multi-spaces": ["error", { ignoreEOLComments: false }], // no multi spaces
+      "@stylistic/array-bracket-spacing": ["error", "never"], // [1, 2, 3]
+      "@stylistic/array-bracket-newline": ["error", "consistent"], // enforce consistent line breaks between brackets
+      "@stylistic/object-curly-spacing": ["error", "always"], // { key: 'value' }
+      "@stylistic/object-curly-newline": ["error", { multiline: true, consistent: true }], // enforce consistent line breaks between braces
+      "@stylistic/object-property-newline": [
         "error",
         { allowAllPropertiesOnSameLine: true },
       ], // enforce "same line" or "multiple line" on object properties
-      "keyword-spacing": ["error"], // require a space before & after keywords
-      "brace-style": ["error", "1tbs", { allowSingleLine: true }], // enforce one true brace style
-      "space-before-blocks": ["error"], // require space before blocks
+      "@stylistic/keyword-spacing": "error", // require a space before & after keywords
+      "@stylistic/brace-style": ["error", "1tbs", { allowSingleLine: true }], // enforce one true brace style
+      "@stylistic/space-before-blocks": "error", // require space before blocks
       curly: ["error", "multi-line", "consistent"], // require curly braces for multiline control statements
-      // @see https://github.com/typescript-eslint/typescript-eslint/issues/8072
-      "@stylistic/member-delimiter-style": ["error"],
+      "@stylistic/member-delimiter-style": "error",
 
       // Require semicolons
-      semi: ["error", "always"],
+      "@stylistic/semi": ["error", "always"],
 
       // Max line lengths
-      "max-len": [
+      "@stylistic/max-len": [
         "error",
         {
           code: 150,
@@ -294,12 +295,12 @@ export class Eslint extends Component {
       ],
 
       // Don't unnecessarily quote properties
-      "quote-props": ["error", "consistent-as-needed"],
+      "@stylistic/quote-props": ["error", "consistent-as-needed"],
     };
 
     this.rules = {
       // Require use of the `import { foo } from 'bar';` form instead of `import foo = require('bar');`
-      "@typescript-eslint/no-require-imports": ["error"],
+      "@typescript-eslint/no-require-imports": "error",
 
       // Require all imported dependencies are actually declared in package.json
       "import/no-extraneous-dependencies": [
@@ -313,7 +314,7 @@ export class Eslint extends Component {
       ],
 
       // Require all imported libraries actually resolve (!!required for import/no-extraneous-dependencies to work!!)
-      "import/no-unresolved": ["error"],
+      "import/no-unresolved": "error",
 
       // Require an ordering on all imports
       "import/order": [
@@ -325,34 +326,34 @@ export class Eslint extends Component {
       ],
 
       // Cannot import from the same module twice
-      "import/no-duplicates": ["error"],
+      "import/no-duplicates": "error",
 
       // Cannot shadow names
-      "no-shadow": ["off"],
-      "@typescript-eslint/no-shadow": ["error"],
+      "no-shadow": "off",
+      "@typescript-eslint/no-shadow": "error",
 
       // Required spacing in property declarations (copied from TSLint, defaults are good)
-      "key-spacing": ["error"],
+      "@stylistic/key-spacing": "error",
 
       // No multiple empty lines
-      "no-multiple-empty-lines": ["error"],
+      "@stylistic/no-multiple-empty-lines": "error",
 
       // One of the easiest mistakes to make
-      "@typescript-eslint/no-floating-promises": ["error"],
+      "@typescript-eslint/no-floating-promises": "error",
 
       // Make sure that inside try/catch blocks, promises are 'return await'ed
       // (must disable the base rule as it can report incorrect errors)
-      "no-return-await": ["off"],
-      "@typescript-eslint/return-await": ["error"],
+      "no-return-await": "off",
+      "@typescript-eslint/return-await": "error",
 
       // Useless diff results
-      "no-trailing-spaces": ["error"],
+      "@stylistic/no-trailing-spaces": "error",
 
       // Must use foo.bar instead of foo['bar'] if possible
-      "dot-notation": ["error"],
+      "dot-notation": "error",
 
       // Are you sure | is not a typo for || ?
-      "no-bitwise": ["error"],
+      "no-bitwise": "error",
 
       // Member ordering
       "@typescript-eslint/member-ordering": [
@@ -406,50 +407,80 @@ export class Eslint extends Component {
 
     const tsconfig = options.tsconfigPath ?? "./tsconfig.json";
 
-    this.addPlugins("@typescript-eslint");
-    this.addPlugins("import");
-    this.addExtends("plugin:import/typescript");
+    this.addPlugins({ importPath: "typescript-eslint", pluginName: "@typescript-eslint", alias: "tseslint"});
+    this.addPlugins({importPath: "eslint-plugin-import", pluginName: "import", alias: "import"});
 
-    this.config = {
-      env: {
-        jest: true,
-        node: true,
+    this.config = `
+import globals from "globals";
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint"
+import importPlugin from 'eslint-plugin-import';
+import stylistic from '@stylistic/eslint-plugin'
+
+/** @type {import('eslint').Linter.Config[]} */
+export default [
+  eslint.configs.recommended,
+  importPlugin.flatConfigs.typescript,
+  {
+    ...${[...this._extends].join(',\n  ...')},
+    files: ['**/*.ts', '**/*.tsx'],
+    languageOptions: { 
+      globals: {
+        ...globals.node,
+        ...globals.jest,
       },
-      root: true,
-      plugins: this._plugins,
-      parser: "@typescript-eslint/parser",
+      parser: tseslint.parser,
       parserOptions: {
         ecmaVersion: 2018,
         sourceType: "module",
-        project: tsconfig,
+        project: ${tsconfig},
       },
-      extends: () =>
-        Array.from(this._extends).sort((a, b) =>
-          this.sortExtends.compare(a, b)
-        ),
-      settings: {
-        "import/parsers": {
-          "@typescript-eslint/parser": [".ts", ".tsx"],
-        },
-        "import/resolver": {
+    },
+    settings: {
+      "import/parsers": {
+        "@typescript-eslint/parser": [".ts", ".tsx"],
+      },
+      "import/resolver": {
+        ${JSON.stringify({
           ...(options.aliasMap && {
             alias: {
               map: Object.entries(options.aliasMap).map(([k, v]) => [k, v]),
               extensions: options.aliasExtensions,
             },
           }),
-          node: {},
-          typescript: {
-            project: tsconfig,
+        }).slice(1, -1)},
+        node: {},
+        typescript: {
+          project: ${tsconfig},
+          ${JSON.stringify({
             ...(options.tsAlwaysTryTypes !== false && { alwaysTryTypes: true }),
-          },
-        },
+          }).slice(1, -1)},
+        }
       },
-      ignorePatterns: this.ignorePatterns,
-      rules: () => ({ ...this._formattingRules, ...this.rules }),
-      overrides: this.overrides,
-    };
-
+    },
+    plugins: ${this._plugins.map((plugin) => `"${plugin.pluginName}": ${plugin.alias}`).join(',\n      ')},
+    rules: {
+      ${JSON.stringify({...this.rules, ...this._formattingRules}).slice(1, -1)}
+    }
+  },
+  ${this.overrides.map((override) => `
+    {
+      ...${override.extends?.map((extend) => `"${extend}"`).join(',\n  ...')},
+      files: ${override.files},
+      plugins: ${override.plugins},
+      ${override.parser ? `
+      languageOptions: {
+        parser: ${override.parser},
+      }` : ''},
+      ${override.rules ? `rules: ${override.rules}` : ''},
+      ${override.excludedFiles ? `ignores: ${override.excludedFiles}` : ''},
+    }
+    `).join(',\n  ')},
+  {
+    ignores: ${JSON.stringify(this.ignorePatterns).slice(1, -1)}
+  }
+];
+`
     if (options.yaml) {
       new YamlFile(project, ".eslintrc.yml", {
         obj: this.config,
@@ -470,7 +501,7 @@ export class Eslint extends Component {
       this.enablePrettier();
     } else {
       this.nodeProject.addDevDeps("@stylistic/eslint-plugin@^2");
-      this.addPlugins("@stylistic");
+      this.addPlugins({importPath: "@stylistic/eslint-plugin", pluginName: "@stylistic", alias: "stylistic"});
     }
   }
 
@@ -506,9 +537,9 @@ export class Eslint extends Component {
    * Adds an eslint plugin
    * @param plugins The names of plugins to add
    */
-  public addPlugins(...plugins: string[]) {
+  public addPlugins(...plugins: {importPath: string, pluginName:string, alias: string}[]) {
     for (const plugin of plugins) {
-      this._plugins.add(plugin);
+      this._plugins.push(plugin);
     }
   }
 
@@ -621,14 +652,14 @@ export class Eslint extends Component {
  *
  * Places "prettier" plugins at the end of the array
  */
-class ExtendsDefaultOrder implements ICompareString {
-  // This is the order that ESLint best practices suggest
-  private static ORDER = ["plugin:prettier/recommended", "prettier"];
+// class ExtendsDefaultOrder implements ICompareString {
+//   // This is the order that ESLint best practices suggest
+//   private static ORDER = ["plugin:prettier/recommended", "prettier"];
 
-  public compare(a: string, b: string): number {
-    return (
-      ExtendsDefaultOrder.ORDER.indexOf(a) -
-      ExtendsDefaultOrder.ORDER.indexOf(b)
-    );
-  }
-}
+//   public compare(a: string, b: string): number {
+//     return (
+//       ExtendsDefaultOrder.ORDER.indexOf(a) -
+//       ExtendsDefaultOrder.ORDER.indexOf(b)
+//     );
+//   }
+// }
