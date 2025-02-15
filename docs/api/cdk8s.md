@@ -5571,6 +5571,8 @@ const cdk8sPythonOptions: cdk8s.Cdk8sPythonOptions = { ... }
 | <code><a href="#projen.cdk8s.Cdk8sPythonOptions.property.sample">sample</a></code> | <code>boolean</code> | Include sample code and test if the relevant directories don't exist. |
 | <code><a href="#projen.cdk8s.Cdk8sPythonOptions.property.sampleTestdir">sampleTestdir</a></code> | <code>string</code> | Location of sample tests. |
 | <code><a href="#projen.cdk8s.Cdk8sPythonOptions.property.setuptools">setuptools</a></code> | <code>boolean</code> | Use setuptools with a setup.py script for packaging and publishing. |
+| <code><a href="#projen.cdk8s.Cdk8sPythonOptions.property.uv">uv</a></code> | <code>boolean</code> | Use uv to manage your project dependencies, virtual environment, and (optional) packaging/publishing. |
+| <code><a href="#projen.cdk8s.Cdk8sPythonOptions.property.uvOptions">uvOptions</a></code> | <code>projen.python.UvOptions</code> | Options related to uv. |
 | <code><a href="#projen.cdk8s.Cdk8sPythonOptions.property.venv">venv</a></code> | <code>boolean</code> | Use venv to manage a virtual environment for installing dependencies inside. |
 | <code><a href="#projen.cdk8s.Cdk8sPythonOptions.property.venvOptions">venvOptions</a></code> | <code>projen.python.VenvOptions</code> | Venv options. |
 | <code><a href="#projen.cdk8s.Cdk8sPythonOptions.property.cdk8sVersion">cdk8sVersion</a></code> | <code>string</code> | Minimum version of the cdk8s to depend on. |
@@ -6370,6 +6372,32 @@ public readonly setuptools: boolean;
 - *Default:* true, unless poetry is true, then false
 
 Use setuptools with a setup.py script for packaging and publishing.
+
+---
+
+##### `uv`<sup>Optional</sup> <a name="uv" id="projen.cdk8s.Cdk8sPythonOptions.property.uv"></a>
+
+```typescript
+public readonly uv: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Use uv to manage your project dependencies, virtual environment, and (optional) packaging/publishing.
+
+---
+
+##### `uvOptions`<sup>Optional</sup> <a name="uvOptions" id="projen.cdk8s.Cdk8sPythonOptions.property.uvOptions"></a>
+
+```typescript
+public readonly uvOptions: UvOptions;
+```
+
+- *Type:* projen.python.UvOptions
+- *Default:* default options
+
+Options related to uv.
 
 ---
 

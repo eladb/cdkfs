@@ -12,3 +12,4 @@ export * from "./requirements-file";
 export * from "./setuppy";
 export * from "./setuptools";
 export * from "./venv";
+export * from "./uv";

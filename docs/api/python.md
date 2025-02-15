@@ -3074,6 +3074,445 @@ A task that uploads the package to the Test PyPI repository.
 ---
 
 
+### Uv <a name="Uv" id="projen.python.Uv"></a>
+
+- *Implements:* <a href="#projen.python.IPythonDeps">IPythonDeps</a>, <a href="#projen.python.IPythonEnv">IPythonEnv</a>, <a href="#projen.python.IPythonPackaging">IPythonPackaging</a>
+
+Manage project dependencies, virtual environments, and packaging through uv.
+
+#### Initializers <a name="Initializers" id="projen.python.Uv.Initializer"></a>
+
+```typescript
+import { python } from 'projen'
+
+new python.Uv(project: Project, options: UvOptions)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.python.Uv.Initializer.parameter.project">project</a></code> | <code>projen.Project</code> | *No description.* |
+| <code><a href="#projen.python.Uv.Initializer.parameter.options">options</a></code> | <code><a href="#projen.python.UvOptions">UvOptions</a></code> | *No description.* |
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="projen.python.Uv.Initializer.parameter.project"></a>
+
+- *Type:* projen.Project
+
+---
+
+##### `options`<sup>Required</sup> <a name="options" id="projen.python.Uv.Initializer.parameter.options"></a>
+
+- *Type:* <a href="#projen.python.UvOptions">UvOptions</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.python.Uv.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#projen.python.Uv.postSynthesize">postSynthesize</a></code> | Called after synthesis. |
+| <code><a href="#projen.python.Uv.preSynthesize">preSynthesize</a></code> | Called before synthesis. |
+| <code><a href="#projen.python.Uv.synthesize">synthesize</a></code> | Synthesizes files to the project output directory. |
+| <code><a href="#projen.python.Uv.addDependency">addDependency</a></code> | Adds a runtime dependency. |
+| <code><a href="#projen.python.Uv.addDevDependency">addDevDependency</a></code> | Adds a dev dependency. |
+| <code><a href="#projen.python.Uv.installDependencies">installDependencies</a></code> | Installs dependencies (called during post-synthesis). |
+| <code><a href="#projen.python.Uv.setupEnvironment">setupEnvironment</a></code> | Initializes the virtual environment if it doesn't exist (called during post-synthesis). |
+
+---
+
+##### `toString` <a name="toString" id="projen.python.Uv.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `postSynthesize` <a name="postSynthesize" id="projen.python.Uv.postSynthesize"></a>
+
+```typescript
+public postSynthesize(): void
+```
+
+Called after synthesis.
+
+Order is *not* guaranteed.
+
+##### `preSynthesize` <a name="preSynthesize" id="projen.python.Uv.preSynthesize"></a>
+
+```typescript
+public preSynthesize(): void
+```
+
+Called before synthesis.
+
+##### `synthesize` <a name="synthesize" id="projen.python.Uv.synthesize"></a>
+
+```typescript
+public synthesize(): void
+```
+
+Synthesizes files to the project output directory.
+
+##### `addDependency` <a name="addDependency" id="projen.python.Uv.addDependency"></a>
+
+```typescript
+public addDependency(spec: string): void
+```
+
+Adds a runtime dependency.
+
+###### `spec`<sup>Required</sup> <a name="spec" id="projen.python.Uv.addDependency.parameter.spec"></a>
+
+- *Type:* string
+
+---
+
+##### `addDevDependency` <a name="addDevDependency" id="projen.python.Uv.addDevDependency"></a>
+
+```typescript
+public addDevDependency(spec: string): void
+```
+
+Adds a dev dependency.
+
+###### `spec`<sup>Required</sup> <a name="spec" id="projen.python.Uv.addDevDependency.parameter.spec"></a>
+
+- *Type:* string
+
+---
+
+##### `installDependencies` <a name="installDependencies" id="projen.python.Uv.installDependencies"></a>
+
+```typescript
+public installDependencies(): void
+```
+
+Installs dependencies (called during post-synthesis).
+
+##### `setupEnvironment` <a name="setupEnvironment" id="projen.python.Uv.setupEnvironment"></a>
+
+```typescript
+public setupEnvironment(): void
+```
+
+Initializes the virtual environment if it doesn't exist (called during post-synthesis).
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.python.Uv.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#projen.python.Uv.isComponent">isComponent</a></code> | Test whether the given construct is a component. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="projen.python.Uv.isConstruct"></a>
+
+```typescript
+import { python } from 'projen'
+
+python.Uv.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="projen.python.Uv.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isComponent` <a name="isComponent" id="projen.python.Uv.isComponent"></a>
+
+```typescript
+import { python } from 'projen'
+
+python.Uv.isComponent(x: any)
+```
+
+Test whether the given construct is a component.
+
+###### `x`<sup>Required</sup> <a name="x" id="projen.python.Uv.isComponent.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.python.Uv.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#projen.python.Uv.property.project">project</a></code> | <code>projen.Project</code> | *No description.* |
+| <code><a href="#projen.python.Uv.property.installCiTask">installCiTask</a></code> | <code>projen.Task</code> | A task that installs and updates dependencies. |
+| <code><a href="#projen.python.Uv.property.installTask">installTask</a></code> | <code>projen.Task</code> | *No description.* |
+| <code><a href="#projen.python.Uv.property.publishTask">publishTask</a></code> | <code>projen.Task</code> | A task that uploads the package to a package repository. |
+| <code><a href="#projen.python.Uv.property.publishTestTask">publishTestTask</a></code> | <code>projen.Task</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="projen.python.Uv.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="projen.python.Uv.property.project"></a>
+
+```typescript
+public readonly project: Project;
+```
+
+- *Type:* projen.Project
+
+---
+
+##### `installCiTask`<sup>Required</sup> <a name="installCiTask" id="projen.python.Uv.property.installCiTask"></a>
+
+```typescript
+public readonly installCiTask: Task;
+```
+
+- *Type:* projen.Task
+
+A task that installs and updates dependencies.
+
+---
+
+##### `installTask`<sup>Required</sup> <a name="installTask" id="projen.python.Uv.property.installTask"></a>
+
+```typescript
+public readonly installTask: Task;
+```
+
+- *Type:* projen.Task
+
+---
+
+##### `publishTask`<sup>Required</sup> <a name="publishTask" id="projen.python.Uv.property.publishTask"></a>
+
+```typescript
+public readonly publishTask: Task;
+```
+
+- *Type:* projen.Task
+
+A task that uploads the package to a package repository.
+
+---
+
+##### `publishTestTask`<sup>Required</sup> <a name="publishTestTask" id="projen.python.Uv.property.publishTestTask"></a>
+
+```typescript
+public readonly publishTestTask: Task;
+```
+
+- *Type:* projen.Task
+
+---
+
+
+### UvPyproject <a name="UvPyproject" id="projen.python.UvPyproject"></a>
+
+Represents configuration of a pyproject.toml file for a uv project.
+
+#### Initializers <a name="Initializers" id="projen.python.UvPyproject.Initializer"></a>
+
+```typescript
+import { python } from 'projen'
+
+new python.UvPyproject(project: Project, options: UvPyprojectOptions)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.python.UvPyproject.Initializer.parameter.project">project</a></code> | <code>projen.Project</code> | *No description.* |
+| <code><a href="#projen.python.UvPyproject.Initializer.parameter.options">options</a></code> | <code><a href="#projen.python.UvPyprojectOptions">UvPyprojectOptions</a></code> | *No description.* |
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="projen.python.UvPyproject.Initializer.parameter.project"></a>
+
+- *Type:* projen.Project
+
+---
+
+##### `options`<sup>Required</sup> <a name="options" id="projen.python.UvPyproject.Initializer.parameter.options"></a>
+
+- *Type:* <a href="#projen.python.UvPyprojectOptions">UvPyprojectOptions</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.python.UvPyproject.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#projen.python.UvPyproject.postSynthesize">postSynthesize</a></code> | Called after synthesis. |
+| <code><a href="#projen.python.UvPyproject.preSynthesize">preSynthesize</a></code> | Called before synthesis. |
+| <code><a href="#projen.python.UvPyproject.synthesize">synthesize</a></code> | Synthesizes files to the project output directory. |
+
+---
+
+##### `toString` <a name="toString" id="projen.python.UvPyproject.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `postSynthesize` <a name="postSynthesize" id="projen.python.UvPyproject.postSynthesize"></a>
+
+```typescript
+public postSynthesize(): void
+```
+
+Called after synthesis.
+
+Order is *not* guaranteed.
+
+##### `preSynthesize` <a name="preSynthesize" id="projen.python.UvPyproject.preSynthesize"></a>
+
+```typescript
+public preSynthesize(): void
+```
+
+Called before synthesis.
+
+##### `synthesize` <a name="synthesize" id="projen.python.UvPyproject.synthesize"></a>
+
+```typescript
+public synthesize(): void
+```
+
+Synthesizes files to the project output directory.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.python.UvPyproject.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#projen.python.UvPyproject.isComponent">isComponent</a></code> | Test whether the given construct is a component. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="projen.python.UvPyproject.isConstruct"></a>
+
+```typescript
+import { python } from 'projen'
+
+python.UvPyproject.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="projen.python.UvPyproject.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isComponent` <a name="isComponent" id="projen.python.UvPyproject.isComponent"></a>
+
+```typescript
+import { python } from 'projen'
+
+python.UvPyproject.isComponent(x: any)
+```
+
+Test whether the given construct is a component.
+
+###### `x`<sup>Required</sup> <a name="x" id="projen.python.UvPyproject.isComponent.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.python.UvPyproject.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#projen.python.UvPyproject.property.project">project</a></code> | <code>projen.Project</code> | *No description.* |
+| <code><a href="#projen.python.UvPyproject.property.file">file</a></code> | <code>projen.TomlFile</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="projen.python.UvPyproject.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="projen.python.UvPyproject.property.project"></a>
+
+```typescript
+public readonly project: Project;
+```
+
+- *Type:* projen.Project
+
+---
+
+##### `file`<sup>Required</sup> <a name="file" id="projen.python.UvPyproject.property.file"></a>
+
+```typescript
+public readonly file: TomlFile;
+```
+
+- *Type:* projen.TomlFile
+
+---
+
+
 ### Venv <a name="Venv" id="projen.python.Venv"></a>
 
 - *Implements:* <a href="#projen.python.IPythonEnv">IPythonEnv</a>
@@ -4522,6 +4961,8 @@ const pythonProjectOptions: python.PythonProjectOptions = { ... }
 | <code><a href="#projen.python.PythonProjectOptions.property.sample">sample</a></code> | <code>boolean</code> | Include sample code and test if the relevant directories don't exist. |
 | <code><a href="#projen.python.PythonProjectOptions.property.sampleTestdir">sampleTestdir</a></code> | <code>string</code> | Location of sample tests. |
 | <code><a href="#projen.python.PythonProjectOptions.property.setuptools">setuptools</a></code> | <code>boolean</code> | Use setuptools with a setup.py script for packaging and publishing. |
+| <code><a href="#projen.python.PythonProjectOptions.property.uv">uv</a></code> | <code>boolean</code> | Use uv to manage your project dependencies, virtual environment, and (optional) packaging/publishing. |
+| <code><a href="#projen.python.PythonProjectOptions.property.uvOptions">uvOptions</a></code> | <code><a href="#projen.python.UvOptions">UvOptions</a></code> | Options related to uv. |
 | <code><a href="#projen.python.PythonProjectOptions.property.venv">venv</a></code> | <code>boolean</code> | Use venv to manage a virtual environment for installing dependencies inside. |
 | <code><a href="#projen.python.PythonProjectOptions.property.venvOptions">venvOptions</a></code> | <code><a href="#projen.python.VenvOptions">VenvOptions</a></code> | Venv options. |
 
@@ -5311,6 +5752,32 @@ Use setuptools with a setup.py script for packaging and publishing.
 
 ---
 
+##### `uv`<sup>Optional</sup> <a name="uv" id="projen.python.PythonProjectOptions.property.uv"></a>
+
+```typescript
+public readonly uv: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Use uv to manage your project dependencies, virtual environment, and (optional) packaging/publishing.
+
+---
+
+##### `uvOptions`<sup>Optional</sup> <a name="uvOptions" id="projen.python.PythonProjectOptions.property.uvOptions"></a>
+
+```typescript
+public readonly uvOptions: UvOptions;
+```
+
+- *Type:* <a href="#projen.python.UvOptions">UvOptions</a>
+- *Default:* default options
+
+Options related to uv.
+
+---
+
 ##### `venv`<sup>Optional</sup> <a name="venv" id="projen.python.PythonProjectOptions.property.venv"></a>
 
 ```typescript
@@ -5718,6 +6185,533 @@ Path to the python executable to use.
 
 ---
 
+### UvBaseOptions <a name="UvBaseOptions" id="projen.python.UvBaseOptions"></a>
+
+Base options for UV project configuration.
+
+#### Initializer <a name="Initializer" id="projen.python.UvBaseOptions.Initializer"></a>
+
+```typescript
+import { python } from 'projen'
+
+const uvBaseOptions: python.UvBaseOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.python.UvBaseOptions.property.authorEmail">authorEmail</a></code> | <code>string</code> | Email of the package author. |
+| <code><a href="#projen.python.UvBaseOptions.property.authorName">authorName</a></code> | <code>string</code> | Name of the package author. |
+| <code><a href="#projen.python.UvBaseOptions.property.classifiers">classifiers</a></code> | <code>string[]</code> | Python package classifiers. |
+| <code><a href="#projen.python.UvBaseOptions.property.description">description</a></code> | <code>string</code> | Description of the package. |
+| <code><a href="#projen.python.UvBaseOptions.property.documentation">documentation</a></code> | <code>string</code> | Documentation URL of the package. |
+| <code><a href="#projen.python.UvBaseOptions.property.homepage">homepage</a></code> | <code>string</code> | Homepage URL of the package. |
+| <code><a href="#projen.python.UvBaseOptions.property.keywords">keywords</a></code> | <code>string[]</code> | Keywords for the package. |
+| <code><a href="#projen.python.UvBaseOptions.property.license">license</a></code> | <code>string</code> | License of the package. |
+| <code><a href="#projen.python.UvBaseOptions.property.name">name</a></code> | <code>string</code> | Name of the package. |
+| <code><a href="#projen.python.UvBaseOptions.property.readme">readme</a></code> | <code>string</code> | Path to the readme file. |
+| <code><a href="#projen.python.UvBaseOptions.property.repository">repository</a></code> | <code>string</code> | Repository URL of the package. |
+| <code><a href="#projen.python.UvBaseOptions.property.requiresPython">requiresPython</a></code> | <code>string</code> | Python version requirement string. |
+| <code><a href="#projen.python.UvBaseOptions.property.urls">urls</a></code> | <code>{[ key: string ]: string}</code> | Additional URLs associated with the package. |
+| <code><a href="#projen.python.UvBaseOptions.property.version">version</a></code> | <code>string</code> | Version of the package. |
+
+---
+
+##### `authorEmail`<sup>Optional</sup> <a name="authorEmail" id="projen.python.UvBaseOptions.property.authorEmail"></a>
+
+```typescript
+public readonly authorEmail: string;
+```
+
+- *Type:* string
+
+Email of the package author.
+
+---
+
+##### `authorName`<sup>Optional</sup> <a name="authorName" id="projen.python.UvBaseOptions.property.authorName"></a>
+
+```typescript
+public readonly authorName: string;
+```
+
+- *Type:* string
+
+Name of the package author.
+
+---
+
+##### `classifiers`<sup>Optional</sup> <a name="classifiers" id="projen.python.UvBaseOptions.property.classifiers"></a>
+
+```typescript
+public readonly classifiers: string[];
+```
+
+- *Type:* string[]
+
+Python package classifiers.
+
+> [https://pypi.org/classifiers/](https://pypi.org/classifiers/)
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="projen.python.UvBaseOptions.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+Description of the package.
+
+---
+
+##### `documentation`<sup>Optional</sup> <a name="documentation" id="projen.python.UvBaseOptions.property.documentation"></a>
+
+```typescript
+public readonly documentation: string;
+```
+
+- *Type:* string
+
+Documentation URL of the package.
+
+---
+
+##### `homepage`<sup>Optional</sup> <a name="homepage" id="projen.python.UvBaseOptions.property.homepage"></a>
+
+```typescript
+public readonly homepage: string;
+```
+
+- *Type:* string
+
+Homepage URL of the package.
+
+---
+
+##### `keywords`<sup>Optional</sup> <a name="keywords" id="projen.python.UvBaseOptions.property.keywords"></a>
+
+```typescript
+public readonly keywords: string[];
+```
+
+- *Type:* string[]
+
+Keywords for the package.
+
+---
+
+##### `license`<sup>Optional</sup> <a name="license" id="projen.python.UvBaseOptions.property.license"></a>
+
+```typescript
+public readonly license: string;
+```
+
+- *Type:* string
+
+License of the package.
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="projen.python.UvBaseOptions.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Name of the package.
+
+---
+
+##### `readme`<sup>Optional</sup> <a name="readme" id="projen.python.UvBaseOptions.property.readme"></a>
+
+```typescript
+public readonly readme: string;
+```
+
+- *Type:* string
+
+Path to the readme file.
+
+---
+
+##### `repository`<sup>Optional</sup> <a name="repository" id="projen.python.UvBaseOptions.property.repository"></a>
+
+```typescript
+public readonly repository: string;
+```
+
+- *Type:* string
+
+Repository URL of the package.
+
+---
+
+##### `requiresPython`<sup>Optional</sup> <a name="requiresPython" id="projen.python.UvBaseOptions.property.requiresPython"></a>
+
+```typescript
+public readonly requiresPython: string;
+```
+
+- *Type:* string
+
+Python version requirement string.
+
+---
+
+##### `urls`<sup>Optional</sup> <a name="urls" id="projen.python.UvBaseOptions.property.urls"></a>
+
+```typescript
+public readonly urls: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+Additional URLs associated with the package.
+
+---
+
+##### `version`<sup>Optional</sup> <a name="version" id="projen.python.UvBaseOptions.property.version"></a>
+
+```typescript
+public readonly version: string;
+```
+
+- *Type:* string
+
+Version of the package.
+
+---
+
+### UvOptions <a name="UvOptions" id="projen.python.UvOptions"></a>
+
+Options for UV project.
+
+#### Initializer <a name="Initializer" id="projen.python.UvOptions.Initializer"></a>
+
+```typescript
+import { python } from 'projen'
+
+const uvOptions: python.UvOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.python.UvOptions.property.deps">deps</a></code> | <code>string[]</code> | List of runtime dependencies for this project. |
+| <code><a href="#projen.python.UvOptions.property.devDeps">devDeps</a></code> | <code>string[]</code> | List of dev dependencies for this project. |
+| <code><a href="#projen.python.UvOptions.property.metadata">metadata</a></code> | <code><a href="#projen.python.UvBaseOptions">UvBaseOptions</a></code> | Package metadata. |
+| <code><a href="#projen.python.UvOptions.property.pythonVersion">pythonVersion</a></code> | <code>string</code> | Python version to use for the project. |
+
+---
+
+##### `deps`<sup>Optional</sup> <a name="deps" id="projen.python.UvOptions.property.deps"></a>
+
+```typescript
+public readonly deps: string[];
+```
+
+- *Type:* string[]
+- *Default:* []
+
+List of runtime dependencies for this project.
+
+Dependencies use the format: `<module>@<semver>`
+
+---
+
+##### `devDeps`<sup>Optional</sup> <a name="devDeps" id="projen.python.UvOptions.property.devDeps"></a>
+
+```typescript
+public readonly devDeps: string[];
+```
+
+- *Type:* string[]
+- *Default:* []
+
+List of dev dependencies for this project.
+
+Dependencies use the format: `<module>@<semver>`
+
+---
+
+##### `metadata`<sup>Optional</sup> <a name="metadata" id="projen.python.UvOptions.property.metadata"></a>
+
+```typescript
+public readonly metadata: UvBaseOptions;
+```
+
+- *Type:* <a href="#projen.python.UvBaseOptions">UvBaseOptions</a>
+
+Package metadata.
+
+---
+
+##### `pythonVersion`<sup>Optional</sup> <a name="pythonVersion" id="projen.python.UvOptions.property.pythonVersion"></a>
+
+```typescript
+public readonly pythonVersion: string;
+```
+
+- *Type:* string
+- *Default:* "3.12"
+
+Python version to use for the project.
+
+---
+
+### UvPyprojectOptions <a name="UvPyprojectOptions" id="projen.python.UvPyprojectOptions"></a>
+
+Options for UV pyproject.toml configuration.
+
+#### Initializer <a name="Initializer" id="projen.python.UvPyprojectOptions.Initializer"></a>
+
+```typescript
+import { python } from 'projen'
+
+const uvPyprojectOptions: python.UvPyprojectOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.python.UvPyprojectOptions.property.authorEmail">authorEmail</a></code> | <code>string</code> | Email of the package author. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.authorName">authorName</a></code> | <code>string</code> | Name of the package author. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.classifiers">classifiers</a></code> | <code>string[]</code> | Python package classifiers. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.description">description</a></code> | <code>string</code> | Description of the package. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.documentation">documentation</a></code> | <code>string</code> | Documentation URL of the package. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.homepage">homepage</a></code> | <code>string</code> | Homepage URL of the package. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.keywords">keywords</a></code> | <code>string[]</code> | Keywords for the package. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.license">license</a></code> | <code>string</code> | License of the package. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.name">name</a></code> | <code>string</code> | Name of the package. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.readme">readme</a></code> | <code>string</code> | Path to the readme file. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.repository">repository</a></code> | <code>string</code> | Repository URL of the package. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.requiresPython">requiresPython</a></code> | <code>string</code> | Python version requirement string. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.urls">urls</a></code> | <code>{[ key: string ]: string}</code> | Additional URLs associated with the package. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.version">version</a></code> | <code>string</code> | Version of the package. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.dependencies">dependencies</a></code> | <code>string[]</code> | A list of dependencies for the project. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.devDependencies">devDependencies</a></code> | <code>string[]</code> | A list of development dependencies for the project. |
+| <code><a href="#projen.python.UvPyprojectOptions.property.pythonVersion">pythonVersion</a></code> | <code>string</code> | Python version to use. |
+
+---
+
+##### `authorEmail`<sup>Optional</sup> <a name="authorEmail" id="projen.python.UvPyprojectOptions.property.authorEmail"></a>
+
+```typescript
+public readonly authorEmail: string;
+```
+
+- *Type:* string
+
+Email of the package author.
+
+---
+
+##### `authorName`<sup>Optional</sup> <a name="authorName" id="projen.python.UvPyprojectOptions.property.authorName"></a>
+
+```typescript
+public readonly authorName: string;
+```
+
+- *Type:* string
+
+Name of the package author.
+
+---
+
+##### `classifiers`<sup>Optional</sup> <a name="classifiers" id="projen.python.UvPyprojectOptions.property.classifiers"></a>
+
+```typescript
+public readonly classifiers: string[];
+```
+
+- *Type:* string[]
+
+Python package classifiers.
+
+> [https://pypi.org/classifiers/](https://pypi.org/classifiers/)
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="projen.python.UvPyprojectOptions.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+Description of the package.
+
+---
+
+##### `documentation`<sup>Optional</sup> <a name="documentation" id="projen.python.UvPyprojectOptions.property.documentation"></a>
+
+```typescript
+public readonly documentation: string;
+```
+
+- *Type:* string
+
+Documentation URL of the package.
+
+---
+
+##### `homepage`<sup>Optional</sup> <a name="homepage" id="projen.python.UvPyprojectOptions.property.homepage"></a>
+
+```typescript
+public readonly homepage: string;
+```
+
+- *Type:* string
+
+Homepage URL of the package.
+
+---
+
+##### `keywords`<sup>Optional</sup> <a name="keywords" id="projen.python.UvPyprojectOptions.property.keywords"></a>
+
+```typescript
+public readonly keywords: string[];
+```
+
+- *Type:* string[]
+
+Keywords for the package.
+
+---
+
+##### `license`<sup>Optional</sup> <a name="license" id="projen.python.UvPyprojectOptions.property.license"></a>
+
+```typescript
+public readonly license: string;
+```
+
+- *Type:* string
+
+License of the package.
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="projen.python.UvPyprojectOptions.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Name of the package.
+
+---
+
+##### `readme`<sup>Optional</sup> <a name="readme" id="projen.python.UvPyprojectOptions.property.readme"></a>
+
+```typescript
+public readonly readme: string;
+```
+
+- *Type:* string
+
+Path to the readme file.
+
+---
+
+##### `repository`<sup>Optional</sup> <a name="repository" id="projen.python.UvPyprojectOptions.property.repository"></a>
+
+```typescript
+public readonly repository: string;
+```
+
+- *Type:* string
+
+Repository URL of the package.
+
+---
+
+##### `requiresPython`<sup>Optional</sup> <a name="requiresPython" id="projen.python.UvPyprojectOptions.property.requiresPython"></a>
+
+```typescript
+public readonly requiresPython: string;
+```
+
+- *Type:* string
+
+Python version requirement string.
+
+---
+
+##### `urls`<sup>Optional</sup> <a name="urls" id="projen.python.UvPyprojectOptions.property.urls"></a>
+
+```typescript
+public readonly urls: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+Additional URLs associated with the package.
+
+---
+
+##### `version`<sup>Optional</sup> <a name="version" id="projen.python.UvPyprojectOptions.property.version"></a>
+
+```typescript
+public readonly version: string;
+```
+
+- *Type:* string
+
+Version of the package.
+
+---
+
+##### `dependencies`<sup>Optional</sup> <a name="dependencies" id="projen.python.UvPyprojectOptions.property.dependencies"></a>
+
+```typescript
+public readonly dependencies: string[];
+```
+
+- *Type:* string[]
+
+A list of dependencies for the project.
+
+Each entry should be in the format: `<module>@<semver>`
+
+---
+
+##### `devDependencies`<sup>Optional</sup> <a name="devDependencies" id="projen.python.UvPyprojectOptions.property.devDependencies"></a>
+
+```typescript
+public readonly devDependencies: string[];
+```
+
+- *Type:* string[]
+
+A list of development dependencies for the project.
+
+Each entry should be in the format: `<module>@<semver>`
+
+---
+
+##### `pythonVersion`<sup>Optional</sup> <a name="pythonVersion" id="projen.python.UvPyprojectOptions.property.pythonVersion"></a>
+
+```typescript
+public readonly pythonVersion: string;
+```
+
+- *Type:* string
+
+Python version to use.
+
+---
+
 ### VenvOptions <a name="VenvOptions" id="projen.python.VenvOptions"></a>
 
 Options for venv.
@@ -5795,7 +6789,7 @@ An array of packages (may be dynamically generated).
 
 ### IPythonDeps <a name="IPythonDeps" id="projen.python.IPythonDeps"></a>
 
-- *Implemented By:* <a href="#projen.python.Pip">Pip</a>, <a href="#projen.python.Poetry">Poetry</a>, <a href="#projen.python.IPythonDeps">IPythonDeps</a>
+- *Implemented By:* <a href="#projen.python.Pip">Pip</a>, <a href="#projen.python.Poetry">Poetry</a>, <a href="#projen.python.Uv">Uv</a>, <a href="#projen.python.IPythonDeps">IPythonDeps</a>
 
 #### Methods <a name="Methods" id="Methods"></a>
 
@@ -5869,7 +6863,7 @@ A task that installs and updates dependencies.
 
 ### IPythonEnv <a name="IPythonEnv" id="projen.python.IPythonEnv"></a>
 
-- *Implemented By:* <a href="#projen.python.Poetry">Poetry</a>, <a href="#projen.python.Venv">Venv</a>, <a href="#projen.python.IPythonEnv">IPythonEnv</a>
+- *Implemented By:* <a href="#projen.python.Poetry">Poetry</a>, <a href="#projen.python.Uv">Uv</a>, <a href="#projen.python.Venv">Venv</a>, <a href="#projen.python.IPythonEnv">IPythonEnv</a>
 
 #### Methods <a name="Methods" id="Methods"></a>
 
@@ -5890,7 +6884,7 @@ Initializes the virtual environment if it doesn't exist (called during post-synt
 
 ### IPythonPackaging <a name="IPythonPackaging" id="projen.python.IPythonPackaging"></a>
 
-- *Implemented By:* <a href="#projen.python.Poetry">Poetry</a>, <a href="#projen.python.Setuptools">Setuptools</a>, <a href="#projen.python.IPythonPackaging">IPythonPackaging</a>
+- *Implemented By:* <a href="#projen.python.Poetry">Poetry</a>, <a href="#projen.python.Setuptools">Setuptools</a>, <a href="#projen.python.Uv">Uv</a>, <a href="#projen.python.IPythonPackaging">IPythonPackaging</a>
 
 
 #### Properties <a name="Properties" id="Properties"></a>
