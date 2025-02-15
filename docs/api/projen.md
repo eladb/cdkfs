@@ -23,6 +23,461 @@ The following submodules are available:
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### CJSJavascriptFile <a name="CJSJavascriptFile" id="projen.CJSJavascriptFile"></a>
+
+Represents a Javascript file that uses CommonJS (CJS) modules and syntax.
+
+#### Initializers <a name="Initializers" id="projen.CJSJavascriptFile.Initializer"></a>
+
+```typescript
+import { CJSJavascriptFile } from 'projen'
+
+new CJSJavascriptFile(project: Project, filePath: string, options: ObjectFileOptions)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.CJSJavascriptFile.Initializer.parameter.project">project</a></code> | <code><a href="#projen.Project">Project</a></code> | *No description.* |
+| <code><a href="#projen.CJSJavascriptFile.Initializer.parameter.filePath">filePath</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#projen.CJSJavascriptFile.Initializer.parameter.options">options</a></code> | <code><a href="#projen.ObjectFileOptions">ObjectFileOptions</a></code> | *No description.* |
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="projen.CJSJavascriptFile.Initializer.parameter.project"></a>
+
+- *Type:* <a href="#projen.Project">Project</a>
+
+---
+
+##### `filePath`<sup>Required</sup> <a name="filePath" id="projen.CJSJavascriptFile.Initializer.parameter.filePath"></a>
+
+- *Type:* string
+
+---
+
+##### `options`<sup>Required</sup> <a name="options" id="projen.CJSJavascriptFile.Initializer.parameter.options"></a>
+
+- *Type:* <a href="#projen.ObjectFileOptions">ObjectFileOptions</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.CJSJavascriptFile.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#projen.CJSJavascriptFile.postSynthesize">postSynthesize</a></code> | Called after synthesis. |
+| <code><a href="#projen.CJSJavascriptFile.preSynthesize">preSynthesize</a></code> | Called before synthesis. |
+| <code><a href="#projen.CJSJavascriptFile.synthesize">synthesize</a></code> | Writes the file to the project's output directory. |
+| <code><a href="#projen.CJSJavascriptFile.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
+| <code><a href="#projen.CJSJavascriptFile.addOverride">addOverride</a></code> | Adds an override to the synthesized object file. |
+| <code><a href="#projen.CJSJavascriptFile.addToArray">addToArray</a></code> | Adds to an array in the synthesized object file. |
+| <code><a href="#projen.CJSJavascriptFile.patch">patch</a></code> | Applies an RFC 6902 JSON-patch to the synthesized object file. See https://datatracker.ietf.org/doc/html/rfc6902 for more information. |
+
+---
+
+##### `toString` <a name="toString" id="projen.CJSJavascriptFile.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `postSynthesize` <a name="postSynthesize" id="projen.CJSJavascriptFile.postSynthesize"></a>
+
+```typescript
+public postSynthesize(): void
+```
+
+Called after synthesis.
+
+Order is *not* guaranteed.
+
+##### `preSynthesize` <a name="preSynthesize" id="projen.CJSJavascriptFile.preSynthesize"></a>
+
+```typescript
+public preSynthesize(): void
+```
+
+Called before synthesis.
+
+##### `synthesize` <a name="synthesize" id="projen.CJSJavascriptFile.synthesize"></a>
+
+```typescript
+public synthesize(): void
+```
+
+Writes the file to the project's output directory.
+
+##### `addDeletionOverride` <a name="addDeletionOverride" id="projen.CJSJavascriptFile.addDeletionOverride"></a>
+
+```typescript
+public addDeletionOverride(path: string): void
+```
+
+Syntactic sugar for `addOverride(path, undefined)`.
+
+###### `path`<sup>Required</sup> <a name="path" id="projen.CJSJavascriptFile.addDeletionOverride.parameter.path"></a>
+
+- *Type:* string
+
+The path of the value to delete.
+
+---
+
+##### `addOverride` <a name="addOverride" id="projen.CJSJavascriptFile.addOverride"></a>
+
+```typescript
+public addOverride(path: string, value: any): void
+```
+
+Adds an override to the synthesized object file.
+
+If the override is nested, separate each nested level using a dot (.) in the path parameter.
+If there is an array as part of the nesting, specify the index in the path.
+
+To include a literal `.` in the property name, prefix with a `\`. In most
+programming languages you will need to write this as `"\\."` because the
+`\` itself will need to be escaped.
+
+For example,
+```typescript
+project.tsconfig.file.addOverride('compilerOptions.alwaysStrict', true);
+project.tsconfig.file.addOverride('compilerOptions.lib', ['dom', 'dom.iterable', 'esnext']);
+```
+would add the overrides
+```json
+"compilerOptions": {
+  "alwaysStrict": true,
+  "lib": [
+    "dom",
+    "dom.iterable",
+    "esnext"
+  ]
+  ...
+}
+...
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="projen.CJSJavascriptFile.addOverride.parameter.path"></a>
+
+- *Type:* string
+
+The path of the property, you can use dot notation to override values in complex types.
+
+Any intermediate keys
+will be created as needed.
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="projen.CJSJavascriptFile.addOverride.parameter.value"></a>
+
+- *Type:* any
+
+The value.
+
+Could be primitive or complex.
+
+---
+
+##### `addToArray` <a name="addToArray" id="projen.CJSJavascriptFile.addToArray"></a>
+
+```typescript
+public addToArray(path: string, values: any): void
+```
+
+Adds to an array in the synthesized object file.
+
+If the array is nested, separate each nested level using a dot (.) in the path parameter.
+If there is an array as part of the nesting, specify the index in the path.
+
+To include a literal `.` in the property name, prefix with a `\`. In most
+programming languages you will need to write this as `"\\."` because the
+`\` itself will need to be escaped.
+
+For example, with the following object file
+```json
+"compilerOptions": {
+  "exclude": ["node_modules"],
+  "lib": ["es2019"]
+  ...
+}
+...
+```
+
+```typescript
+project.tsconfig.file.addToArray('compilerOptions.exclude', 'coverage');
+project.tsconfig.file.addToArray('compilerOptions.lib', 'dom', 'dom.iterable', 'esnext');
+```
+would result in the following object file
+```json
+"compilerOptions": {
+  "exclude": ["node_modules", "coverage"],
+  "lib": ["es2019", "dom", "dom.iterable", "esnext"]
+  ...
+}
+...
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="projen.CJSJavascriptFile.addToArray.parameter.path"></a>
+
+- *Type:* string
+
+The path of the property, you can use dot notation to att to arrays in complex types.
+
+Any intermediate keys
+will be created as needed.
+
+---
+
+###### `values`<sup>Required</sup> <a name="values" id="projen.CJSJavascriptFile.addToArray.parameter.values"></a>
+
+- *Type:* any
+
+The values to add.
+
+Could be primitive or complex.
+
+---
+
+##### `patch` <a name="patch" id="projen.CJSJavascriptFile.patch"></a>
+
+```typescript
+public patch(patches: JsonPatch): void
+```
+
+Applies an RFC 6902 JSON-patch to the synthesized object file. See https://datatracker.ietf.org/doc/html/rfc6902 for more information.
+
+For example, with the following object file
+```json
+"compilerOptions": {
+  "exclude": ["node_modules"],
+  "lib": ["es2019"]
+  ...
+}
+...
+```
+
+```typescript
+project.tsconfig.file.patch(JsonPatch.add("/compilerOptions/exclude/-", "coverage"));
+project.tsconfig.file.patch(JsonPatch.replace("/compilerOptions/lib", ["dom", "dom.iterable", "esnext"]));
+```
+would result in the following object file
+```json
+"compilerOptions": {
+  "exclude": ["node_modules", "coverage"],
+  "lib": ["dom", "dom.iterable", "esnext"]
+  ...
+}
+...
+```
+
+###### `patches`<sup>Required</sup> <a name="patches" id="projen.CJSJavascriptFile.patch.parameter.patches"></a>
+
+- *Type:* <a href="#projen.JsonPatch">JsonPatch</a>
+
+The patch operations to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.CJSJavascriptFile.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#projen.CJSJavascriptFile.isComponent">isComponent</a></code> | Test whether the given construct is a component. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="projen.CJSJavascriptFile.isConstruct"></a>
+
+```typescript
+import { CJSJavascriptFile } from 'projen'
+
+CJSJavascriptFile.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="projen.CJSJavascriptFile.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isComponent` <a name="isComponent" id="projen.CJSJavascriptFile.isComponent"></a>
+
+```typescript
+import { CJSJavascriptFile } from 'projen'
+
+CJSJavascriptFile.isComponent(x: any)
+```
+
+Test whether the given construct is a component.
+
+###### `x`<sup>Required</sup> <a name="x" id="projen.CJSJavascriptFile.isComponent.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.CJSJavascriptFile.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#projen.CJSJavascriptFile.property.project">project</a></code> | <code><a href="#projen.Project">Project</a></code> | *No description.* |
+| <code><a href="#projen.CJSJavascriptFile.property.absolutePath">absolutePath</a></code> | <code>string</code> | The absolute path of this file. |
+| <code><a href="#projen.CJSJavascriptFile.property.path">path</a></code> | <code>string</code> | The file path, relative to the project's outdir. |
+| <code><a href="#projen.CJSJavascriptFile.property.changed">changed</a></code> | <code>boolean</code> | Indicates if the file has been changed during synthesis. |
+| <code><a href="#projen.CJSJavascriptFile.property.marker">marker</a></code> | <code>string</code> | The projen marker, used to identify files as projen-generated. |
+| <code><a href="#projen.CJSJavascriptFile.property.executable">executable</a></code> | <code>boolean</code> | Indicates if the file should be marked as executable. |
+| <code><a href="#projen.CJSJavascriptFile.property.readonly">readonly</a></code> | <code>boolean</code> | Indicates if the file should be read-only or read-write. |
+| <code><a href="#projen.CJSJavascriptFile.property.omitEmpty">omitEmpty</a></code> | <code>boolean</code> | Indicates if empty objects and arrays are omitted from the output object. |
+| <code><a href="#projen.CJSJavascriptFile.property.dependencies">dependencies</a></code> | <code><a href="#projen.JavascriptDependenciesBase">JavascriptDependenciesBase</a></code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="projen.CJSJavascriptFile.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="projen.CJSJavascriptFile.property.project"></a>
+
+```typescript
+public readonly project: Project;
+```
+
+- *Type:* <a href="#projen.Project">Project</a>
+
+---
+
+##### `absolutePath`<sup>Required</sup> <a name="absolutePath" id="projen.CJSJavascriptFile.property.absolutePath"></a>
+
+```typescript
+public readonly absolutePath: string;
+```
+
+- *Type:* string
+
+The absolute path of this file.
+
+---
+
+##### `path`<sup>Required</sup> <a name="path" id="projen.CJSJavascriptFile.property.path"></a>
+
+```typescript
+public readonly path: string;
+```
+
+- *Type:* string
+
+The file path, relative to the project's outdir.
+
+---
+
+##### `changed`<sup>Optional</sup> <a name="changed" id="projen.CJSJavascriptFile.property.changed"></a>
+
+```typescript
+public readonly changed: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if the file has been changed during synthesis.
+
+This property is
+only available in `postSynthesize()` hooks. If this is `undefined`, the
+file has not been synthesized yet.
+
+---
+
+##### `marker`<sup>Optional</sup> <a name="marker" id="projen.CJSJavascriptFile.property.marker"></a>
+
+```typescript
+public readonly marker: string;
+```
+
+- *Type:* string
+
+The projen marker, used to identify files as projen-generated.
+
+Value is undefined if the project is being ejected.
+
+---
+
+##### `executable`<sup>Required</sup> <a name="executable" id="projen.CJSJavascriptFile.property.executable"></a>
+
+```typescript
+public readonly executable: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if the file should be marked as executable.
+
+---
+
+##### `readonly`<sup>Required</sup> <a name="readonly" id="projen.CJSJavascriptFile.property.readonly"></a>
+
+```typescript
+public readonly readonly: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if the file should be read-only or read-write.
+
+---
+
+##### `omitEmpty`<sup>Required</sup> <a name="omitEmpty" id="projen.CJSJavascriptFile.property.omitEmpty"></a>
+
+```typescript
+public readonly omitEmpty: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if empty objects and arrays are omitted from the output object.
+
+---
+
+##### `dependencies`<sup>Required</sup> <a name="dependencies" id="projen.CJSJavascriptFile.property.dependencies"></a>
+
+```typescript
+public readonly dependencies: JavascriptDependenciesBase;
+```
+
+- *Type:* <a href="#projen.JavascriptDependenciesBase">JavascriptDependenciesBase</a>
+
+---
+
+
 ### Component <a name="Component" id="projen.Component"></a>
 
 Represents a project component.
@@ -908,6 +1363,461 @@ public readonly file: YamlFile;
 - *Type:* <a href="#projen.YamlFile">YamlFile</a>
 
 The Docker Compose file.
+
+---
+
+
+### ESMJavascriptFile <a name="ESMJavascriptFile" id="projen.ESMJavascriptFile"></a>
+
+Represents a Javascript file that uses ECMAScript modules (ESM) and syntax.
+
+#### Initializers <a name="Initializers" id="projen.ESMJavascriptFile.Initializer"></a>
+
+```typescript
+import { ESMJavascriptFile } from 'projen'
+
+new ESMJavascriptFile(project: Project, filePath: string, options: ObjectFileOptions)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.ESMJavascriptFile.Initializer.parameter.project">project</a></code> | <code><a href="#projen.Project">Project</a></code> | *No description.* |
+| <code><a href="#projen.ESMJavascriptFile.Initializer.parameter.filePath">filePath</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#projen.ESMJavascriptFile.Initializer.parameter.options">options</a></code> | <code><a href="#projen.ObjectFileOptions">ObjectFileOptions</a></code> | *No description.* |
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="projen.ESMJavascriptFile.Initializer.parameter.project"></a>
+
+- *Type:* <a href="#projen.Project">Project</a>
+
+---
+
+##### `filePath`<sup>Required</sup> <a name="filePath" id="projen.ESMJavascriptFile.Initializer.parameter.filePath"></a>
+
+- *Type:* string
+
+---
+
+##### `options`<sup>Required</sup> <a name="options" id="projen.ESMJavascriptFile.Initializer.parameter.options"></a>
+
+- *Type:* <a href="#projen.ObjectFileOptions">ObjectFileOptions</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.ESMJavascriptFile.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#projen.ESMJavascriptFile.postSynthesize">postSynthesize</a></code> | Called after synthesis. |
+| <code><a href="#projen.ESMJavascriptFile.preSynthesize">preSynthesize</a></code> | Called before synthesis. |
+| <code><a href="#projen.ESMJavascriptFile.synthesize">synthesize</a></code> | Writes the file to the project's output directory. |
+| <code><a href="#projen.ESMJavascriptFile.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
+| <code><a href="#projen.ESMJavascriptFile.addOverride">addOverride</a></code> | Adds an override to the synthesized object file. |
+| <code><a href="#projen.ESMJavascriptFile.addToArray">addToArray</a></code> | Adds to an array in the synthesized object file. |
+| <code><a href="#projen.ESMJavascriptFile.patch">patch</a></code> | Applies an RFC 6902 JSON-patch to the synthesized object file. See https://datatracker.ietf.org/doc/html/rfc6902 for more information. |
+
+---
+
+##### `toString` <a name="toString" id="projen.ESMJavascriptFile.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `postSynthesize` <a name="postSynthesize" id="projen.ESMJavascriptFile.postSynthesize"></a>
+
+```typescript
+public postSynthesize(): void
+```
+
+Called after synthesis.
+
+Order is *not* guaranteed.
+
+##### `preSynthesize` <a name="preSynthesize" id="projen.ESMJavascriptFile.preSynthesize"></a>
+
+```typescript
+public preSynthesize(): void
+```
+
+Called before synthesis.
+
+##### `synthesize` <a name="synthesize" id="projen.ESMJavascriptFile.synthesize"></a>
+
+```typescript
+public synthesize(): void
+```
+
+Writes the file to the project's output directory.
+
+##### `addDeletionOverride` <a name="addDeletionOverride" id="projen.ESMJavascriptFile.addDeletionOverride"></a>
+
+```typescript
+public addDeletionOverride(path: string): void
+```
+
+Syntactic sugar for `addOverride(path, undefined)`.
+
+###### `path`<sup>Required</sup> <a name="path" id="projen.ESMJavascriptFile.addDeletionOverride.parameter.path"></a>
+
+- *Type:* string
+
+The path of the value to delete.
+
+---
+
+##### `addOverride` <a name="addOverride" id="projen.ESMJavascriptFile.addOverride"></a>
+
+```typescript
+public addOverride(path: string, value: any): void
+```
+
+Adds an override to the synthesized object file.
+
+If the override is nested, separate each nested level using a dot (.) in the path parameter.
+If there is an array as part of the nesting, specify the index in the path.
+
+To include a literal `.` in the property name, prefix with a `\`. In most
+programming languages you will need to write this as `"\\."` because the
+`\` itself will need to be escaped.
+
+For example,
+```typescript
+project.tsconfig.file.addOverride('compilerOptions.alwaysStrict', true);
+project.tsconfig.file.addOverride('compilerOptions.lib', ['dom', 'dom.iterable', 'esnext']);
+```
+would add the overrides
+```json
+"compilerOptions": {
+  "alwaysStrict": true,
+  "lib": [
+    "dom",
+    "dom.iterable",
+    "esnext"
+  ]
+  ...
+}
+...
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="projen.ESMJavascriptFile.addOverride.parameter.path"></a>
+
+- *Type:* string
+
+The path of the property, you can use dot notation to override values in complex types.
+
+Any intermediate keys
+will be created as needed.
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="projen.ESMJavascriptFile.addOverride.parameter.value"></a>
+
+- *Type:* any
+
+The value.
+
+Could be primitive or complex.
+
+---
+
+##### `addToArray` <a name="addToArray" id="projen.ESMJavascriptFile.addToArray"></a>
+
+```typescript
+public addToArray(path: string, values: any): void
+```
+
+Adds to an array in the synthesized object file.
+
+If the array is nested, separate each nested level using a dot (.) in the path parameter.
+If there is an array as part of the nesting, specify the index in the path.
+
+To include a literal `.` in the property name, prefix with a `\`. In most
+programming languages you will need to write this as `"\\."` because the
+`\` itself will need to be escaped.
+
+For example, with the following object file
+```json
+"compilerOptions": {
+  "exclude": ["node_modules"],
+  "lib": ["es2019"]
+  ...
+}
+...
+```
+
+```typescript
+project.tsconfig.file.addToArray('compilerOptions.exclude', 'coverage');
+project.tsconfig.file.addToArray('compilerOptions.lib', 'dom', 'dom.iterable', 'esnext');
+```
+would result in the following object file
+```json
+"compilerOptions": {
+  "exclude": ["node_modules", "coverage"],
+  "lib": ["es2019", "dom", "dom.iterable", "esnext"]
+  ...
+}
+...
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="projen.ESMJavascriptFile.addToArray.parameter.path"></a>
+
+- *Type:* string
+
+The path of the property, you can use dot notation to att to arrays in complex types.
+
+Any intermediate keys
+will be created as needed.
+
+---
+
+###### `values`<sup>Required</sup> <a name="values" id="projen.ESMJavascriptFile.addToArray.parameter.values"></a>
+
+- *Type:* any
+
+The values to add.
+
+Could be primitive or complex.
+
+---
+
+##### `patch` <a name="patch" id="projen.ESMJavascriptFile.patch"></a>
+
+```typescript
+public patch(patches: JsonPatch): void
+```
+
+Applies an RFC 6902 JSON-patch to the synthesized object file. See https://datatracker.ietf.org/doc/html/rfc6902 for more information.
+
+For example, with the following object file
+```json
+"compilerOptions": {
+  "exclude": ["node_modules"],
+  "lib": ["es2019"]
+  ...
+}
+...
+```
+
+```typescript
+project.tsconfig.file.patch(JsonPatch.add("/compilerOptions/exclude/-", "coverage"));
+project.tsconfig.file.patch(JsonPatch.replace("/compilerOptions/lib", ["dom", "dom.iterable", "esnext"]));
+```
+would result in the following object file
+```json
+"compilerOptions": {
+  "exclude": ["node_modules", "coverage"],
+  "lib": ["dom", "dom.iterable", "esnext"]
+  ...
+}
+...
+```
+
+###### `patches`<sup>Required</sup> <a name="patches" id="projen.ESMJavascriptFile.patch.parameter.patches"></a>
+
+- *Type:* <a href="#projen.JsonPatch">JsonPatch</a>
+
+The patch operations to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.ESMJavascriptFile.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#projen.ESMJavascriptFile.isComponent">isComponent</a></code> | Test whether the given construct is a component. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="projen.ESMJavascriptFile.isConstruct"></a>
+
+```typescript
+import { ESMJavascriptFile } from 'projen'
+
+ESMJavascriptFile.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="projen.ESMJavascriptFile.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isComponent` <a name="isComponent" id="projen.ESMJavascriptFile.isComponent"></a>
+
+```typescript
+import { ESMJavascriptFile } from 'projen'
+
+ESMJavascriptFile.isComponent(x: any)
+```
+
+Test whether the given construct is a component.
+
+###### `x`<sup>Required</sup> <a name="x" id="projen.ESMJavascriptFile.isComponent.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.ESMJavascriptFile.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#projen.ESMJavascriptFile.property.project">project</a></code> | <code><a href="#projen.Project">Project</a></code> | *No description.* |
+| <code><a href="#projen.ESMJavascriptFile.property.absolutePath">absolutePath</a></code> | <code>string</code> | The absolute path of this file. |
+| <code><a href="#projen.ESMJavascriptFile.property.path">path</a></code> | <code>string</code> | The file path, relative to the project's outdir. |
+| <code><a href="#projen.ESMJavascriptFile.property.changed">changed</a></code> | <code>boolean</code> | Indicates if the file has been changed during synthesis. |
+| <code><a href="#projen.ESMJavascriptFile.property.marker">marker</a></code> | <code>string</code> | The projen marker, used to identify files as projen-generated. |
+| <code><a href="#projen.ESMJavascriptFile.property.executable">executable</a></code> | <code>boolean</code> | Indicates if the file should be marked as executable. |
+| <code><a href="#projen.ESMJavascriptFile.property.readonly">readonly</a></code> | <code>boolean</code> | Indicates if the file should be read-only or read-write. |
+| <code><a href="#projen.ESMJavascriptFile.property.omitEmpty">omitEmpty</a></code> | <code>boolean</code> | Indicates if empty objects and arrays are omitted from the output object. |
+| <code><a href="#projen.ESMJavascriptFile.property.dependencies">dependencies</a></code> | <code><a href="#projen.JavascriptDependenciesBase">JavascriptDependenciesBase</a></code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="projen.ESMJavascriptFile.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="projen.ESMJavascriptFile.property.project"></a>
+
+```typescript
+public readonly project: Project;
+```
+
+- *Type:* <a href="#projen.Project">Project</a>
+
+---
+
+##### `absolutePath`<sup>Required</sup> <a name="absolutePath" id="projen.ESMJavascriptFile.property.absolutePath"></a>
+
+```typescript
+public readonly absolutePath: string;
+```
+
+- *Type:* string
+
+The absolute path of this file.
+
+---
+
+##### `path`<sup>Required</sup> <a name="path" id="projen.ESMJavascriptFile.property.path"></a>
+
+```typescript
+public readonly path: string;
+```
+
+- *Type:* string
+
+The file path, relative to the project's outdir.
+
+---
+
+##### `changed`<sup>Optional</sup> <a name="changed" id="projen.ESMJavascriptFile.property.changed"></a>
+
+```typescript
+public readonly changed: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if the file has been changed during synthesis.
+
+This property is
+only available in `postSynthesize()` hooks. If this is `undefined`, the
+file has not been synthesized yet.
+
+---
+
+##### `marker`<sup>Optional</sup> <a name="marker" id="projen.ESMJavascriptFile.property.marker"></a>
+
+```typescript
+public readonly marker: string;
+```
+
+- *Type:* string
+
+The projen marker, used to identify files as projen-generated.
+
+Value is undefined if the project is being ejected.
+
+---
+
+##### `executable`<sup>Required</sup> <a name="executable" id="projen.ESMJavascriptFile.property.executable"></a>
+
+```typescript
+public readonly executable: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if the file should be marked as executable.
+
+---
+
+##### `readonly`<sup>Required</sup> <a name="readonly" id="projen.ESMJavascriptFile.property.readonly"></a>
+
+```typescript
+public readonly readonly: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if the file should be read-only or read-write.
+
+---
+
+##### `omitEmpty`<sup>Required</sup> <a name="omitEmpty" id="projen.ESMJavascriptFile.property.omitEmpty"></a>
+
+```typescript
+public readonly omitEmpty: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if empty objects and arrays are omitted from the output object.
+
+---
+
+##### `dependencies`<sup>Required</sup> <a name="dependencies" id="projen.ESMJavascriptFile.property.dependencies"></a>
+
+```typescript
+public readonly dependencies: JavascriptDependenciesBase;
+```
+
+- *Type:* <a href="#projen.JavascriptDependenciesBase">JavascriptDependenciesBase</a>
 
 ---
 
@@ -2579,6 +3489,461 @@ public readonly omitEmpty: boolean;
 - *Type:* boolean
 
 Indicates if empty objects and arrays are omitted from the output object.
+
+---
+
+
+### JavascriptFileBase <a name="JavascriptFileBase" id="projen.JavascriptFileBase"></a>
+
+Represents a JS configuration file (e.g. .eslintrc.js).
+
+#### Initializers <a name="Initializers" id="projen.JavascriptFileBase.Initializer"></a>
+
+```typescript
+import { JavascriptFileBase } from 'projen'
+
+new JavascriptFileBase(project: Project, filePath: string, options: ObjectFileOptions)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.JavascriptFileBase.Initializer.parameter.project">project</a></code> | <code><a href="#projen.Project">Project</a></code> | *No description.* |
+| <code><a href="#projen.JavascriptFileBase.Initializer.parameter.filePath">filePath</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#projen.JavascriptFileBase.Initializer.parameter.options">options</a></code> | <code><a href="#projen.ObjectFileOptions">ObjectFileOptions</a></code> | *No description.* |
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="projen.JavascriptFileBase.Initializer.parameter.project"></a>
+
+- *Type:* <a href="#projen.Project">Project</a>
+
+---
+
+##### `filePath`<sup>Required</sup> <a name="filePath" id="projen.JavascriptFileBase.Initializer.parameter.filePath"></a>
+
+- *Type:* string
+
+---
+
+##### `options`<sup>Required</sup> <a name="options" id="projen.JavascriptFileBase.Initializer.parameter.options"></a>
+
+- *Type:* <a href="#projen.ObjectFileOptions">ObjectFileOptions</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.JavascriptFileBase.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#projen.JavascriptFileBase.postSynthesize">postSynthesize</a></code> | Called after synthesis. |
+| <code><a href="#projen.JavascriptFileBase.preSynthesize">preSynthesize</a></code> | Called before synthesis. |
+| <code><a href="#projen.JavascriptFileBase.synthesize">synthesize</a></code> | Writes the file to the project's output directory. |
+| <code><a href="#projen.JavascriptFileBase.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
+| <code><a href="#projen.JavascriptFileBase.addOverride">addOverride</a></code> | Adds an override to the synthesized object file. |
+| <code><a href="#projen.JavascriptFileBase.addToArray">addToArray</a></code> | Adds to an array in the synthesized object file. |
+| <code><a href="#projen.JavascriptFileBase.patch">patch</a></code> | Applies an RFC 6902 JSON-patch to the synthesized object file. See https://datatracker.ietf.org/doc/html/rfc6902 for more information. |
+
+---
+
+##### `toString` <a name="toString" id="projen.JavascriptFileBase.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `postSynthesize` <a name="postSynthesize" id="projen.JavascriptFileBase.postSynthesize"></a>
+
+```typescript
+public postSynthesize(): void
+```
+
+Called after synthesis.
+
+Order is *not* guaranteed.
+
+##### `preSynthesize` <a name="preSynthesize" id="projen.JavascriptFileBase.preSynthesize"></a>
+
+```typescript
+public preSynthesize(): void
+```
+
+Called before synthesis.
+
+##### `synthesize` <a name="synthesize" id="projen.JavascriptFileBase.synthesize"></a>
+
+```typescript
+public synthesize(): void
+```
+
+Writes the file to the project's output directory.
+
+##### `addDeletionOverride` <a name="addDeletionOverride" id="projen.JavascriptFileBase.addDeletionOverride"></a>
+
+```typescript
+public addDeletionOverride(path: string): void
+```
+
+Syntactic sugar for `addOverride(path, undefined)`.
+
+###### `path`<sup>Required</sup> <a name="path" id="projen.JavascriptFileBase.addDeletionOverride.parameter.path"></a>
+
+- *Type:* string
+
+The path of the value to delete.
+
+---
+
+##### `addOverride` <a name="addOverride" id="projen.JavascriptFileBase.addOverride"></a>
+
+```typescript
+public addOverride(path: string, value: any): void
+```
+
+Adds an override to the synthesized object file.
+
+If the override is nested, separate each nested level using a dot (.) in the path parameter.
+If there is an array as part of the nesting, specify the index in the path.
+
+To include a literal `.` in the property name, prefix with a `\`. In most
+programming languages you will need to write this as `"\\."` because the
+`\` itself will need to be escaped.
+
+For example,
+```typescript
+project.tsconfig.file.addOverride('compilerOptions.alwaysStrict', true);
+project.tsconfig.file.addOverride('compilerOptions.lib', ['dom', 'dom.iterable', 'esnext']);
+```
+would add the overrides
+```json
+"compilerOptions": {
+  "alwaysStrict": true,
+  "lib": [
+    "dom",
+    "dom.iterable",
+    "esnext"
+  ]
+  ...
+}
+...
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="projen.JavascriptFileBase.addOverride.parameter.path"></a>
+
+- *Type:* string
+
+The path of the property, you can use dot notation to override values in complex types.
+
+Any intermediate keys
+will be created as needed.
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="projen.JavascriptFileBase.addOverride.parameter.value"></a>
+
+- *Type:* any
+
+The value.
+
+Could be primitive or complex.
+
+---
+
+##### `addToArray` <a name="addToArray" id="projen.JavascriptFileBase.addToArray"></a>
+
+```typescript
+public addToArray(path: string, values: any): void
+```
+
+Adds to an array in the synthesized object file.
+
+If the array is nested, separate each nested level using a dot (.) in the path parameter.
+If there is an array as part of the nesting, specify the index in the path.
+
+To include a literal `.` in the property name, prefix with a `\`. In most
+programming languages you will need to write this as `"\\."` because the
+`\` itself will need to be escaped.
+
+For example, with the following object file
+```json
+"compilerOptions": {
+  "exclude": ["node_modules"],
+  "lib": ["es2019"]
+  ...
+}
+...
+```
+
+```typescript
+project.tsconfig.file.addToArray('compilerOptions.exclude', 'coverage');
+project.tsconfig.file.addToArray('compilerOptions.lib', 'dom', 'dom.iterable', 'esnext');
+```
+would result in the following object file
+```json
+"compilerOptions": {
+  "exclude": ["node_modules", "coverage"],
+  "lib": ["es2019", "dom", "dom.iterable", "esnext"]
+  ...
+}
+...
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="projen.JavascriptFileBase.addToArray.parameter.path"></a>
+
+- *Type:* string
+
+The path of the property, you can use dot notation to att to arrays in complex types.
+
+Any intermediate keys
+will be created as needed.
+
+---
+
+###### `values`<sup>Required</sup> <a name="values" id="projen.JavascriptFileBase.addToArray.parameter.values"></a>
+
+- *Type:* any
+
+The values to add.
+
+Could be primitive or complex.
+
+---
+
+##### `patch` <a name="patch" id="projen.JavascriptFileBase.patch"></a>
+
+```typescript
+public patch(patches: JsonPatch): void
+```
+
+Applies an RFC 6902 JSON-patch to the synthesized object file. See https://datatracker.ietf.org/doc/html/rfc6902 for more information.
+
+For example, with the following object file
+```json
+"compilerOptions": {
+  "exclude": ["node_modules"],
+  "lib": ["es2019"]
+  ...
+}
+...
+```
+
+```typescript
+project.tsconfig.file.patch(JsonPatch.add("/compilerOptions/exclude/-", "coverage"));
+project.tsconfig.file.patch(JsonPatch.replace("/compilerOptions/lib", ["dom", "dom.iterable", "esnext"]));
+```
+would result in the following object file
+```json
+"compilerOptions": {
+  "exclude": ["node_modules", "coverage"],
+  "lib": ["dom", "dom.iterable", "esnext"]
+  ...
+}
+...
+```
+
+###### `patches`<sup>Required</sup> <a name="patches" id="projen.JavascriptFileBase.patch.parameter.patches"></a>
+
+- *Type:* <a href="#projen.JsonPatch">JsonPatch</a>
+
+The patch operations to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.JavascriptFileBase.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#projen.JavascriptFileBase.isComponent">isComponent</a></code> | Test whether the given construct is a component. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="projen.JavascriptFileBase.isConstruct"></a>
+
+```typescript
+import { JavascriptFileBase } from 'projen'
+
+JavascriptFileBase.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="projen.JavascriptFileBase.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isComponent` <a name="isComponent" id="projen.JavascriptFileBase.isComponent"></a>
+
+```typescript
+import { JavascriptFileBase } from 'projen'
+
+JavascriptFileBase.isComponent(x: any)
+```
+
+Test whether the given construct is a component.
+
+###### `x`<sup>Required</sup> <a name="x" id="projen.JavascriptFileBase.isComponent.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.JavascriptFileBase.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#projen.JavascriptFileBase.property.project">project</a></code> | <code><a href="#projen.Project">Project</a></code> | *No description.* |
+| <code><a href="#projen.JavascriptFileBase.property.absolutePath">absolutePath</a></code> | <code>string</code> | The absolute path of this file. |
+| <code><a href="#projen.JavascriptFileBase.property.path">path</a></code> | <code>string</code> | The file path, relative to the project's outdir. |
+| <code><a href="#projen.JavascriptFileBase.property.changed">changed</a></code> | <code>boolean</code> | Indicates if the file has been changed during synthesis. |
+| <code><a href="#projen.JavascriptFileBase.property.marker">marker</a></code> | <code>string</code> | The projen marker, used to identify files as projen-generated. |
+| <code><a href="#projen.JavascriptFileBase.property.executable">executable</a></code> | <code>boolean</code> | Indicates if the file should be marked as executable. |
+| <code><a href="#projen.JavascriptFileBase.property.readonly">readonly</a></code> | <code>boolean</code> | Indicates if the file should be read-only or read-write. |
+| <code><a href="#projen.JavascriptFileBase.property.omitEmpty">omitEmpty</a></code> | <code>boolean</code> | Indicates if empty objects and arrays are omitted from the output object. |
+| <code><a href="#projen.JavascriptFileBase.property.dependencies">dependencies</a></code> | <code><a href="#projen.JavascriptDependenciesBase">JavascriptDependenciesBase</a></code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="projen.JavascriptFileBase.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="projen.JavascriptFileBase.property.project"></a>
+
+```typescript
+public readonly project: Project;
+```
+
+- *Type:* <a href="#projen.Project">Project</a>
+
+---
+
+##### `absolutePath`<sup>Required</sup> <a name="absolutePath" id="projen.JavascriptFileBase.property.absolutePath"></a>
+
+```typescript
+public readonly absolutePath: string;
+```
+
+- *Type:* string
+
+The absolute path of this file.
+
+---
+
+##### `path`<sup>Required</sup> <a name="path" id="projen.JavascriptFileBase.property.path"></a>
+
+```typescript
+public readonly path: string;
+```
+
+- *Type:* string
+
+The file path, relative to the project's outdir.
+
+---
+
+##### `changed`<sup>Optional</sup> <a name="changed" id="projen.JavascriptFileBase.property.changed"></a>
+
+```typescript
+public readonly changed: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if the file has been changed during synthesis.
+
+This property is
+only available in `postSynthesize()` hooks. If this is `undefined`, the
+file has not been synthesized yet.
+
+---
+
+##### `marker`<sup>Optional</sup> <a name="marker" id="projen.JavascriptFileBase.property.marker"></a>
+
+```typescript
+public readonly marker: string;
+```
+
+- *Type:* string
+
+The projen marker, used to identify files as projen-generated.
+
+Value is undefined if the project is being ejected.
+
+---
+
+##### `executable`<sup>Required</sup> <a name="executable" id="projen.JavascriptFileBase.property.executable"></a>
+
+```typescript
+public readonly executable: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if the file should be marked as executable.
+
+---
+
+##### `readonly`<sup>Required</sup> <a name="readonly" id="projen.JavascriptFileBase.property.readonly"></a>
+
+```typescript
+public readonly readonly: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if the file should be read-only or read-write.
+
+---
+
+##### `omitEmpty`<sup>Required</sup> <a name="omitEmpty" id="projen.JavascriptFileBase.property.omitEmpty"></a>
+
+```typescript
+public readonly omitEmpty: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if empty objects and arrays are omitted from the output object.
+
+---
+
+##### `dependencies`<sup>Required</sup> <a name="dependencies" id="projen.JavascriptFileBase.property.dependencies"></a>
+
+```typescript
+public readonly dependencies: JavascriptDependenciesBase;
+```
+
+- *Type:* <a href="#projen.JavascriptDependenciesBase">JavascriptDependenciesBase</a>
 
 ---
 
@@ -14023,6 +15388,248 @@ Maximum line width (set to 0 to disable folding).
 
 ## Classes <a name="Classes" id="Classes"></a>
 
+### CJSJavascriptDependencies <a name="CJSJavascriptDependencies" id="projen.CJSJavascriptDependencies"></a>
+
+Represents a Javascript CommonJS (CJS) `require` statement.
+
+See {@link JavascriptDependenciesBase} for code examples.
+
+#### Initializers <a name="Initializers" id="projen.CJSJavascriptDependencies.Initializer"></a>
+
+```typescript
+import { CJSJavascriptDependencies } from 'projen'
+
+new CJSJavascriptDependencies()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.CJSJavascriptDependencies.resolve">resolve</a></code> | *No description.* |
+| <code><a href="#projen.CJSJavascriptDependencies.stringify">stringify</a></code> | Internal use only. |
+| <code><a href="#projen.CJSJavascriptDependencies.toString">toString</a></code> | *No description.* |
+| <code><a href="#projen.CJSJavascriptDependencies.addImport">addImport</a></code> | Add an import to the dependencies. |
+
+---
+
+##### `resolve` <a name="resolve" id="projen.CJSJavascriptDependencies.resolve"></a>
+
+```typescript
+public resolve(context?: ICodeResolutionContext): string
+```
+
+###### `context`<sup>Optional</sup> <a name="context" id="projen.CJSJavascriptDependencies.resolve.parameter.context"></a>
+
+- *Type:* <a href="#projen.ICodeResolutionContext">ICodeResolutionContext</a>
+
+---
+
+##### `stringify` <a name="stringify" id="projen.CJSJavascriptDependencies.stringify"></a>
+
+```typescript
+public stringify(level?: number, _idt?: string): string
+```
+
+Internal use only.
+
+Use {@link resolve} instead.
+
+###### `level`<sup>Optional</sup> <a name="level" id="projen.CJSJavascriptDependencies.stringify.parameter.level"></a>
+
+- *Type:* number
+
+---
+
+###### `_idt`<sup>Optional</sup> <a name="_idt" id="projen.CJSJavascriptDependencies.stringify.parameter._idt"></a>
+
+- *Type:* string
+
+---
+
+##### `toString` <a name="toString" id="projen.CJSJavascriptDependencies.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+##### `addImport` <a name="addImport" id="projen.CJSJavascriptDependencies.addImport"></a>
+
+```typescript
+public addImport(imports: string | string[], from: string): JavascriptRaw[]
+```
+
+Add an import to the dependencies.
+
+*Example*
+
+```typescript
+const deps = CJSJavascriptDependencies.value(); // or ESMJavascriptDependencies.value();
+const [jsdoc] = deps.addImport("jsdoc", "eslint-plugin-jsdoc");
+const [subValue1, subValue2] = deps.addImport(["subValue1", "subValue2"], "eslint-plugin-values");
+
+const code = JavascriptRaw.value(`${deps}
+
+${jsdoc}.doSomething(${subValue1}, ${subValue2});
+`).resolve();
+
+Will leave `code` as:
+const jsdoc = require('eslint-plugin-jsdoc');
+const { subValue1, subValue2 } = require('eslint-plugin-values');
+
+jsdoc.doSomething(subValue1, subValue2);
+```
+
+
+###### `imports`<sup>Required</sup> <a name="imports" id="projen.CJSJavascriptDependencies.addImport.parameter.imports"></a>
+
+- *Type:* string | string[]
+
+The import(s) to add.
+
+If a string, it will be used as the name of the import. If an array of
+strings, each string will be used as the name of an import.
+
+---
+
+###### `from`<sup>Required</sup> <a name="from" id="projen.CJSJavascriptDependencies.addImport.parameter.from"></a>
+
+- *Type:* string
+
+The module to import from.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.CJSJavascriptDependencies.value">value</a></code> | *No description.* |
+
+---
+
+##### `value` <a name="value" id="projen.CJSJavascriptDependencies.value"></a>
+
+```typescript
+import { CJSJavascriptDependencies } from 'projen'
+
+CJSJavascriptDependencies.value()
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.CJSJavascriptDependencies.property.hint">hint</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `hint`<sup>Required</sup> <a name="hint" id="projen.CJSJavascriptDependencies.property.hint"></a>
+
+```typescript
+public readonly hint: string;
+```
+
+- *Type:* string
+
+---
+
+
+### CodeResolvableBase <a name="CodeResolvableBase" id="projen.CodeResolvableBase"></a>
+
+- *Implements:* <a href="#projen.ICodeResolvable">ICodeResolvable</a>
+
+#### Initializers <a name="Initializers" id="projen.CodeResolvableBase.Initializer"></a>
+
+```typescript
+import { CodeResolvableBase } from 'projen'
+
+new CodeResolvableBase(hint?: string)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.CodeResolvableBase.Initializer.parameter.hint">hint</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `hint`<sup>Optional</sup> <a name="hint" id="projen.CodeResolvableBase.Initializer.parameter.hint"></a>
+
+- *Type:* string
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.CodeResolvableBase.resolve">resolve</a></code> | *No description.* |
+| <code><a href="#projen.CodeResolvableBase.stringify">stringify</a></code> | *No description.* |
+| <code><a href="#projen.CodeResolvableBase.toString">toString</a></code> | *No description.* |
+
+---
+
+##### `resolve` <a name="resolve" id="projen.CodeResolvableBase.resolve"></a>
+
+```typescript
+public resolve(context?: ICodeResolutionContext): string
+```
+
+###### `context`<sup>Optional</sup> <a name="context" id="projen.CodeResolvableBase.resolve.parameter.context"></a>
+
+- *Type:* <a href="#projen.ICodeResolutionContext">ICodeResolutionContext</a>
+
+---
+
+##### `stringify` <a name="stringify" id="projen.CodeResolvableBase.stringify"></a>
+
+```typescript
+public stringify(level?: number, idt?: string): string
+```
+
+###### `level`<sup>Optional</sup> <a name="level" id="projen.CodeResolvableBase.stringify.parameter.level"></a>
+
+- *Type:* number
+
+---
+
+###### `idt`<sup>Optional</sup> <a name="idt" id="projen.CodeResolvableBase.stringify.parameter.idt"></a>
+
+- *Type:* string
+
+---
+
+##### `toString` <a name="toString" id="projen.CodeResolvableBase.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.CodeResolvableBase.property.hint">hint</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `hint`<sup>Required</sup> <a name="hint" id="projen.CodeResolvableBase.property.hint"></a>
+
+```typescript
+public readonly hint: string;
+```
+
+- *Type:* string
+
+---
+
+
 ### DevEnvironmentDockerImage <a name="DevEnvironmentDockerImage" id="projen.DevEnvironmentDockerImage"></a>
 
 Options for specifying the Docker image of the container.
@@ -14465,6 +16072,786 @@ public readonly privileged: boolean;
 - *Type:* boolean
 
 Run in privileged mode.
+
+---
+
+
+### ESMJavascriptDependencies <a name="ESMJavascriptDependencies" id="projen.ESMJavascriptDependencies"></a>
+
+Represents a Javascript ECMAScript modules (ESM) `import` statement.
+
+See {@link JavascriptDependenciesBase} for code examples.
+
+#### Initializers <a name="Initializers" id="projen.ESMJavascriptDependencies.Initializer"></a>
+
+```typescript
+import { ESMJavascriptDependencies } from 'projen'
+
+new ESMJavascriptDependencies()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.ESMJavascriptDependencies.resolve">resolve</a></code> | *No description.* |
+| <code><a href="#projen.ESMJavascriptDependencies.stringify">stringify</a></code> | Internal use only. |
+| <code><a href="#projen.ESMJavascriptDependencies.toString">toString</a></code> | *No description.* |
+| <code><a href="#projen.ESMJavascriptDependencies.addImport">addImport</a></code> | Add an import to the dependencies. |
+
+---
+
+##### `resolve` <a name="resolve" id="projen.ESMJavascriptDependencies.resolve"></a>
+
+```typescript
+public resolve(context?: ICodeResolutionContext): string
+```
+
+###### `context`<sup>Optional</sup> <a name="context" id="projen.ESMJavascriptDependencies.resolve.parameter.context"></a>
+
+- *Type:* <a href="#projen.ICodeResolutionContext">ICodeResolutionContext</a>
+
+---
+
+##### `stringify` <a name="stringify" id="projen.ESMJavascriptDependencies.stringify"></a>
+
+```typescript
+public stringify(level?: number, _idt?: string): string
+```
+
+Internal use only.
+
+Use {@link resolve} instead.
+
+###### `level`<sup>Optional</sup> <a name="level" id="projen.ESMJavascriptDependencies.stringify.parameter.level"></a>
+
+- *Type:* number
+
+---
+
+###### `_idt`<sup>Optional</sup> <a name="_idt" id="projen.ESMJavascriptDependencies.stringify.parameter._idt"></a>
+
+- *Type:* string
+
+---
+
+##### `toString` <a name="toString" id="projen.ESMJavascriptDependencies.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+##### `addImport` <a name="addImport" id="projen.ESMJavascriptDependencies.addImport"></a>
+
+```typescript
+public addImport(imports: string | string[], from: string): JavascriptRaw[]
+```
+
+Add an import to the dependencies.
+
+*Example*
+
+```typescript
+const deps = CJSJavascriptDependencies.value(); // or ESMJavascriptDependencies.value();
+const [jsdoc] = deps.addImport("jsdoc", "eslint-plugin-jsdoc");
+const [subValue1, subValue2] = deps.addImport(["subValue1", "subValue2"], "eslint-plugin-values");
+
+const code = JavascriptRaw.value(`${deps}
+
+${jsdoc}.doSomething(${subValue1}, ${subValue2});
+`).resolve();
+
+Will leave `code` as:
+const jsdoc = require('eslint-plugin-jsdoc');
+const { subValue1, subValue2 } = require('eslint-plugin-values');
+
+jsdoc.doSomething(subValue1, subValue2);
+```
+
+
+###### `imports`<sup>Required</sup> <a name="imports" id="projen.ESMJavascriptDependencies.addImport.parameter.imports"></a>
+
+- *Type:* string | string[]
+
+The import(s) to add.
+
+If a string, it will be used as the name of the import. If an array of
+strings, each string will be used as the name of an import.
+
+---
+
+###### `from`<sup>Required</sup> <a name="from" id="projen.ESMJavascriptDependencies.addImport.parameter.from"></a>
+
+- *Type:* string
+
+The module to import from.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.ESMJavascriptDependencies.value">value</a></code> | *No description.* |
+
+---
+
+##### `value` <a name="value" id="projen.ESMJavascriptDependencies.value"></a>
+
+```typescript
+import { ESMJavascriptDependencies } from 'projen'
+
+ESMJavascriptDependencies.value()
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.ESMJavascriptDependencies.property.hint">hint</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `hint`<sup>Required</sup> <a name="hint" id="projen.ESMJavascriptDependencies.property.hint"></a>
+
+```typescript
+public readonly hint: string;
+```
+
+- *Type:* string
+
+---
+
+
+### JavascriptDataStructure <a name="JavascriptDataStructure" id="projen.JavascriptDataStructure"></a>
+
+Represents a Javascript data structure, such as an object or an array.
+
+Create one with `JavascriptDataStructure.value(body)`, where body is any data structure that can be converted to
+Javascript code, including tokens
+
+Most values will be encoded similar to how JSON is. For example, `JavascriptDataStructure.value({a: 1, b: 2})` will
+generate `{"a": 1, "b": 2}` except with line-breaks and indention set by when `resolve()` is called.
+
+Functions in the values of an object or array will be called and their results used. To literally represent the
+creation of a function, use {@link JavascriptFunction}.
+
+Objects with keys that have the `...` prefix will be replaced by that spread operator, and the value will be ignored,
+ with the exception of `undefined` which will be removed.
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.JavascriptDataStructure.resolve">resolve</a></code> | *No description.* |
+| <code><a href="#projen.JavascriptDataStructure.stringify">stringify</a></code> | Internal use only. |
+| <code><a href="#projen.JavascriptDataStructure.toString">toString</a></code> | *No description.* |
+
+---
+
+##### `resolve` <a name="resolve" id="projen.JavascriptDataStructure.resolve"></a>
+
+```typescript
+public resolve(context?: ICodeResolutionContext): string
+```
+
+###### `context`<sup>Optional</sup> <a name="context" id="projen.JavascriptDataStructure.resolve.parameter.context"></a>
+
+- *Type:* <a href="#projen.ICodeResolutionContext">ICodeResolutionContext</a>
+
+---
+
+##### `stringify` <a name="stringify" id="projen.JavascriptDataStructure.stringify"></a>
+
+```typescript
+public stringify(level?: number, idt?: string): string
+```
+
+Internal use only.
+
+Use {@link resolve} instead.
+
+###### `level`<sup>Optional</sup> <a name="level" id="projen.JavascriptDataStructure.stringify.parameter.level"></a>
+
+- *Type:* number
+
+---
+
+###### `idt`<sup>Optional</sup> <a name="idt" id="projen.JavascriptDataStructure.stringify.parameter.idt"></a>
+
+- *Type:* string
+
+---
+
+##### `toString` <a name="toString" id="projen.JavascriptDataStructure.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.JavascriptDataStructure.value">value</a></code> | Generate Javascript code given the provided data structure - arrays will be formatted with `[]` and objects with `{}`, including indention, etc. |
+
+---
+
+##### `value` <a name="value" id="projen.JavascriptDataStructure.value"></a>
+
+```typescript
+import { JavascriptDataStructure } from 'projen'
+
+JavascriptDataStructure.value(body: any)
+```
+
+Generate Javascript code given the provided data structure - arrays will be formatted with `[]` and objects with `{}`, including indention, etc.
+
+###### `body`<sup>Required</sup> <a name="body" id="projen.JavascriptDataStructure.value.parameter.body"></a>
+
+- *Type:* any
+
+Any data structure that can be converted to Javascript code, including tokens.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.JavascriptDataStructure.property.hint">hint</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `hint`<sup>Required</sup> <a name="hint" id="projen.JavascriptDataStructure.property.hint"></a>
+
+```typescript
+public readonly hint: string;
+```
+
+- *Type:* string
+
+---
+
+
+### JavascriptDependenciesBase <a name="JavascriptDependenciesBase" id="projen.JavascriptDependenciesBase"></a>
+
+Represents a Javascript `import` ({@link ESMJavascriptDependencies}) or `require` ({@link CJSJavascriptDependencies}) statement.
+
+Both have the same API, and can be used to generate the import/require statements for a Javascript file.
+
+Create a new one with `CJSJavascriptDependencies.value()` or `ESMJavascriptDependencies.value()`, and then add
+imports with `addImport(imports, from)`. See {@link addImport} for more details.
+
+*Example*
+
+```typescript
+const deps = CJSJavascriptDependencies.value();
+// or: const deps = ESMJavascriptDependencies.value();
+const [jsdoc] = deps.addImport("jsdoc", "eslint-plugin-jsdoc");
+const [subValue1, subValue2] = deps.addImport(["subValue1", "subValue2"], "eslint-plugin-jsdoc");
+const [js] = deps.addImport("js", "@eslint/js");
+const [t1, t2] = deps.addImport(["t1", "t2"], "@eslint/js");
+
+const code = deps.resolve();
+
+Will leave `code` as:
+const jsdoc = require('eslint-plugin-jsdoc');
+const { subValue1, subValue2 } = jsdoc;
+const js = require('@eslint/js');
+const { t1, t2 } = js;
+
+Or, in the case of `ESMJavascriptDependencies`:
+import jsdoc, { subValue1, subValue2 } from 'eslint-plugin-jsdoc';
+import js, { t1, t2 } from '@eslint/js';
+```
+
+
+#### Initializers <a name="Initializers" id="projen.JavascriptDependenciesBase.Initializer"></a>
+
+```typescript
+import { JavascriptDependenciesBase } from 'projen'
+
+new JavascriptDependenciesBase()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.JavascriptDependenciesBase.resolve">resolve</a></code> | *No description.* |
+| <code><a href="#projen.JavascriptDependenciesBase.stringify">stringify</a></code> | *No description.* |
+| <code><a href="#projen.JavascriptDependenciesBase.toString">toString</a></code> | *No description.* |
+| <code><a href="#projen.JavascriptDependenciesBase.addImport">addImport</a></code> | Add an import to the dependencies. |
+
+---
+
+##### `resolve` <a name="resolve" id="projen.JavascriptDependenciesBase.resolve"></a>
+
+```typescript
+public resolve(context?: ICodeResolutionContext): string
+```
+
+###### `context`<sup>Optional</sup> <a name="context" id="projen.JavascriptDependenciesBase.resolve.parameter.context"></a>
+
+- *Type:* <a href="#projen.ICodeResolutionContext">ICodeResolutionContext</a>
+
+---
+
+##### `stringify` <a name="stringify" id="projen.JavascriptDependenciesBase.stringify"></a>
+
+```typescript
+public stringify(level?: number, idt?: string): string
+```
+
+###### `level`<sup>Optional</sup> <a name="level" id="projen.JavascriptDependenciesBase.stringify.parameter.level"></a>
+
+- *Type:* number
+
+---
+
+###### `idt`<sup>Optional</sup> <a name="idt" id="projen.JavascriptDependenciesBase.stringify.parameter.idt"></a>
+
+- *Type:* string
+
+---
+
+##### `toString` <a name="toString" id="projen.JavascriptDependenciesBase.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+##### `addImport` <a name="addImport" id="projen.JavascriptDependenciesBase.addImport"></a>
+
+```typescript
+public addImport(imports: string | string[], from: string): JavascriptRaw[]
+```
+
+Add an import to the dependencies.
+
+*Example*
+
+```typescript
+const deps = CJSJavascriptDependencies.value(); // or ESMJavascriptDependencies.value();
+const [jsdoc] = deps.addImport("jsdoc", "eslint-plugin-jsdoc");
+const [subValue1, subValue2] = deps.addImport(["subValue1", "subValue2"], "eslint-plugin-values");
+
+const code = JavascriptRaw.value(`${deps}
+
+${jsdoc}.doSomething(${subValue1}, ${subValue2});
+`).resolve();
+
+Will leave `code` as:
+const jsdoc = require('eslint-plugin-jsdoc');
+const { subValue1, subValue2 } = require('eslint-plugin-values');
+
+jsdoc.doSomething(subValue1, subValue2);
+```
+
+
+###### `imports`<sup>Required</sup> <a name="imports" id="projen.JavascriptDependenciesBase.addImport.parameter.imports"></a>
+
+- *Type:* string | string[]
+
+The import(s) to add.
+
+If a string, it will be used as the name of the import. If an array of
+strings, each string will be used as the name of an import.
+
+---
+
+###### `from`<sup>Required</sup> <a name="from" id="projen.JavascriptDependenciesBase.addImport.parameter.from"></a>
+
+- *Type:* string
+
+The module to import from.
+
+---
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.JavascriptDependenciesBase.property.hint">hint</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `hint`<sup>Required</sup> <a name="hint" id="projen.JavascriptDependenciesBase.property.hint"></a>
+
+```typescript
+public readonly hint: string;
+```
+
+- *Type:* string
+
+---
+
+
+### JavascriptFunction <a name="JavascriptFunction" id="projen.JavascriptFunction"></a>
+
+Represents a Javascript function. The function can be defined as an arrow function or a named function.
+
+Create a named function with `JavascriptFunction.named(name, properties, body)`, and an arrow function can be
+created with `JavascriptFunction.arrow(properties, body)`. Both are {@link ICodeResolvable} objects, and can be
+used in any place that expects a string to make a token that can later be resolved, turning it into a string of the
+represented code with {@link ICodeResolvable.resolveICodeResolvable.resolve()}.
+*
+You can also generate a {@link JavascriptRaw} object to call a function with `JavascriptFunction.call(name, ...)`.
+
+*Example*
+
+```typescript
+A named function is pretty straightforward to make and use:
+    const name = "foo";
+    const namedFunc = JavascriptFunction.named(
+      name,
+      ["a", "b=2"], // the "b=2" is just to show that these are used literally
+      JavascriptRaw.value("return a + b;")
+    );
+
+    // Example of how to make a convenience function to call this function
+    const namedFuncCaller = (...params: unknown[]) =>
+      JavascriptFunction.call(name, ...params);
+
+    // Use `namedFunc` to actually define the function
+    // Use `namedFuncCaller()` to call the function
+    const namedFuncUsage = JavascriptRaw.value(
+      `const fooValue = ${namedFuncCaller(1, 2)};
+
+${namedFunc}`
+    ).resolve();
+
+Will leave `namedFuncUsage` as:
+const fooValue = foo(1, 2);
+
+function foo(a, b=2) {
+  return a + b;
+}
+
+Arrow functions work similarly:
+
+const name = "foo";
+const arrowFun = JavascriptFunction.arrow(
+  ["a", "...b"], // the "...b" is just to show that these are used literally
+  JavascriptRaw.value("return a + b[0];")
+);
+
+// Example of how to make a convenience function to call this function
+const arrowFuncCaller = (...params: unknown[]) =>
+  JavascriptFunction.call(name, ...params);
+
+// Use `arrowFun` to actually define the function
+// Use `arrowFuncCaller()` to call the function
+const arrowFuncUsage = JavascriptRaw.value(
+  `const ${name} = ${arrowFun};
+const fooValue = ${arrowFuncCaller(1, 2)};
+`
+).resolve();
+
+Will leave `namedFuncUsage` as:
+const foo = (a, ...b) => {
+  return a + b[0];
+};
+const fooValue = foo(1, 2);
+```
+
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.JavascriptFunction.resolve">resolve</a></code> | *No description.* |
+| <code><a href="#projen.JavascriptFunction.stringify">stringify</a></code> | Internal use only. |
+| <code><a href="#projen.JavascriptFunction.toString">toString</a></code> | *No description.* |
+
+---
+
+##### `resolve` <a name="resolve" id="projen.JavascriptFunction.resolve"></a>
+
+```typescript
+public resolve(context?: ICodeResolutionContext): string
+```
+
+###### `context`<sup>Optional</sup> <a name="context" id="projen.JavascriptFunction.resolve.parameter.context"></a>
+
+- *Type:* <a href="#projen.ICodeResolutionContext">ICodeResolutionContext</a>
+
+---
+
+##### `stringify` <a name="stringify" id="projen.JavascriptFunction.stringify"></a>
+
+```typescript
+public stringify(level?: number, idt?: string): string
+```
+
+Internal use only.
+
+Use {@link resolve} instead.
+
+###### `level`<sup>Optional</sup> <a name="level" id="projen.JavascriptFunction.stringify.parameter.level"></a>
+
+- *Type:* number
+
+---
+
+###### `idt`<sup>Optional</sup> <a name="idt" id="projen.JavascriptFunction.stringify.parameter.idt"></a>
+
+- *Type:* string
+
+---
+
+##### `toString` <a name="toString" id="projen.JavascriptFunction.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.JavascriptFunction.arrow">arrow</a></code> | Make an arrow function. |
+| <code><a href="#projen.JavascriptFunction.call">call</a></code> | Make a call to a function. |
+| <code><a href="#projen.JavascriptFunction.named">named</a></code> | Make a named function. |
+
+---
+
+##### `arrow` <a name="arrow" id="projen.JavascriptFunction.arrow"></a>
+
+```typescript
+import { JavascriptFunction } from 'projen'
+
+JavascriptFunction.arrow(properties: string | ICodeResolvable[], body: ICodeResolvable | ICodeResolvable[])
+```
+
+Make an arrow function.
+
+###### `properties`<sup>Required</sup> <a name="properties" id="projen.JavascriptFunction.arrow.parameter.properties"></a>
+
+- *Type:* string | <a href="#projen.ICodeResolvable">ICodeResolvable</a>[]
+
+The names of the properties the function takes, can include `...` to indicate a rest parameter, or provide a default value with `=`, etc.
+
+---
+
+###### `body`<sup>Required</sup> <a name="body" id="projen.JavascriptFunction.arrow.parameter.body"></a>
+
+- *Type:* <a href="#projen.ICodeResolvable">ICodeResolvable</a> | <a href="#projen.ICodeResolvable">ICodeResolvable</a>[]
+
+The body of the function, usually a `JavaScriptRaw`, but takes any `ICodeResolvable` or an array of `ICodeResolvable`s.
+
+---
+
+##### `call` <a name="call" id="projen.JavascriptFunction.call"></a>
+
+```typescript
+import { JavascriptFunction } from 'projen'
+
+JavascriptFunction.call(params: any, name?: string)
+```
+
+Make a call to a function.
+
+###### `params`<sup>Required</sup> <a name="params" id="projen.JavascriptFunction.call.parameter.params"></a>
+
+- *Type:* any
+
+The parameters to pass to the function.
+
+---
+
+###### `name`<sup>Optional</sup> <a name="name" id="projen.JavascriptFunction.call.parameter.name"></a>
+
+- *Type:* string
+
+The name of the function to call.
+
+---
+
+##### `named` <a name="named" id="projen.JavascriptFunction.named"></a>
+
+```typescript
+import { JavascriptFunction } from 'projen'
+
+JavascriptFunction.named(name: string, properties: string | ICodeResolvable[], body: ICodeResolvable | ICodeResolvable[])
+```
+
+Make a named function.
+
+###### `name`<sup>Required</sup> <a name="name" id="projen.JavascriptFunction.named.parameter.name"></a>
+
+- *Type:* string
+
+The name of the generated function.
+
+---
+
+###### `properties`<sup>Required</sup> <a name="properties" id="projen.JavascriptFunction.named.parameter.properties"></a>
+
+- *Type:* string | <a href="#projen.ICodeResolvable">ICodeResolvable</a>[]
+
+The names of the properties the function takes, can include `...` to indicate a rest parameter, or provide a default value with `=`, etc.
+
+---
+
+###### `body`<sup>Required</sup> <a name="body" id="projen.JavascriptFunction.named.parameter.body"></a>
+
+- *Type:* <a href="#projen.ICodeResolvable">ICodeResolvable</a> | <a href="#projen.ICodeResolvable">ICodeResolvable</a>[]
+
+The body of the function, usually a `JavaScriptRaw`, but takes any `ICodeResolvable` or an array of `ICodeResolvable`s.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.JavascriptFunction.property.hint">hint</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `hint`<sup>Required</sup> <a name="hint" id="projen.JavascriptFunction.property.hint"></a>
+
+```typescript
+public readonly hint: string;
+```
+
+- *Type:* string
+
+---
+
+
+### JavascriptRaw <a name="JavascriptRaw" id="projen.JavascriptRaw"></a>
+
+Represents a raw Javascript code to be used literally, without escaping.
+
+`JavascriptRaw` is a {@link ICodeResolvable} object, and thus can be used in any place that expects a string to make
+a token that can later be resolved, turning it into a string of the represented code with {@link ICodeResolvable.resolveICodeResolvable.resolve()}.
+
+Create one with `JavascriptRaw.value(body)`, where body is a string or an array of strings, and the strings can
+contain tokens of other `ICodeResolvable` objects that will be resolved when `resolve()` is called.
+
+*Example*
+
+```typescript
+// The types are unnecessary here, but included for clarity in the example
+const aCode: ICodeResolvable = JavascriptRaw.value("const a = 1;");
+const bCode: ICodeResolvable = JavascriptRaw.value("const b = 2;");
+const finalCode: ICodeResolvable = JavascriptRaw.value([aCode, bCode]);
+
+const generatedJavascriptCode = finalCode.resolve();
+
+Note that the string value of `aCode` and `bCode` will be something like `${Token[JSRawToken.9]}`.
+
+If printed the value of `generatedJavascriptCode` will be:
+const a = 1;
+const b = 2;
+```
+
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.JavascriptRaw.resolve">resolve</a></code> | *No description.* |
+| <code><a href="#projen.JavascriptRaw.stringify">stringify</a></code> | Internal use only. |
+| <code><a href="#projen.JavascriptRaw.toString">toString</a></code> | *No description.* |
+
+---
+
+##### `resolve` <a name="resolve" id="projen.JavascriptRaw.resolve"></a>
+
+```typescript
+public resolve(context?: ICodeResolutionContext): string
+```
+
+###### `context`<sup>Optional</sup> <a name="context" id="projen.JavascriptRaw.resolve.parameter.context"></a>
+
+- *Type:* <a href="#projen.ICodeResolutionContext">ICodeResolutionContext</a>
+
+---
+
+##### `stringify` <a name="stringify" id="projen.JavascriptRaw.stringify"></a>
+
+```typescript
+public stringify(level?: number, idt?: string): string
+```
+
+Internal use only.
+
+Use {@link resolve} instead.
+
+###### `level`<sup>Optional</sup> <a name="level" id="projen.JavascriptRaw.stringify.parameter.level"></a>
+
+- *Type:* number
+
+---
+
+###### `idt`<sup>Optional</sup> <a name="idt" id="projen.JavascriptRaw.stringify.parameter.idt"></a>
+
+- *Type:* string
+
+---
+
+##### `toString` <a name="toString" id="projen.JavascriptRaw.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.JavascriptRaw.value">value</a></code> | Generate a raw Javascript code token. |
+
+---
+
+##### `value` <a name="value" id="projen.JavascriptRaw.value"></a>
+
+```typescript
+import { JavascriptRaw } from 'projen'
+
+JavascriptRaw.value(body: string | string[])
+```
+
+Generate a raw Javascript code token.
+
+###### `body`<sup>Required</sup> <a name="body" id="projen.JavascriptRaw.value.parameter.body"></a>
+
+- *Type:* string | string[]
+
+A string or array of strings that represent the raw Javascript code to be used literally.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.JavascriptRaw.property.hint">hint</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `hint`<sup>Required</sup> <a name="hint" id="projen.JavascriptRaw.property.hint"></a>
+
+```typescript
+public readonly hint: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -15701,6 +18088,131 @@ the project to produce a snapshot for.
 
 
 ## Protocols <a name="Protocols" id="Protocols"></a>
+
+### ICodeResolutionContext <a name="ICodeResolutionContext" id="projen.ICodeResolutionContext"></a>
+
+- *Implemented By:* <a href="#projen.ICodeResolutionContext">ICodeResolutionContext</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.ICodeResolutionContext.property.idt">idt</a></code> | <code>string</code> | The indention string to use for each level. |
+| <code><a href="#projen.ICodeResolutionContext.property.indentation">indentation</a></code> | <code>number</code> | How much to indent the code for each level, in spaces. |
+| <code><a href="#projen.ICodeResolutionContext.property.level">level</a></code> | <code>number</code> | The current level of indentation. |
+
+---
+
+##### `idt`<sup>Optional</sup> <a name="idt" id="projen.ICodeResolutionContext.property.idt"></a>
+
+```typescript
+public readonly idt: string;
+```
+
+- *Type:* string
+- *Default:* undefined
+
+The indention string to use for each level.
+
+Overrides indentation if both
+are provided.
+
+---
+
+##### `indentation`<sup>Optional</sup> <a name="indentation" id="projen.ICodeResolutionContext.property.indentation"></a>
+
+```typescript
+public readonly indentation: number;
+```
+
+- *Type:* number
+- *Default:* 2
+
+How much to indent the code for each level, in spaces.
+
+---
+
+##### `level`<sup>Optional</sup> <a name="level" id="projen.ICodeResolutionContext.property.level"></a>
+
+```typescript
+public readonly level: number;
+```
+
+- *Type:* number
+- *Default:* 0
+
+The current level of indentation.
+
+---
+
+### ICodeResolvable <a name="ICodeResolvable" id="projen.ICodeResolvable"></a>
+
+- *Implemented By:* <a href="#projen.CJSJavascriptDependencies">CJSJavascriptDependencies</a>, <a href="#projen.CodeResolvableBase">CodeResolvableBase</a>, <a href="#projen.ESMJavascriptDependencies">ESMJavascriptDependencies</a>, <a href="#projen.JavascriptDataStructure">JavascriptDataStructure</a>, <a href="#projen.JavascriptDependenciesBase">JavascriptDependenciesBase</a>, <a href="#projen.JavascriptFunction">JavascriptFunction</a>, <a href="#projen.JavascriptRaw">JavascriptRaw</a>, <a href="#projen.ICodeResolvable">ICodeResolvable</a>
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#projen.ICodeResolvable.resolve">resolve</a></code> | *No description.* |
+| <code><a href="#projen.ICodeResolvable.stringify">stringify</a></code> | *No description.* |
+| <code><a href="#projen.ICodeResolvable.toString">toString</a></code> | *No description.* |
+
+---
+
+##### `resolve` <a name="resolve" id="projen.ICodeResolvable.resolve"></a>
+
+```typescript
+public resolve(context?: ICodeResolutionContext): string
+```
+
+###### `context`<sup>Optional</sup> <a name="context" id="projen.ICodeResolvable.resolve.parameter.context"></a>
+
+- *Type:* <a href="#projen.ICodeResolutionContext">ICodeResolutionContext</a>
+
+---
+
+##### `stringify` <a name="stringify" id="projen.ICodeResolvable.stringify"></a>
+
+```typescript
+public stringify(level?: number, idt?: string): string
+```
+
+###### `level`<sup>Optional</sup> <a name="level" id="projen.ICodeResolvable.stringify.parameter.level"></a>
+
+- *Type:* number
+
+---
+
+###### `idt`<sup>Optional</sup> <a name="idt" id="projen.ICodeResolvable.stringify.parameter.idt"></a>
+
+- *Type:* string
+
+---
+
+##### `toString` <a name="toString" id="projen.ICodeResolvable.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#projen.ICodeResolvable.property.hint">hint</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `hint`<sup>Required</sup> <a name="hint" id="projen.ICodeResolvable.property.hint"></a>
+
+```typescript
+public readonly hint: string;
+```
+
+- *Type:* string
+
+---
 
 ### ICompareString <a name="ICompareString" id="projen.ICompareString"></a>
 
